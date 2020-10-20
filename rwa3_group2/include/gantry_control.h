@@ -53,7 +53,7 @@ class GantryControl {
     bool pickPart(part part);
     void placePart(part part, std::string agv);
 
-    
+
     /// Send command message to robot controller
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
@@ -72,6 +72,7 @@ class GantryControl {
     shelf5 shelf5c_;
     shelf5 shelf5d_;
     shelf5 shelf5e_;
+    shelf5 shelf5f_;
     agv2 agv2_;
 
   private:
