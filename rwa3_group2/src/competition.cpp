@@ -6,8 +6,9 @@
 
 std::array<std::array<modelparam, 36>, 17> logical_cam;
 std::array<std::array<std::array<part, 10>, 5>, 5> order_details;
+part faulty_part_agv2;
 
-Competition::Competition(ros::NodeHandle & node): current_score_(0)
+Competition::Competition(ros::NodeHandle &node): current_score_(0)
 {
   node_ = node;
 }
@@ -39,6 +40,11 @@ void Competition::init() {
   init_.total_time += ros::Time::now().toSec() - time_called;
 
 }
+
+part Competition::quality_sensor_status(){
+    return faulty_part_agv2;
+}
+
 
 void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id)
 {
@@ -84,6 +90,17 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
 //                     logical_cam[id][i].pose_world.orientation.y,
 //                     logical_cam[id][i].pose_world.orientation.z,
 //                     logical_cam[id][i].pose_world.orientation.w);
+        }
+    }
+}
+
+void Competition::quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id)
+{
+    if (msg->models.size() != 0)
+    {
+        faulty_part_agv2.faulty = true;
+        for (int i = 0; i < msg->models.size(); i++) {
+            faulty_part_agv2.pose = msg->models[i].pose;
         }
     }
 }
