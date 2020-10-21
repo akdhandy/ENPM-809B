@@ -33,7 +33,8 @@ void Competition::init() {
     orders_subscriber_ = node_.subscribe(
             "/ariac/orders", 10, &Competition::order_callback, this);
 
-
+    fp_subscriber_ = node_.subscribe(
+            "/ariac/quality_control_sensor_1", 10, &Competition::quality_sensor_status_callback, this);
 
     startCompetition();
 
@@ -94,15 +95,15 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
     }
 }
 
-void Competition::quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id)
+void Competition::quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg)
 {
-    if (msg->models.size() != 0)
+    if (msg->models.size() > 0)
     {
         faulty_part_agv2.faulty = true;
-        for (int i = 0; i < msg->models.size(); i++) {
-            faulty_part_agv2.pose = msg->models[i].pose;
-        }
+        faulty_part_agv2.pose = msg->models[0].pose;
     }
+    else
+        faulty_part_agv2.faulty = false;
 }
 
 /// Called when a new message is received.

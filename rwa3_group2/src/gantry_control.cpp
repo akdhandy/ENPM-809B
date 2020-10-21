@@ -77,51 +77,23 @@ void GantryControl::init() {
 
     shelf5e_.gantry = {-14.5, -4.25, 0};//Picking and lifting pulley up
 //    shelf5d_.left_arm = {-1.39, -0.75, 1.26, 0, 0.28, 1.38};
-    shelf5e_.left_arm = {-1.7, -PI/4, 1.6, -0.5, -0.1, 0};
+    shelf5e_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
     shelf5e_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf5f_.gantry = {-15.19, -5, 0};//Going back then go back to conveyor belt
 //    shelf5e_.left_arm = {-1.39, -0.75, 1.26, 0, 0.28, 1.38};
-    shelf5f_.left_arm = {-1.7, -PI/4, 1.6, -0.5, -0.1, 0};
+    shelf5f_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
     shelf5f_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv2_.gantry = {0.6, 6.9, PI};
-    agv2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    agv2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv2_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv2_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff
+    agv2_faulty.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv2_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-
-//    tf2_ros::Buffer tfBuffer;
-//    tf2_ros::TransformListener tfListener(tfBuffer);
-//    ros::Rate rate(10);
-//    ros::Duration timeout(5.0);
-//
-//
-//    geometry_msgs::TransformStamped transformStamped;
-//    for (int i=0; i< 10; i++) {
-//        try {
-//            transformStamped = tfBuffer.lookupTransform("world", "left_ee_link",
-//                                                        ros::Time(0), timeout);
-//        }
-//        catch (tf2::TransformException &ex) {
-//            ROS_WARN("%s", ex.what());
-//            ros::Duration(1.0).sleep();
-//            continue;
-//        }
-//    }
-
-
-    //--converting quaternions to rpy
-//        tf2::Quaternion q(
-//                transformStamped.transform.rotation.x,
-//                transformStamped.transform.rotation.y,
-//                transformStamped.transform.rotation.z,
-//                transformStamped.transform.rotation.w);
-
-//    left_ee_quaternion_.at(0) = transformStamped.transform.rotation.x;
-//    left_ee_quaternion_.at(1) = transformStamped.transform.rotation.y;
-//    left_ee_quaternion_.at(2) = transformStamped.transform.rotation.z;
-//    left_ee_quaternion_.at(3) = transformStamped.transform.rotation.w;
 
 
 
@@ -325,32 +297,7 @@ bool GantryControl::pickPart(part part){
      * we will specify 0.01 as the max step in Cartesian translation.
      * We will specify the jump threshold as 0.0, effectively disabling it.
      */
-    //--define a set of waypoints
-//    geometry_msgs::Pose near_pick_pose;
-//    geometry_msgs::Pose pick_pose;
-//    near_pick_pose = part.pose;
-//    pick_pose = part.pose;
-//target_pose_in_tray
-//    near_pick_pose.position.z += 0.1;
-//    pick_pose.position.z += 0.015;
-//
-//    //--waypoints
-//    ROS_INFO_STREAM("[near_pick_pose]= " << near_pick_pose.position.x << "," << near_pick_pose.position.y << "," << near_pick_pose.position.z << "," << near_pick_pose.orientation.x << "," << near_pick_pose.orientation.y << "," << near_pick_pose.orientation.z << "," << near_pick_pose.orientation.w);
-//    ROS_INFO_STREAM("[pick_pose]= " << pick_pose.position.x << "," << pick_pose.position.y << "," << pick_pose.position.z << "," << pick_pose.orientation.x << "," << pick_pose.orientation.y << "," << pick_pose.orientation.z << "," << pick_pose.orientation.w);
-//    std::vector<geometry_msgs::Pose> waypoints;
-//    waypoints.push_back(near_pick_pose);
-//    waypoints.push_back(pick_pose);
 
-//    moveit_msgs::RobotTrajectory trajectory;
-//    const double jump_threshold = 0.0;
-//    const double eef_step = 0.001;
-//    double fraction = left_arm_group_.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
-//
-//    moveit::planning_interface::MoveGroupInterface::Plan my_plan;
-//    bool success = (left_arm_group_.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-//    if (success)
-//        left_arm_group_.move();
-//    ros::waitForShutdown();
 }
 
 void GantryControl::placePart(part part, std::string agv){
@@ -362,9 +309,6 @@ void GantryControl::placePart(part part, std::string agv){
     left_arm_group_.setPoseTarget(target_pose_in_tray);
     left_arm_group_.move();
     deactivateGripper("left_arm");
-    auto state = getGripperState("left_arm");
-    if (state.attached)
-        goToPresetLocation(start_);
 }
 
 void GantryControl::goToPresetLocation(PresetLocation location) {
@@ -504,3 +448,4 @@ bool GantryControl::send_command(trajectory_msgs::JointTrajectory command_msg) {
         return false;
     }
 }
+

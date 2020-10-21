@@ -47,9 +47,9 @@ int main(int argc, char ** argv) {
     int Max_number_of_cameras = 17;
     std::ostringstream otopic;
     std::string topic;
-    std::array<std::array<modelparam, 36>, 17> logicam;
+    std::array<std::array<modelparam, 36>, 17> logicam, logicam2;
     std::array<std::array<std::array<part, 10>, 5>, 5> or_details;
-
+    part faulty_part;
     std::string c_state = comp.getCompetitionState();
     comp.getClock();
 
@@ -71,32 +71,10 @@ int main(int argc, char ** argv) {
     //--2-Look for parts in this order
     //--We go to this bin because a camera above
     //--this bin found one of the parts in the order
-//    gantry.goToPresetLocation(gantry.bin3_);
-//
-//
-//    //--You should receive the following information from a camera
-//    part my_part;
-//    my_part.type = "pulley_part_red";
-//    my_part.pose.position.x = 4.365789;
-//    my_part.pose.position.y = 1.173381;
-//    my_part.pose.position.z = 0.728011;
-//    my_part.pose.orientation.x = 0.012;
-//    my_part.pose.orientation.y = -0.004;
-//    my_part.pose.orientation.z = 0.002;
-//    my_part.pose.orientation.w = 1.000;
-//
-//    //--get pose of part in tray from /ariac/orders
-//    part part_in_tray;
-//    part_in_tray.type = "pulley_part_red";
-//    part_in_tray.pose.position.x = -0.12;
-//    part_in_tray.pose.position.x = -0.2;
-//    part_in_tray.pose.position.x = 0.0;
-//    part_in_tray.pose.orientation.x = 0.0;
-//    part_in_tray.pose.orientation.y = 0.0;
-//    part_in_tray.pose.orientation.z = 0.0;
-//    part_in_tray.pose.orientation.w = 1.0;
+
     logicam = comp.getter_logicam_callback();
     or_details = comp.getter_part_callback();
+    int on_table=0;
 
     for (int i=0; i < comp.received_orders_.size(); i++)
     {
@@ -120,25 +98,48 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.shelf5a_);
                                 gantry.goToPresetLocation(gantry.shelf5b_);
                                 gantry.goToPresetLocation(gantry.shelf5d_);
-
-                                ROS_INFO_STREAM("\n\ncamera details: "<< logicam[x][y].type);
+                                ROS_INFO_STREAM("\n Before picking.");
+                                ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
+                                ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
                                 part my_part;
                                 my_part.type = logicam[x][y].type;
-                                my_part.pose =logicam[x][y].pose;
-
-
+                                my_part.pose = logicam[x][y].pose;
                                 gantry.pickPart(my_part);
-
                                 gantry.goToPresetLocation(gantry.shelf5e_);
                                 gantry.goToPresetLocation(gantry.shelf5b_);
                                 gantry.goToPresetLocation(gantry.shelf5a_);
                                 gantry.goToPresetLocation(gantry.agv2_);
-
                                 gantry.placePart(or_details[i][j][k], "agv2");
+                                ROS_INFO_STREAM("\n After placing.");
                                 ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
-                                ROS_INFO_STREAM("\n camera details: "<<logicam[x][y].pose);
+                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table].pose);
                                 logicam[x][y].Shifted=true;
+                                logicam2 = comp.getter_logicam_callback();
+                                ros::Duration(1.0).sleep();
+                                faulty_part = comp.quality_sensor_status();
+                                if(faulty_part.faulty == true)
+                                {
+                                    ROS_INFO_STREAM("Faulty Part");
+                                    faulty_part.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
+                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[11][on_table].pose);
+                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[11][0].pose);
+                                    ROS_INFO_STREAM("\n logicam1 "<<logicam2[11][1].pose);
+                                    faulty_part.pose = logicam2[11][0].pose;
+                                    faulty_part.pose.position.z -= 0.19;
+                                    ROS_INFO_STREAM("\n Pose for Faulty path "<<faulty_part.pose);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.pickPart(faulty_part);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.goToPresetLocation(gantry.agv2_faulty);
+                                    gantry.deactivateGripper("left_arm");
+                                }
+                                else
+                                    on_table++;
+                                auto state = gantry.getGripperState("left_arm");
+                                if (state.attached)
+                                    gantry.goToPresetLocation(gantry.start_);
                                 count++;
                                 break;
                             }
@@ -146,28 +147,48 @@ int main(int argc, char ** argv) {
                             {
                                 gantry.goToPresetLocation(gantry.start_);
                                 gantry.goToPresetLocation(gantry.bin16_);
-//                                gantry.goToPresetLocation(gantry.shelf5b_);
-//                                gantry.goToPresetLocation(gantry.shelf5d_);
 
                                 ROS_INFO_STREAM("\n\ncamera details: "<< logicam[x][y].type);
                                 part my_part;
                                 my_part.type = logicam[x][y].type;
                                 my_part.pose =logicam[x][y].pose;
 
-
                                 gantry.pickPart(my_part);
-
-//                                gantry.goToPresetLocation(gantry.shelf5e_);
-//                                gantry.goToPresetLocation(gantry.shelf5b_);
                                 gantry.goToPresetLocation(gantry.bin16_);
                                 gantry.goToPresetLocation(gantry.start_);
                                 gantry.goToPresetLocation(gantry.agv2_);
-
                                 gantry.placePart(or_details[i][j][k], "agv2");
+
                                 logicam[x][y].Shifted=true;
+                                logicam2 = comp.getter_logicam_callback();
+                                ROS_INFO_STREAM("\n After placing.");
                                 ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
-                                ROS_INFO_STREAM("\n camera details: "<<logicam[x][y].pose);
+                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table].pose);ros::Duration(1.0).sleep();
+                                faulty_part = comp.quality_sensor_status();
+                                if(faulty_part.faulty == true)
+                                {
+                                    ROS_INFO_STREAM("Faulty Part");
+                                    faulty_part.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
+                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[11][on_table].pose);
+                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[11][0].pose);
+                                    ROS_INFO_STREAM("\n logicam1 "<<logicam2[11][1].pose);
+                                    faulty_part.pose = logicam2[11][on_table].pose;
+                                    faulty_part.pose.position.z -= 0.19;
+                                    ROS_INFO_STREAM("\n Pose for Faulty path "<<faulty_part.pose);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.pickPart(faulty_part);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.goToPresetLocation(gantry.agv2_faulty);
+                                    gantry.deactivateGripper("left_arm");
+                                }
+                                else
+                                    on_table++;
+
+                                auto state = gantry.getGripperState("left_arm");
+                                if (state.attached)
+                                    gantry.goToPresetLocation(gantry.start_);
                                 count++;
                                 break;
                             }
@@ -191,9 +212,39 @@ int main(int argc, char ** argv) {
 
                                 gantry.placePart(or_details[i][j][k], "agv2");
                                 logicam[x][y].Shifted=true;
+                                logicam2 = comp.getter_logicam_callback();
+                                ROS_INFO_STREAM("\n After placing.");
+                                ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
+                                ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
+                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table].pose);
+                                ros::Duration(1.0).sleep();
+                                faulty_part = comp.quality_sensor_status();
+                                if(faulty_part.faulty == true)
+                                {
+                                    ROS_INFO_STREAM("Faulty Part");
+                                    faulty_part.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
+                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[11][on_table-1].pose);
+                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[11][0].pose);
+                                    ROS_INFO_STREAM("\n logicam1 "<<logicam2[11][1].pose);
+                                    faulty_part.pose = logicam2[11][on_table].pose;
+                                    faulty_part.pose.position.z -= 0.19;
+                                    ROS_INFO_STREAM("\n Pose for Faulty path "<<faulty_part.pose);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.pickPart(faulty_part);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.goToPresetLocation(gantry.agv2_faulty);
+                                    gantry.deactivateGripper("left_arm");
+                                }
+                                else
+                                    on_table++;
+
                                 ROS_INFO_STREAM("\norder name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\norder details: "<<or_details[i][j][k].pose);
                                 ROS_INFO_STREAM("\n camera details: "<<logicam[x][y].pose);
+                                auto state = gantry.getGripperState("left_arm");
+                                if (state.attached)
+                                    gantry.goToPresetLocation(gantry.start_);
                                 count++;
                                 break;
                             }

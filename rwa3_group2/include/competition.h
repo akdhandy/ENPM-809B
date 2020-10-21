@@ -43,6 +43,8 @@ public:
     void competition_state_callback(const std_msgs::String::ConstPtr & msg);
     void competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr & msg);
     void logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id);
+    void quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg);
+    part quality_sensor_status();
     void order_callback(const nist_gear::Order::ConstPtr & msg);
     void print_order_callback();
     std::array<std::array<modelparam, 36>, 17> getter_logicam_callback();
@@ -66,9 +68,12 @@ private:
     ros::Subscriber competition_state_subscriber_;
     ros::Subscriber competition_clock_subscriber_;
     ros::Subscriber orders_subscriber_;
+    ros::Subscriber fp_subscriber_;
+
 
     // to collect statistics
     stats init_;
+
 };
 
 #endif
