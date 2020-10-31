@@ -1,0 +1,8 @@
+prefix=/home/srikumar/ariac_ws/src/rwa3_group2/cmake-build-debug/devel
+
+Name: rwa3_group2
+Description: Description of rwa3_group2
+Version: 0.0.0
+Cflags: -I/home/srikumar/ariac_ws/src/rwa3_group2/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib 
+Requires: moveit_core moveit_visual_tools moveit_ros_planning_interface interactive_markers tf2_geometry_msgs
