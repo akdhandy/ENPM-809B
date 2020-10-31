@@ -29,12 +29,54 @@
 #include <tf2_ros/transform_listener.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h> //--needed for tf2::Matrix3x3
-
+#include <nist_gear/AGVControl.h>
 #include "competition.h"
 #include "utils.h"
 #include "gantry_control.h"
 
 #include <tf2/LinearMath/Quaternion.h>
+
+bool submitOrder(int AVG_id, std::string shipment_type){
+    ROS_INFO("[submitOrder] Submitting order via AVG");
+
+    // Create a node to call service from. Would be better to use one existing node
+    // rather than creating a new one every time
+    ros::NodeHandle node;
+
+    // Create a Service client for the correct service, i.e. '/ariac/agv{AVG_id}'
+    ros::ServiceClient avg_client;
+
+    // Assign the service client to the correct service
+    if(AVG_id == 1){
+        avg_client = node.serviceClient<nist_gear::AGVControl>("/ariac/agv1");
+    }else if(AVG_id == 2){
+        avg_client = node.serviceClient<nist_gear::AGVControl>("/ariac/agv2");
+    }else{
+        ROS_ERROR_STREAM("[submitOrder] No AVG with id " << AVG_id <<". Valid ids are 1 and 2 only");
+    }
+
+    // Wait for client to start
+    if (!avg_client.exists()) {
+        avg_client.waitForExistence();
+    }
+
+    // Debug what you're doing
+    ROS_INFO_STREAM("[submitOrder] Sending AVG " << AVG_id << " to submit order");
+
+    // Create the message and assign the shipment type to it
+    nist_gear::AGVControl srv;
+    srv.request.shipment_type = shipment_type;
+
+    // Send message and retrieve response
+    avg_client.call(srv);
+    if (!srv.response.success) {  // If not successful, print out why.
+        ROS_ERROR_STREAM("[submitOrder]  Failed to submit: " << srv.response.message);
+    } else {
+        ROS_INFO("[submitOrder] Submitted");
+    }
+
+    return srv.response.success;
+}
 
 int main(int argc, char ** argv) {
     ros::init(argc, argv, "rwa3_node");
@@ -93,6 +135,7 @@ int main(int argc, char ** argv) {
                     {
                         if(logicam[x][y].type == comp.received_orders_[i].shipments[j].products[k].type &&  logicam[x][y].Shifted==false)
                         {
+                            gantry.goToPresetLocation(gantry.start_);
                             if (comp.received_orders_[i].shipments[j].products[k].type == "pulley_part_red")
                             {
                                 gantry.goToPresetLocation(gantry.shelf5a_);
@@ -109,7 +152,24 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.shelf5b_);
                                 gantry.goToPresetLocation(gantry.shelf5a_);
                                 gantry.goToPresetLocation(gantry.agv2_);
-                                gantry.placePart(or_details[i][j][k], "agv2");
+                                if(or_details[i][j][k].pose.orientation.x != 0)
+                                {
+                                    ROS_INFO_STREAM("Part is to be flipped");
+                                    gantry.goToPresetLocation(gantry.agv2a_);
+                                    gantry.activateGripper("right_arm");
+                                    ros::Duration(2.0).sleep();
+                                    gantry.deactivateGripper("left_arm");
+                                    ROS_INFO_STREAM("Part flipped");
+                                    or_details[i][j][k].pose.orientation.x = 0.0;
+                                    or_details[i][j][k].pose.orientation.y = 0;
+                                    or_details[i][j][k].pose.orientation.z = 0.0;
+                                    or_details[i][j][k].pose.orientation.w = 1;
+                                    gantry.goToPresetLocation(gantry.agv2b_);
+                                    gantry.placePartRight(or_details[i][j][k], "agv2");
+                                }
+                                else
+                                    gantry.placePart(or_details[i][j][k], "agv2");
+
                                 ROS_INFO_STREAM("\n After placing.");
                                 ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
@@ -134,6 +194,8 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv2_);
                                     gantry.goToPresetLocation(gantry.agv2_faulty);
                                     gantry.deactivateGripper("left_arm");
+//                                    logicam[x][y].Shifted=false;
+                                    continue;
                                 }
                                 else
                                     on_table++;
@@ -143,7 +205,7 @@ int main(int argc, char ** argv) {
                                 count++;
                                 break;
                             }
-                            else if (comp.received_orders_[i].shipments[j].products[k].type == "disk_part_green" &&  logicam[x][y].Shifted==false)
+                            else if (comp.received_orders_[i].shipments[j].products[k].type == "disk_part_green")
                             {
                                 gantry.goToPresetLocation(gantry.start_);
                                 gantry.goToPresetLocation(gantry.bin16_);
@@ -182,6 +244,8 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv2_);
                                     gantry.goToPresetLocation(gantry.agv2_faulty);
                                     gantry.deactivateGripper("left_arm");
+//                                    logicam[x][y].Shifted=false;
+                                    continue;
                                 }
                                 else
                                     on_table++;
@@ -192,7 +256,7 @@ int main(int argc, char ** argv) {
                                 count++;
                                 break;
                             }
-                            else if (comp.received_orders_[i].shipments[j].products[k].type == "disk_part_blue" &&  logicam[x][y].Shifted==false)
+                            else if (comp.received_orders_[i].shipments[j].products[k].type == "disk_part_blue")
                             {
                                 gantry.goToPresetLocation(gantry.start_);
                                 gantry.goToPresetLocation(gantry.bin13_);
@@ -235,6 +299,8 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv2_);
                                     gantry.goToPresetLocation(gantry.agv2_faulty);
                                     gantry.deactivateGripper("left_arm");
+//                                    logicam[x][y].Shifted=false;
+                                    continue;
                                 }
                                 else
                                     on_table++;
@@ -262,7 +328,8 @@ int main(int argc, char ** argv) {
 //    gantry.pickPart(my_part);
 //    //--Go place the part
 //    gantry.placePart(part_in_tray, "agv2");
-
+    gantry.goToPresetLocation(gantry.start_);
+    submitOrder(2, "order_0_shipment_0");
     comp.endCompetition();
     spinner.stop();
     ros::shutdown();

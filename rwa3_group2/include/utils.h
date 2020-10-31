@@ -66,6 +66,7 @@ typedef struct Part {
   std::string id;
   PartStates state; // model state (enum PartStates)
   bool faulty;
+  bool faulty_label;
   bool Shifted;
   std::string agv_id;
 } part;

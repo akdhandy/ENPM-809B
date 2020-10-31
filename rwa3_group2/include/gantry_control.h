@@ -57,11 +57,13 @@ class GantryControl {
     /// Send command message to robot controller
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
+    void placePartRight(part part, std::string agv);
 
     void activateGripper(std::string gripper_id);
     void deactivateGripper(std::string gripper_id);
     nist_gear::VacuumGripperState getGripperState(std::string arm_name);
     geometry_msgs::Pose getTargetWorldPose(geometry_msgs::Pose target, std::string agv);
+    geometry_msgs::Pose getTargetWorldPoseRight(geometry_msgs::Pose target, std::string agv);
     //--preset locations;
     start start_;
     bin3 bin3_;
@@ -75,6 +77,8 @@ class GantryControl {
     shelf5 shelf5f_;
     agv2 agv2_;
     agv2 agv2_faulty;
+    agv2 agv2a_;
+    agv2 agv2b_;
 
   private:
     std::vector<double> joint_group_positions_;

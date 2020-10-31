@@ -90,6 +90,14 @@ void GantryControl::init() {
     agv2_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv2a_.gantry = {0.6, 6.5, PI};
+    agv2a_.left_arm = {0.77, -0.20, 1.3, 0.49, 1.59, 0};
+    agv2a_.right_arm = {-PI/4, -3.2, -1.5, -0.02, PI/2, -PI/4};
+
+    agv2b_.gantry = {-0.6, 6.5, PI};
+    agv2b_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv2b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     agv2_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff
     agv2_faulty.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -170,6 +178,73 @@ stats GantryControl::getStats(std::string function) {
     if (function == "gripFirmly") return gripFirmly_;
     if (function == "gripFromBelt") return gripFromBelt_;
     if (function == "grip") return grip_;
+}
+
+geometry_msgs::Pose GantryControl::getTargetWorldPoseRight(geometry_msgs::Pose target, std::string agv)
+{
+    static tf2_ros::StaticTransformBroadcaster br;
+    geometry_msgs::TransformStamped transformStamped;
+
+    std::string kit_tray;
+    if (agv.compare("agv1")==0)
+        kit_tray = "kit_tray_1";
+    else
+        kit_tray = "kit_tray_2";
+    transformStamped.header.stamp = ros::Time::now();
+    transformStamped.header.frame_id = "kit_tray_2";
+    transformStamped.child_frame_id = "target_frame";
+    transformStamped.transform.translation.x = target.position.x;
+    transformStamped.transform.translation.y = target.position.y;
+    transformStamped.transform.translation.z = target.position.z;
+    transformStamped.transform.rotation.x = target.orientation.x;
+    transformStamped.transform.rotation.y = target.orientation.y;
+    transformStamped.transform.rotation.z = target.orientation.z;
+    transformStamped.transform.rotation.w = target.orientation.w;
+
+
+    for (int i{0}; i<15; ++i)
+        br.sendTransform(transformStamped);
+
+    tf2_ros::Buffer tfBuffer;
+    tf2_ros::TransformListener tfListener(tfBuffer);
+    ros::Rate rate(10);
+    ros::Duration timeout(5.0);
+
+
+    geometry_msgs::TransformStamped world_target_tf;
+    geometry_msgs::TransformStamped ee_target_tf;
+    for (int i=0; i< 10; i++) {
+        try {
+            world_target_tf = tfBuffer.lookupTransform("world", "target_frame",
+                                                       ros::Time(0), timeout);
+        }
+        catch (tf2::TransformException &ex) {
+            ROS_WARN("%s", ex.what());
+            ros::Duration(1.0).sleep();
+            continue;
+        }
+
+        try {
+            ee_target_tf = tfBuffer.lookupTransform("target_frame", "right_ee_link",
+                                                    ros::Time(0), timeout);
+        }
+        catch (tf2::TransformException &ex) {
+            ROS_WARN("%s", ex.what());
+            ros::Duration(1.0).sleep();
+            continue;
+        }
+    }
+
+    geometry_msgs::Pose world_target{target};
+    world_target.position.x = world_target_tf.transform.translation.x;
+    world_target.position.y = world_target_tf.transform.translation.y;
+    world_target.position.z = world_target_tf.transform.translation.z;
+    world_target.orientation.x = ee_target_tf.transform.rotation.x;
+    world_target.orientation.y = ee_target_tf.transform.rotation.y;
+    world_target.orientation.z = ee_target_tf.transform.rotation.z;
+    world_target.orientation.w = ee_target_tf.transform.rotation.w;
+
+    return world_target;
 }
 
 geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target,
@@ -310,6 +385,21 @@ void GantryControl::placePart(part part, std::string agv){
     left_arm_group_.move();
     deactivateGripper("left_arm");
 }
+void GantryControl::placePartRight(part part, std::string agv){
+    auto target_pose_in_tray = getTargetWorldPoseRight(part.pose, agv);
+//    ros::Duration(3.0).sleep();
+//    goToPresetLocation(agv2b_);
+    target_pose_in_tray.position.z += (ABOVE_TARGET + 1.5*model_height[part.type]);
+
+    right_arm_group_.setPoseTarget(target_pose_in_tray);
+    right_arm_group_.move();
+//    ros::Duration(3.0).sleep();
+    deactivateGripper("right_arm");
+//    auto state = getGripperState("right_arm");
+//    if (state.attached)
+//        goToPresetLocation(start_);
+}
+
 
 void GantryControl::goToPresetLocation(PresetLocation location) {
     //--gantry
