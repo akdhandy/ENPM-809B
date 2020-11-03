@@ -91,7 +91,7 @@ models_over_shelves:
     models:
       gasket_part_green:
         xyz_start: [1, 0.45, 0.0]
-        xyz_end: [0., 0.45, 0.0]
+        xyz_end: [0.0, 0.45, 0.0]
         rpy: [0, 0, 'pi/4']
         num_models_x: 6
         num_models_y: 1

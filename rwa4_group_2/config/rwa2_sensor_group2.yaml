@@ -80,7 +80,7 @@ sensors:
   logical_camera_12: # Conveyor belt
     type: logical_camera
     pose:
-      xyz: [0,  0, 2]
+      xyz: [0,  2, 2]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_13: # shelf1 back
@@ -118,9 +118,9 @@ sensors:
 #      xyz: [0, 2.840000, 0.970000]
 #      rpy: [1.570796, 0.524365, 1.570796]
 #
-#  breakbeam_0:
-#    type: break_beam
-#    pose:
-#      xyz: [-0.004795, 4.492549, 0.879306]
-#      rpy: [0, 0, -1.557900]
+  breakbeam_0:
+    type: break_beam
+    pose:
+      xyz: [-0.004795, 4.492549, 0.879306]
+      rpy: [0, 0, -1.557900]
 
