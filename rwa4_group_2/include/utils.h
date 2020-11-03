@@ -54,7 +54,7 @@ typedef struct PresetLocation {
     std::vector<double> gantry;
     std::vector<double> left_arm;
     std::vector<double> right_arm;
-} start, bin3, bin13, bin16, shelf5, agv2;
+} start, bin3, bin13, belt, shelf8, shelf11, agv1, agv2;
 
 
 typedef struct Part {
@@ -111,7 +111,7 @@ typedef struct ModelParam{
 } modelparam;
 
 typedef struct Order {
-    std::string order_id;
+    std::string order_id, announcement_cond, announcement_cond_value;
     std::vector<Shipment> shipments;
 } order;
 

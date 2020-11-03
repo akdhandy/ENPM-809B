@@ -68,17 +68,14 @@ class GantryControl {
     start start_;
     bin3 bin3_;
     bin13 bin13_;
-    bin16 bin16_;
-    shelf5 shelf5a_;
-    shelf5 shelf5b_;
-    shelf5 shelf5c_;
-    shelf5 shelf5d_;
-    shelf5 shelf5e_;
-    shelf5 shelf5f_;
-    agv2 agv2_;
-    agv2 agv2_faulty;
-    agv2 agv2a_;
-    agv2 agv2b_;
+    belt belta_, beltb_, beltc_;
+    shelf8 shelf8a_;
+    shelf8 shelf8b_;
+    shelf8 shelf8c_;
+    shelf11 shelf11a_, shelf11b_, shelf11c_;
+    agv2 agv2_, agv2a_, agv2b_;
+    agv2 agv_faulty;
+    agv1 agv1_, agv1a_, agv1b_;
 
   private:
     std::vector<double> joint_group_positions_;

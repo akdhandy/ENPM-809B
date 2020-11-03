@@ -80,17 +80,6 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
             logical_cam[id][i].frame = pose_target.header.frame_id.c_str();
             logical_cam[id][i].type = msg->models[i].type.c_str();
             logical_cam[id][i].pose = pose_real.pose;
-//            ROS_INFO("%s in world frame:\t"
-//                     "Position: [x,y,z] = [%f,%f,%f]\t"
-//                     "Orientation: [x,y,z,w] = [%f,%f,%f,%f]\t",
-//                     logical_cam[id][i].type.c_str(),
-//                     logical_cam[id][i].pose_world.position.x,
-//                     logical_cam[id][i].pose_world.position.y,
-//                     logical_cam[id][i].pose_world.position.z,
-//                     logical_cam[id][i].pose_world.orientation.x,
-//                     logical_cam[id][i].pose_world.orientation.y,
-//                     logical_cam[id][i].pose_world.orientation.z,
-//                     logical_cam[id][i].pose_world.orientation.w);
         }
     }
 }

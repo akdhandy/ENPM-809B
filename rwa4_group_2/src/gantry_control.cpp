@@ -43,50 +43,53 @@ void GantryControl::init() {
     start_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     start_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+//----- For RWA4
 
     bin3_.gantry = {4.0, -1.1, 0.};
     bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     bin13_.gantry = {3.1, 1.68, 3.77};
-    bin13_.left_arm = {0.0, -0.63, 1.26, -0.78, PI/2, -0.88};
+    bin13_.left_arm = {0.0, -0.63, 1.26, -0.65, PI/2, 0};
     bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin16_.gantry = {6.25, 1.96, -PI};
-    bin16_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_.gantry = {0, -1.8, 0};
+    shelf8a_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5a_.gantry = {0, -4.5, 0};
-    shelf5a_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf5a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8b_.gantry = {-14, -1.8, 0};//Reaching shelf5
+    shelf8b_.left_arm = {-1.7, -PI/4, 1.6, -0.5, -0.1, 0};
+    shelf8b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5b_.gantry = {-14.5, -5.46, 0};//Reaching shelf5
-//    shelf5b_.left_arm = {-1.25, -PI/2, PI/2, 0, 0.25, 1.38};
-    shelf5b_.left_arm = {-1.7, -PI/4, 1.5, -0.5, -0.1, 0};
-    shelf5b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8c_.gantry = {-14.5, -1.26, 0};//Closer to shelf5
+    shelf8c_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
+    shelf8c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5c_.gantry = {-14.23, -4.25, 0};//Closer to shelf5
-//    shelf5c_.left_arm = {-1.39, -0.75, 1.26, 0, 0.28, 1.38};
-    shelf5c_.left_arm = {-1.7, -PI/4, 1.5, -0.5, -0.1, 0};
-    shelf5c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf11a_.gantry = {0, 1.45, 0};
+    shelf11a_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf11a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5d_.gantry = {-14.5, -4.25, 0};//Moving inbetween two pulley_red
-//    shelf5d_.left_arm = {-1.39, -0.75, 1.26, 0, 0.28, 1.38};
-    shelf5d_.left_arm = {-1.7, -PI/4, 1.5, -0.5, -0.1, 0};
-    shelf5d_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf11b_.gantry = {-14.7, 1.45, 0};
+    shelf11b_.left_arm = {-1.5, -PI/4, PI/2, -PI/4, 0.08,0};
+    shelf11b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5e_.gantry = {-14.5, -4.25, 0};//Picking and lifting pulley up
-//    shelf5d_.left_arm = {-1.39, -0.75, 1.26, 0, 0.28, 1.38};
-    shelf5e_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
-    shelf5e_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf11c_.gantry = {-14.7, 1.75, 0};
+    shelf11c_.left_arm = {-1.5, -PI/4, PI/2, -PI/4, 0.08, 0};
+    shelf11c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5f_.gantry = {-15.19, -5, 0};//Going back then go back to conveyor belt
-//    shelf5e_.left_arm = {-1.39, -0.75, 1.26, 0, 0.28, 1.38};
-    shelf5f_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
-    shelf5f_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    belta_.gantry = {0.15, -0.25, PI/2};
+    belta_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
+    belta_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    beltb_.gantry = {0.15, -0.25, PI/2};
+    beltb_.left_arm = {0.0, -PI/4, 1.34, -0.55, PI/2, 0};
+    beltb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    beltc_.gantry = {0.15, -0.25, 0};
+    beltc_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
+    beltc_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv2_.gantry = {0.6, 6.9, PI};
-//    agv2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -98,11 +101,17 @@ void GantryControl::init() {
     agv2b_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    agv2_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff
-    agv2_faulty.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    agv2_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff
+    agv_faulty.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv1_.gantry = {-0.6, -6.9, 0};
+    agv1_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv1a_.gantry = {-1, -6.7, 0};
+    agv1a_.left_arm = {0.0, -PI/4, 0.94, -0.03, PI/2, 0};
+    agv1a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
     //--Raw pointers are frequently used to refer to the planning group for improved performance.
@@ -191,7 +200,7 @@ geometry_msgs::Pose GantryControl::getTargetWorldPoseRight(geometry_msgs::Pose t
     else
         kit_tray = "kit_tray_2";
     transformStamped.header.stamp = ros::Time::now();
-    transformStamped.header.frame_id = "kit_tray_2";
+    transformStamped.header.frame_id = kit_tray;
     transformStamped.child_frame_id = "target_frame";
     transformStamped.transform.translation.x = target.position.x;
     transformStamped.transform.translation.y = target.position.y;
@@ -258,7 +267,7 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target
     else
         kit_tray = "kit_tray_2";
     transformStamped.header.stamp = ros::Time::now();
-    transformStamped.header.frame_id = "kit_tray_2";
+    transformStamped.header.frame_id = kit_tray;
     transformStamped.child_frame_id = "target_frame";
     transformStamped.transform.translation.x = target.position.x;
     transformStamped.transform.translation.y = target.position.y;
@@ -311,6 +320,8 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target
     world_target.orientation.z = ee_target_tf.transform.rotation.z;
     world_target.orientation.w = ee_target_tf.transform.rotation.w;
 
+    ROS_INFO_STREAM("WHATEVEVERRER I WANNNNTTTT");
+    ROS_INFO_STREAM(world_target);
     return world_target;
 }
 
@@ -377,14 +388,18 @@ bool GantryControl::pickPart(part part){
 
 void GantryControl::placePart(part part, std::string agv){
    auto target_pose_in_tray = getTargetWorldPose(part.pose, agv);
-//    ros::Duration(3.0).sleep();
-    goToPresetLocation(agv2_);
+   if (agv=="agv1")
+       goToPresetLocation(agv1_);
+   else
+       goToPresetLocation(agv2_);
+
     target_pose_in_tray.position.z += (ABOVE_TARGET + 1.5*model_height[part.type]);
 
     left_arm_group_.setPoseTarget(target_pose_in_tray);
     left_arm_group_.move();
     deactivateGripper("left_arm");
 }
+
 void GantryControl::placePartRight(part part, std::string agv){
     auto target_pose_in_tray = getTargetWorldPoseRight(part.pose, agv);
 //    ros::Duration(3.0).sleep();
