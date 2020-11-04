@@ -101,10 +101,6 @@ void GantryControl::init() {
     agv2b_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    agv2c_.gantry = {0.6, 6.9, PI};
-    agv2c_.left_arm = {-0.1, -0.35, 0.85, -0.55, 1.44, 0};
-    agv2c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
     agv_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff
     agv_faulty.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -324,8 +320,6 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target
     world_target.orientation.z = ee_target_tf.transform.rotation.z;
     world_target.orientation.w = ee_target_tf.transform.rotation.w;
 
-    ROS_INFO_STREAM("WHATEVEVERRER I WANNNNTTTT");
-    ROS_INFO_STREAM(world_target);
     return world_target;
 }
 

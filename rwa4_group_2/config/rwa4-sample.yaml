@@ -59,19 +59,9 @@ orders:
         pose:
           xyz: [0.15, -0.2, 0]
           rpy: [0, 0, 0]
-#      part_4:
-#        type: disk_part_green
-#        pose:
-#          xyz: [ -0.15, -0.2, 0 ]
-#          rpy: [ 0, 0, 0 ]
-#      part_5:
-#        type: gasket_part_blue
-#        pose:
-#          xyz: [ 0.15, 0.2, 0 ]
-#          rpy: [ 0, 0, '-pi/4' ]
   order_1:
-    announcement_condition: time
-    announcement_condition_value: 0.0
+    announcement_condition: unwanted_products
+    announcement_condition_value: 1
     shipment_count: 1
     destinations: [agv2]
     products:

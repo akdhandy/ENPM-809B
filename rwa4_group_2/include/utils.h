@@ -68,7 +68,7 @@ typedef struct Part {
   bool faulty;
   bool faulty_label;
   bool Shifted;
-  std::string agv_id;
+  std::string agv_id, shipment;
 } part;
 
 typedef struct Position {

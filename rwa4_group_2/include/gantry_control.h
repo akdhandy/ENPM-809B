@@ -73,7 +73,7 @@ class GantryControl {
     shelf8 shelf8b_;
     shelf8 shelf8c_;
     shelf11 shelf11a_, shelf11b_, shelf11c_;
-    agv2 agv2_, agv2a_, agv2b_, agv2c_;
+    agv2 agv2_, agv2a_, agv2b_;
     agv2 agv_faulty;
     agv1 agv1_, agv1a_, agv1b_;
 

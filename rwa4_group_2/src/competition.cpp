@@ -122,6 +122,7 @@ void Competition::order_callback(const nist_gear::Order::ConstPtr & msg) {
                 order_details[i][j][k].pose.orientation.z = received_orders_[i].shipments[j].products[k].pose.orientation.z;
                 order_details[i][j][k].pose.orientation.w = received_orders_[i].shipments[j].products[k].pose.orientation.w;
                 order_details[i][j][k].agv_id = received_orders_[i].shipments[j].agv_id;
+                order_details[i][j][k].shipment = received_orders_[i].shipments[j].shipment_type;
                 order_details[i][j][k].Shifted = false;
             }
         }
