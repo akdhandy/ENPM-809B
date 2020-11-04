@@ -127,6 +127,7 @@ int main(int argc, char ** argv) {
             if (new_order!=0)
             {
                 new_order = 0;
+                i = i+2;
                 break;
             }
             for (int k=0; k < comp.received_orders_[i].shipments[j].products.size(); k++)
@@ -323,7 +324,7 @@ int main(int argc, char ** argv) {
                                 {
                                     or_details[i+1]=or_details_new[i+1];
                                     ROS_INFO_STREAM("\n Copied info details "<<or_details[i+1][j][k].shipment);
-                                    i = i+2;
+                                    i = i+1;
                                     ROS_INFO_STREAM("\n Value of i: "<<i);
                                     ROS_INFO_STREAM("\n New order size detected.. breaking.. ");
                                     new_order++;
