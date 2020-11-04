@@ -207,171 +207,171 @@ int main(int argc, char ** argv) {
 //                                break;
 //                            }
 
-//                            if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_green")
-//                            {
-//                                gantry.goToPresetLocation(gantry.shelf8a_);
-//                                gantry.goToPresetLocation(gantry.shelf8b_);
-//                                gantry.goToPresetLocation(gantry.shelf8c_);
-//                                part my_part;
-//                                my_part.type = logicam[x][y].type;
-//                                my_part.pose =logicam[x][y].pose;
-//                                auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
-//                                gantry.pickPart(my_part);
-//                                gantry.goToPresetLocation(gantry.shelf8c_);
-//                                gantry.goToPresetLocation(gantry.shelf8b_);
-//                                gantry.goToPresetLocation(gantry.shelf8a_);
-//                                if (or_details[i][j][k].agv_id=="agv1")
-//                                {
-//                                    gantry.goToPresetLocation(gantry.agv1_);
-//                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
-//                                    gantry.placePart(or_details[i][j][k], "agv1");
-//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
-//                                    logicam[x][y].Shifted=true;
-//                                }
-//                                logicam2 = comp.getter_logicam_callback();
-//                                ROS_INFO_STREAM("\n After placing.");
-//                                ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
-//                                ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
-//                                ROS_INFO_STREAM("\n Target pose: "<<target_pose);
-//                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][on_table].pose);
-//                                ros::Duration(0.2).sleep();
-//                                faulty_part = comp.quality_sensor_status();
-//                                ROS_INFO_STREAM("\n X offset: "<<abs(logicam2[10][on_table].pose.position.x-target_pose.position.x));
-//                                ROS_INFO_STREAM("\n Y offset: "<<abs(logicam2[10][on_table].pose.position.y-target_pose.position.y));
-//                                if(faulty_part.faulty == true)
-//                                {
-//                                    ROS_INFO_STREAM("Faulty Part detected!!!");
-//                                    faulty_part.type = my_part.type;
-//                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
-//                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[10][on_table].pose);
-//                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[10][0].pose);
-//                                    faulty_part.pose = logicam2[10][on_table].pose;
-//                                    faulty_part.pose.position.z -= 0.19;
-//                                    ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
-//                                    gantry.goToPresetLocation(gantry.agv2_);
-//                                    gantry.pickPart(faulty_part);
-//                                    gantry.goToPresetLocation(gantry.agv2_);
-//                                    gantry.goToPresetLocation(gantry.agv_faulty);
-//                                    gantry.deactivateGripper("left_arm");
-//                                    continue;
-//                                }
-//                                else if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
-//                                {
-//                                    if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03)
-//                                        ROS_INFO_STREAM("\n X offset detected");
-//                                    if (abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
-//                                        ROS_INFO_STREAM("\n Y offset detected");
-//                                    ROS_INFO_STREAM("\n Faulty Pose detected for part "<<logicam[x][y].type);
-//                                    faulty_pose.type = my_part.type;
-//                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
-//                                    ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
-//                                    faulty_pose.pose = logicam2[10][on_table].pose;
-//                                    gantry.goToPresetLocation(gantry.agv1a_);
-//                                    ROS_INFO_STREAM("\n Trying to pick up...");
-//                                    gantry.pickPart(faulty_pose);
-//                                    ROS_INFO_STREAM("\nPart Picked!");
-//                                    gantry.goToPresetLocation(gantry.agv1_);
-//                                    gantry.placePart(or_details[i][j][k], "agv1");
-//                                    ROS_INFO_STREAM("\n Placed!!!");
-//                                    on_table++;
-//                                }
-//                                else
-//                                    on_table++;
-//
-//                                auto state = gantry.getGripperState("left_arm");
-//                                if (state.attached)
-//                                    gantry.goToPresetLocation(gantry.start_);
-//                                count++;
-//                                break;
-//                            }
+                            if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_green")
+                            {
+                                gantry.goToPresetLocation(gantry.shelf8a_);
+                                gantry.goToPresetLocation(gantry.shelf8b_);
+                                gantry.goToPresetLocation(gantry.shelf8c_);
+                                part my_part;
+                                my_part.type = logicam[x][y].type;
+                                my_part.pose =logicam[x][y].pose;
+                                auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
+                                gantry.pickPart(my_part);
+                                gantry.goToPresetLocation(gantry.shelf8c_);
+                                gantry.goToPresetLocation(gantry.shelf8b_);
+                                gantry.goToPresetLocation(gantry.shelf8a_);
+                                if (or_details[i][j][k].agv_id=="agv1")
+                                {
+                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
+                                    gantry.placePart(or_details[i][j][k], "agv1");
+                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    logicam[x][y].Shifted=true;
+                                }
+                                logicam2 = comp.getter_logicam_callback();
+                                ROS_INFO_STREAM("\n After placing.");
+                                ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
+                                ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
+                                ROS_INFO_STREAM("\n Target pose: "<<target_pose);
+                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][on_table].pose);
+                                ros::Duration(0.2).sleep();
+                                faulty_part = comp.quality_sensor_status();
+                                ROS_INFO_STREAM("\n X offset: "<<abs(logicam2[10][on_table].pose.position.x-target_pose.position.x));
+                                ROS_INFO_STREAM("\n Y offset: "<<abs(logicam2[10][on_table].pose.position.y-target_pose.position.y));
+                                if(faulty_part.faulty == true)
+                                {
+                                    ROS_INFO_STREAM("Faulty Part detected!!!");
+                                    faulty_part.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
+                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[10][on_table].pose);
+                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[10][0].pose);
+                                    faulty_part.pose = logicam2[10][on_table].pose;
+                                    faulty_part.pose.position.z -= 0.19;
+                                    ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.pickPart(faulty_part);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.goToPresetLocation(gantry.agv_faulty);
+                                    gantry.deactivateGripper("left_arm");
+                                    continue;
+                                }
+                                else if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                {
+                                    if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03)
+                                        ROS_INFO_STREAM("\n X offset detected");
+                                    if (abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                        ROS_INFO_STREAM("\n Y offset detected");
+                                    ROS_INFO_STREAM("\n Faulty Pose detected for part "<<logicam[x][y].type);
+                                    faulty_pose.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
+                                    ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
+                                    faulty_pose.pose = logicam2[10][on_table].pose;
+                                    gantry.goToPresetLocation(gantry.agv1a_);
+                                    ROS_INFO_STREAM("\n Trying to pick up...");
+                                    gantry.pickPart(faulty_pose);
+                                    ROS_INFO_STREAM("\nPart Picked!");
+                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    gantry.placePart(or_details[i][j][k], "agv1");
+                                    ROS_INFO_STREAM("\n Placed!!!");
+                                    on_table++;
+                                }
+                                else
+                                    on_table++;
 
-//                            if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_blue")
-//                            {
-//                                gantry.goToPresetLocation(gantry.shelf11a_);
-//                                gantry.goToPresetLocation(gantry.shelf11b_);
-//                                gantry.goToPresetLocation(gantry.shelf11c_);
-//                                part my_part;
-//                                my_part.type = logicam[x][y].type;
-//                                my_part.pose =logicam[x][y].pose;
-//                                auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
-//                                gantry.pickPart(my_part);
-//                                gantry.goToPresetLocation(gantry.shelf11c_);
-//                                gantry.goToPresetLocation(gantry.shelf11b_);
-//                                gantry.goToPresetLocation(gantry.shelf11a_);
-//                                if (or_details[i][j][k].agv_id=="agv1")
-//                                {
-////                                    auto swap = or_details[i][j][k].pose;
-////                                    or_details[i][j][k].pose.orientation.x=target_pose.orientation.x;
-////                                    or_details[i][j][k].pose.orientation.y=target_pose.orientation.y;
-////                                    or_details[i][j][k].pose.orientation.z=target_pose.orientation.z;
-////                                    or_details[i][j][k].pose.orientation.w=target_pose.orientation.w;
-//                                    gantry.goToPresetLocation(gantry.agv1_);
-//                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
-//                                    gantry.placePart(or_details[i][j][k], "agv1");
-////                                    or_details[i][j][k].pose = swap;
-//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
-//                                    logicam[x][y].Shifted=true;
-//                                }
-//                                else if (or_details[i][j][k].agv_id=="agv2")
-//                                {
-//                                    target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
-//                                    gantry.goToPresetLocation(gantry.agv2_);
-//                                    ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
-//                                    gantry.placePart(or_details[i][j][k], "agv2");
-////                                    or_details[i][j][k].pose = swap;
-//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
-//                                    logicam[x][y].Shifted=true;
-//                                }
-//                                logicam2 = comp.getter_logicam_callback();
-//                                ROS_INFO_STREAM("\n After placing.");
-//                                ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
-//                                ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
-//                                ROS_INFO_STREAM("\n Target pose: "<<target_pose);
-//                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][on_table].pose);
-//                                ros::Duration(0.2).sleep();
-//                                faulty_part = comp.quality_sensor_status();
-//                                if(faulty_part.faulty == true)
-//                                {
-//                                    ROS_INFO_STREAM("Faulty Part detected!!!");
-//                                    faulty_part.type = my_part.type;
-//                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
-//                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[10][on_table].pose);
-//                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[10][0].pose);
-//                                    faulty_part.pose = logicam2[10][on_table].pose;
-//                                    faulty_part.pose.position.z -= 0.19;
-//                                    ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
-//                                    gantry.goToPresetLocation(gantry.agv2_);
-//                                    gantry.pickPart(faulty_part);
-//                                    gantry.goToPresetLocation(gantry.agv2_);
-//                                    gantry.goToPresetLocation(gantry.agv_faulty);
-//                                    gantry.deactivateGripper("left_arm");
-//                                    continue;
-//                                }
-//                                else if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.3 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.3 || abs(logicam2[10][on_table].pose.position.z-target_pose.position.z)>0.49 )
-//                                {
-//                                    ROS_INFO_STREAM("\nFaulty Pose detected for part "<<logicam[x][y].type);
-//                                    faulty_pose.type = my_part.type;
-//                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
-//                                    ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
-//                                    faulty_pose.pose = logicam2[10][on_table].pose;
-//                                    gantry.goToPresetLocation(gantry.agv1a_);
-//                                    ROS_INFO_STREAM("\n Trying to pick up...");
-//                                    gantry.pickPart(faulty_pose);
-//                                    ROS_INFO_STREAM("\nPart Picked!");
-//                                    gantry.goToPresetLocation(gantry.agv1_);
-//                                    gantry.placePart(or_details[i][j][k], "agv1");
-//                                    ROS_INFO_STREAM("\n Placed!!!");
-//                                    on_table++;
-//                                }
-//                                else
-//                                    on_table++;
-//
-//                                auto state = gantry.getGripperState("left_arm");
-//                                if (state.attached)
-//                                    gantry.goToPresetLocation(gantry.start_);
-//                                count++;
-//                                break;
-//                            }
+                                auto state = gantry.getGripperState("left_arm");
+                                if (state.attached)
+                                    gantry.goToPresetLocation(gantry.start_);
+                                count++;
+                                break;
+                            }
+
+                            else if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_blue")
+                            {
+                                gantry.goToPresetLocation(gantry.shelf11a_);
+                                gantry.goToPresetLocation(gantry.shelf11b_);
+                                gantry.goToPresetLocation(gantry.shelf11c_);
+                                part my_part;
+                                my_part.type = logicam[x][y].type;
+                                my_part.pose =logicam[x][y].pose;
+                                auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
+                                gantry.pickPart(my_part);
+                                gantry.goToPresetLocation(gantry.shelf11c_);
+                                gantry.goToPresetLocation(gantry.shelf11b_);
+                                gantry.goToPresetLocation(gantry.shelf11a_);
+                                if (or_details[i][j][k].agv_id=="agv1")
+                                {
+//                                    auto swap = or_details[i][j][k].pose;
+//                                    or_details[i][j][k].pose.orientation.x=target_pose.orientation.x;
+//                                    or_details[i][j][k].pose.orientation.y=target_pose.orientation.y;
+//                                    or_details[i][j][k].pose.orientation.z=target_pose.orientation.z;
+//                                    or_details[i][j][k].pose.orientation.w=target_pose.orientation.w;
+                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
+                                    gantry.placePart(or_details[i][j][k], "agv1");
+//                                    or_details[i][j][k].pose = swap;
+                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    logicam[x][y].Shifted=true;
+                                }
+                                else if (or_details[i][j][k].agv_id=="agv2")
+                                {
+                                    target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
+                                    gantry.placePart(or_details[i][j][k], "agv2");
+//                                    or_details[i][j][k].pose = swap;
+                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    logicam[x][y].Shifted=true;
+                                }
+                                logicam2 = comp.getter_logicam_callback();
+                                ROS_INFO_STREAM("\n After placing.");
+                                ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
+                                ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
+                                ROS_INFO_STREAM("\n Target pose: "<<target_pose);
+                                ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][on_table].pose);
+                                ros::Duration(0.2).sleep();
+                                faulty_part = comp.quality_sensor_status();
+                                if(faulty_part.faulty == true)
+                                {
+                                    ROS_INFO_STREAM("Faulty Part detected!!!");
+                                    faulty_part.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
+                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[10][on_table].pose);
+                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[10][0].pose);
+                                    faulty_part.pose = logicam2[10][on_table].pose;
+                                    faulty_part.pose.position.z -= 0.19;
+                                    ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.pickPart(faulty_part);
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.goToPresetLocation(gantry.agv_faulty);
+                                    gantry.deactivateGripper("left_arm");
+                                    continue;
+                                }
+                                else if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.3 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.3 || abs(logicam2[10][on_table].pose.position.z-target_pose.position.z)>0.49 )
+                                {
+                                    ROS_INFO_STREAM("\nFaulty Pose detected for part "<<logicam[x][y].type);
+                                    faulty_pose.type = my_part.type;
+                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
+                                    ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
+                                    faulty_pose.pose = logicam2[10][on_table].pose;
+                                    gantry.goToPresetLocation(gantry.agv1a_);
+                                    ROS_INFO_STREAM("\n Trying to pick up...");
+                                    gantry.pickPart(faulty_pose);
+                                    ROS_INFO_STREAM("\nPart Picked!");
+                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    gantry.placePart(or_details[i][j][k], "agv1");
+                                    ROS_INFO_STREAM("\n Placed!!!");
+                                    on_table++;
+                                }
+                                else
+                                    on_table++;
+
+                                auto state = gantry.getGripperState("left_arm");
+                                if (state.attached)
+                                    gantry.goToPresetLocation(gantry.start_);
+                                count++;
+                                break;
+                            }
 
                             else if (comp.received_orders_[i].shipments[j].products[k].type == "disk_part_green")
                             {
@@ -426,37 +426,56 @@ int main(int argc, char ** argv) {
                                     gantry.deactivateGripper("left_arm");
                                     continue;
                                 }
-                                else if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                else if (or_details[i][j][k].agv_id=="agv1")
                                 {
-                                    if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03)
-                                        ROS_INFO_STREAM("\n X offset detected");
-                                    if (abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
-                                        ROS_INFO_STREAM("\n Y offset detected");
-                                    ROS_INFO_STREAM("\n Faulty Pose detected for part "<<logicam[x][y].type);
-                                    faulty_pose.type = my_part.type;
-                                    ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
-                                    ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
-                                    faulty_pose.pose = logicam2[10][on_table].pose;
-                                    if (or_details[i][j][k].agv_id=="agv2"){
-                                        ROS_INFO_STREAM("\n aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                                        gantry.goToPresetLocation(gantry.agv2c_);
-                                        ROS_INFO_STREAM("\n Trying to pick up...");
-                                        gantry.pickPart(faulty_pose);
-                                        ROS_INFO_STREAM("\nPart Picked!");
-//                                        gantry.goToPresetLocation(gantry.agv2b_);
-                                        gantry.placePart(or_details[i][j][k], "agv2");
-                                        ROS_INFO_STREAM("\n Placed!!!");
-                                        on_table++;
+                                    if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                    {
+                                        if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03)
+                                            ROS_INFO_STREAM("\n X offset detected");
+                                        if (abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                            ROS_INFO_STREAM("\n Y offset detected");
+                                        ROS_INFO_STREAM("\n Faulty Pose detected for part "<<logicam[x][y].type);
+                                        faulty_pose.type = my_part.type;
+                                        ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
+                                        ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
+                                        faulty_pose.pose = logicam2[10][on_table].pose;
+                                        if (or_details[i][j][k].agv_id=="agv1")
+                                        {
+                                            gantry.goToPresetLocation(gantry.agv1a_);
+                                            ROS_INFO_STREAM("\n Trying to pick up...");
+                                            gantry.pickPart(faulty_pose);
+                                            ROS_INFO_STREAM("\nPart Picked!");
+                                            gantry.goToPresetLocation(gantry.agv1_);
+                                            gantry.placePart(or_details[i][j][k], "agv1");
+                                            ROS_INFO_STREAM("\n Placed!!!");
+                                            on_table++;
+                                        }
                                     }
-                                    else{
-                                        gantry.goToPresetLocation(gantry.agv1a_);
-                                        ROS_INFO_STREAM("\n Trying to pick up...");
-                                        gantry.pickPart(faulty_pose);
-                                        ROS_INFO_STREAM("\nPart Picked!");
-                                        gantry.goToPresetLocation(gantry.agv1_);
-                                        gantry.placePart(or_details[i][j][k], "agv1");
-                                        ROS_INFO_STREAM("\n Placed!!!");
-                                        on_table++;
+                                }
+                                else if (or_details[i][j][k].agv_id=="agv2")
+                                {
+                                    if (abs(logicam2[11][on_table].pose.position.x-target_pose.position.x)>0.03 || abs(logicam2[11][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                    {
+                                        if (abs(logicam2[11][on_table].pose.position.x-target_pose.position.x)>0.03)
+                                            ROS_INFO_STREAM("\n X offset detected");
+                                        if (abs(logicam2[11][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                            ROS_INFO_STREAM("\n Y offset detected");
+                                        ROS_INFO_STREAM("\n Faulty Pose detected for part "<<logicam[x][y].type);
+                                        faulty_pose.type = my_part.type;
+                                        ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
+                                        ROS_INFO_STREAM("\n Faulty pose "<<logicam2[11][on_table].pose);
+                                        faulty_pose.pose = logicam2[11][on_table].pose;
+                                        if (or_details[i][j][k].agv_id=="agv2")
+                                        {
+                                            gantry.goToPresetLocation(gantry.agv2c_);
+                                            ROS_INFO_STREAM("\n Trying to pick up...");
+                                            gantry.pickPart(faulty_pose);
+                                            ROS_INFO_STREAM("\nPart Picked!");
+                                            gantry.goToPresetLocation(gantry.agv2_);
+                                            gantry.placePart(or_details[i][j][k], "agv2");
+                                            ROS_INFO_STREAM("\n Placed!!!");
+                                            on_table++;
+                                        }
                                     }
                                 }
                                 else

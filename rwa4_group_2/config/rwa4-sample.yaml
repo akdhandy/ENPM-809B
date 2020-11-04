@@ -33,32 +33,32 @@ shelf_layout:
 
 
 orders:
-#  order_0:
-#    announcement_condition: time
-#    announcement_condition_value: 0.0
-#    shipment_count: 1
-#    destinations: [agv1]
-#    products:
-#      part_0:
-#        type: pulley_part_red
-#        pose:
-#          xyz: [0.12, 0.2, 0]
-#          rpy: ['pi', 0, 0]
-#      part_1:
-#        type: gasket_part_green
-#        pose:
-#          xyz: [0.0, 0.0, 0]
-#          rpy: [0, 0, '-pi/4']
-#      part_2:
-#        type: gasket_part_blue
-#        pose:
-#          xyz: [-0.15, 0.2, 0]
-#          rpy: [0, 0, '-pi/4']
-#      part_3:
-#        type: disk_part_green
-#        pose:
-#          xyz: [0.15, -0.2, 0]
-#          rpy: [0, 0, 0]
+  order_0:
+    announcement_condition: time
+    announcement_condition_value: 0.0
+    shipment_count: 1
+    destinations: [agv1]
+    products:
+      part_0:
+        type: pulley_part_red
+        pose:
+          xyz: [0.12, 0.2, 0]
+          rpy: ['pi', 0, 0]
+      part_1:
+        type: gasket_part_green
+        pose:
+          xyz: [0.0, 0.0, 0]
+          rpy: [0, 0, '-pi/4']
+      part_2:
+        type: gasket_part_blue
+        pose:
+          xyz: [-0.15, 0.2, 0]
+          rpy: [0, 0, '-pi/4']
+      part_3:
+        type: disk_part_green
+        pose:
+          xyz: [0.15, -0.2, 0]
+          rpy: [0, 0, 0]
 #      part_4:
 #        type: disk_part_green
 #        pose:
@@ -70,8 +70,8 @@ orders:
 #          xyz: [ 0.15, 0.2, 0 ]
 #          rpy: [ 0, 0, '-pi/4' ]
   order_1:
-    announcement_condition: unwanted_products
-    announcement_condition_value: 1
+    announcement_condition: time
+    announcement_condition_value: 0.0
     shipment_count: 1
     destinations: [agv2]
     products:
