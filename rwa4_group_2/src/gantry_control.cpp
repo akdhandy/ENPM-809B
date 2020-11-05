@@ -101,8 +101,8 @@ void GantryControl::init() {
     agv2b_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    agv2c_.gantry = {0.6, 6.9, PI};
-    agv2c_.left_arm = {-0.1, -0.35, 0.85, -0.55, 1.44, 0};
+    agv2c_.gantry = {0.55, 6.9, PI};
+    agv2c_.left_arm = {-0.1, -0.35, 0.97, -0.63, 1.44, 0};
     agv2c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff

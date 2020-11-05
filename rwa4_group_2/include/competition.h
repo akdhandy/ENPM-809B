@@ -44,7 +44,9 @@ public:
     void competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr & msg);
     void logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id);
     void quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg);
+    void quality_sensor_status_callback2(const nist_gear::LogicalCameraImage::ConstPtr &msg);
     part quality_sensor_status();
+    part quality_sensor_status1();
     void order_callback(const nist_gear::Order::ConstPtr & msg);
     void print_order_callback();
     std::array<std::array<modelparam, 36>, 17> getter_logicam_callback();
@@ -68,7 +70,7 @@ private:
     ros::Subscriber competition_state_subscriber_;
     ros::Subscriber competition_clock_subscriber_;
     ros::Subscriber orders_subscriber_;
-    ros::Subscriber fp_subscriber_;
+    ros::Subscriber fp_subscriber_,fp_subscriber1_;
 
 
     // to collect statistics

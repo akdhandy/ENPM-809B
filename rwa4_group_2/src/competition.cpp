@@ -6,7 +6,7 @@
 
 std::array<std::array<modelparam, 36>, 17> logical_cam;
 std::array<std::array<std::array<part, 10>, 5>, 5> order_details;
-part faulty_part_agv2;
+part faulty_part_agv2, faulty_part_agv1;
 
 Competition::Competition(ros::NodeHandle &node): current_score_(0)
 {
@@ -34,7 +34,10 @@ void Competition::init() {
             "/ariac/orders", 10, &Competition::order_callback, this);
 
     fp_subscriber_ = node_.subscribe(
-            "/ariac/quality_control_sensor_1", 10, &Competition::quality_sensor_status_callback, this);
+            "/ariac/quality_control_sensor_1", 10, &Competition::quality_sensor_status_callback, this);     //agv2
+
+    fp_subscriber1_ = node_.subscribe(
+            "/ariac/quality_control_sensor_2", 10, &Competition::quality_sensor_status_callback2, this);    //agv1
 
     startCompetition();
 
@@ -44,6 +47,10 @@ void Competition::init() {
 
 part Competition::quality_sensor_status(){
     return faulty_part_agv2;
+}
+
+part Competition::quality_sensor_status1(){
+    return faulty_part_agv1;
 }
 
 
@@ -93,6 +100,17 @@ void Competition::quality_sensor_status_callback(const nist_gear::LogicalCameraI
     }
     else
         faulty_part_agv2.faulty = false;
+}
+
+void Competition::quality_sensor_status_callback2(const nist_gear::LogicalCameraImage::ConstPtr &msg)
+{
+    if (msg->models.size() > 0)
+    {
+        faulty_part_agv1.faulty = true;
+        faulty_part_agv1.pose = msg->models[0].pose;
+    }
+    else
+        faulty_part_agv1.faulty = false;
 }
 
 /// Called when a new message is received.
