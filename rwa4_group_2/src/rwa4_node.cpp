@@ -114,7 +114,7 @@ int main(int argc, char ** argv) {
     logicam = comp.getter_logicam_callback();
     order_call = comp.getter_part_callback();
     or_details[0] = order_call[0];
-    int on_table=0, new_order=0;
+    int on_table_1=0, on_table_2=0, new_order=0, index=0;
 
     for (int i=comp.received_orders_.size()-1; i >=0 ; i--)
     {
@@ -210,17 +210,35 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
                                 ROS_INFO_STREAM("\n Target pose: "<<target_pose);
-                                auto cam = logicam[10][on_table].pose;
+                                auto cam = logicam2[10][on_table_1].pose;
                                 if (or_details[i][j][k].agv_id=="agv1")
                                 {
-                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][on_table].pose);
-                                    cam = logicam2[10][on_table].pose;
+                                    for (auto ill=0; ill<=on_table_1; ill++)
+                                    {
+                                        if (logicam2[10][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                        {
+                                            ROS_INFO_STREAM("\n Printing ILL value: "<<ill<<"\n Also printing type = "<<logicam2[10][ill].type<<"\nAlso, shipment type"<<comp.received_orders_[i].shipments[j].products[k].type);
+                                            index=ill;
+                                            break;
+                                        }
+                                    }
+                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][index].pose);
+                                    cam = logicam2[10][index].pose;
                                     faulty_part = comp.quality_sensor_status1();
                                 }
                                 else if (or_details[i][j][k].agv_id=="agv2")
                                 {
-                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table].pose);
-                                    cam = logicam2[11][on_table].pose;
+                                    for (auto ill=0; ill<=on_table_2; ill++)
+                                    {
+                                        if (logicam2[11][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                        {
+                                            ROS_INFO_STREAM("\n Printing ILL value: "<<ill<<"\n Also printing type = "<<logicam2[11][ill].type<<"\nAlso, shipment type"<<comp.received_orders_[i].shipments[j].products[k].type);
+                                            index=ill;
+                                            break;
+                                        }
+                                    }
+                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table_2].pose);
+                                    cam = logicam2[11][index].pose;
                                     faulty_part = comp.quality_sensor_status();
                                 }
                                 ros::Duration(0.2).sleep();
@@ -272,6 +290,7 @@ int main(int argc, char ** argv) {
                                         gantry.goToPresetLocation(gantry.agv2_);
                                         gantry.placePart(or_details[i][j][k], "agv2");
                                         ROS_INFO_STREAM("\n Placed!!!");
+                                        on_table_2++;
                                     }
                                     else if (or_details[i][j][k].agv_id=="agv1")
                                     {
@@ -282,11 +301,16 @@ int main(int argc, char ** argv) {
                                         gantry.goToPresetLocation(gantry.agv1_);
                                         gantry.placePart(or_details[i][j][k], "agv1");
                                         ROS_INFO_STREAM("\n Placed!!!");
+                                        on_table_1++;
                                     }
-                                    on_table++;
                                 }
                                 else
-                                    on_table++;
+                                {
+                                    if (or_details[i][j][k].agv_id=="agv2")
+                                        on_table_2++;
+                                    else if (or_details[i][j][k].agv_id=="agv1")
+                                        on_table_1++;
+                                }
 
                                 auto state = gantry.getGripperState("left_arm");
                                 if (state.attached)
@@ -304,6 +328,17 @@ int main(int argc, char ** argv) {
                                 if (k==comp.received_orders_[i].shipments[j].products.size()-1)
                                 {
                                     completed[i]=1;
+                                    if (or_details[i][j][k].agv_id=="agv1")
+                                    {
+                                        ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
+                                        submitOrder(1, or_details_new[i][j][k].shipment);
+                                    }
+                                    else if (or_details[i][j][k].agv_id=="agv2")
+                                    {
+                                        ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
+                                        submitOrder(2, or_details_new[i][j][k].shipment);
+                                    }
+
                                 }
                                 break;
                             }
@@ -331,7 +366,6 @@ int main(int argc, char ** argv) {
                                 }
                                 else if (or_details[i][j][k].agv_id=="agv2")
                                 {
-                                    target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
                                     gantry.goToPresetLocation(gantry.agv2_);
                                     ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
                                     gantry.placePart(or_details[i][j][k], "agv2");
@@ -344,17 +378,35 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
                                 ROS_INFO_STREAM("\n Target pose: "<<target_pose);
-                                auto cam = logicam[10][on_table].pose;
+                                auto cam = logicam2[10][on_table_1].pose;
                                 if (or_details[i][j][k].agv_id=="agv1")
                                 {
-                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][on_table].pose);
-                                    cam = logicam2[10][on_table].pose;
+                                    for (auto ill=0; ill<=on_table_1; ill++)
+                                    {
+                                        if (logicam2[10][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                        {
+                                            ROS_INFO_STREAM("\n Printing ILL value: "<<ill<<"\n Also printing type = "<<logicam2[10][ill].type<<"\nAlso, shipment type"<<comp.received_orders_[i].shipments[j].products[k].type);
+                                            index=ill;
+                                            break;
+                                        }
+                                    }
+                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][index].pose);
+                                    cam = logicam2[10][index].pose;
                                     faulty_part = comp.quality_sensor_status1();
                                 }
                                 else if (or_details[i][j][k].agv_id=="agv2")
                                 {
-                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table].pose);
-                                    cam = logicam2[11][on_table].pose;
+                                    for (auto ill=0; ill<=on_table_2; ill++)
+                                    {
+                                        if (logicam2[11][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                        {
+                                            ROS_INFO_STREAM("\n Printing ILL value: "<<ill<<"\n Also printing type = "<<logicam2[11][ill].type<<"\nAlso, shipment type"<<comp.received_orders_[i].shipments[j].products[k].type);
+                                            index=ill;
+                                            break;
+                                        }
+                                    }
+                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table_2].pose);
+                                    cam = logicam2[11][index].pose;
                                     faulty_part = comp.quality_sensor_status();
                                 }
                                 ros::Duration(0.2).sleep();
@@ -406,21 +458,27 @@ int main(int argc, char ** argv) {
                                         gantry.goToPresetLocation(gantry.agv2_);
                                         gantry.placePart(or_details[i][j][k], "agv2");
                                         ROS_INFO_STREAM("\n Placed!!!");
+                                        on_table_2++;
                                     }
                                     else if (or_details[i][j][k].agv_id=="agv1")
                                     {
-                                        gantry.goToPresetLocation(gantry.agv1a_);
+                                        gantry.goToPresetLocation(gantry.agv1_);
                                         ROS_INFO_STREAM("\n Trying to pick up...");
                                         gantry.pickPart(faulty_pose);
                                         ROS_INFO_STREAM("\nPart Picked!");
                                         gantry.goToPresetLocation(gantry.agv1_);
                                         gantry.placePart(or_details[i][j][k], "agv1");
                                         ROS_INFO_STREAM("\n Placed!!!");
+                                        on_table_1++;
                                     }
-                                    on_table++;
                                 }
                                 else
-                                    on_table++;
+                                {
+                                    if (or_details[i][j][k].agv_id=="agv2")
+                                        on_table_2++;
+                                    else if (or_details[i][j][k].agv_id=="agv1")
+                                        on_table_1++;
+                                }
 
                                 auto state = gantry.getGripperState("left_arm");
                                 if (state.attached)
@@ -438,6 +496,17 @@ int main(int argc, char ** argv) {
                                 if (k==comp.received_orders_[i].shipments[j].products.size()-1)
                                 {
                                     completed[i]=1;
+                                    if (or_details[i][j][k].agv_id=="agv1")
+                                    {
+                                        ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
+                                        submitOrder(1, or_details_new[i][j][k].shipment);
+                                    }
+                                    else if (or_details[i][j][k].agv_id=="agv2")
+                                    {
+                                        ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
+                                        submitOrder(2, or_details_new[i][j][k].shipment);
+                                    }
+
                                 }
                                 break;
                             }
@@ -451,6 +520,7 @@ int main(int argc, char ** argv) {
                                 my_part.pose =logicam[x][y].pose;
                                 auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
                                 gantry.pickPart(my_part);
+                                ros::Duration(0.2).sleep();
                                 gantry.goToPresetLocation(gantry.shelf8c_);
                                 gantry.goToPresetLocation(gantry.shelf8b_);
                                 gantry.goToPresetLocation(gantry.shelf8a_);
@@ -476,49 +546,107 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
                                 ROS_INFO_STREAM("\n order details: "<<or_details[i][j][k].pose);
                                 ROS_INFO_STREAM("\n Target pose: "<<target_pose);
+                                auto cam = logicam2[10][on_table_1].pose;
+                                if (or_details[i][j][k].agv_id=="agv1")
+                                {
+                                    for (auto ill=0; ill<=on_table_1; ill++)
+                                    {
+                                        if (logicam2[10][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                        {
+                                            ROS_INFO_STREAM("\n Printing ILL value: "<<ill<<"\n Also printing type = "<<logicam2[10][ill].type<<"\nAlso, shipment type"<<comp.received_orders_[i].shipments[j].products[k].type);
+                                            index=ill;
+                                            break;
+                                        }
+                                    }
+                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][index].pose);
+                                    cam = logicam2[10][index].pose;
+                                    faulty_part = comp.quality_sensor_status1();
+                                }
+                                else if (or_details[i][j][k].agv_id=="agv2")
+                                {
+                                    for (auto ill=0; ill<=on_table_2; ill++)
+                                    {
+                                        if (logicam2[11][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                        {
+                                            ROS_INFO_STREAM("\n Printing ILL value: "<<ill<<"\n Also printing type = "<<logicam2[11][ill].type<<"\nAlso, shipment type"<<comp.received_orders_[i].shipments[j].products[k].type);
+                                            index=ill;
+                                            break;
+                                        }
+                                    }
+                                    ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][on_table_2].pose);
+                                    cam = logicam2[11][index].pose;
+                                    faulty_part = comp.quality_sensor_status();
+                                }
                                 ros::Duration(0.2).sleep();
-                                faulty_part = comp.quality_sensor_status();
-                                ROS_INFO_STREAM("\n X offset: "<<abs(logicam2[10][on_table].pose.position.x-target_pose.position.x));
-                                ROS_INFO_STREAM("\n Y offset: "<<abs(logicam2[10][on_table].pose.position.y-target_pose.position.y));
+                                ROS_INFO_STREAM("\n X offset: "<<abs(cam.position.x-target_pose.position.x));
+                                ROS_INFO_STREAM("\n Y offset: "<<abs(cam.position.y-target_pose.position.y));
                                 if(faulty_part.faulty == true)
                                 {
                                     ROS_INFO_STREAM("Faulty Part detected!!!");
                                     faulty_part.type = my_part.type;
                                     ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
-                                    ROS_INFO_STREAM("\n Pose at faulty part "<<logicam2[10][on_table].pose);
-                                    ROS_INFO_STREAM("\n logicam0 "<<logicam2[10][0].pose);
-                                    faulty_part.pose = logicam2[10][on_table].pose;
+                                    ROS_INFO_STREAM("\n Pose at faulty part "<<cam);
+                                    faulty_part.pose = cam;
                                     faulty_part.pose.position.z -= 0.19;
                                     ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
-                                    gantry.goToPresetLocation(gantry.agv2_);
-                                    gantry.pickPart(faulty_part);
-                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    if (or_details[i][j][k].agv_id=="agv2")
+                                    {
+                                        gantry.goToPresetLocation(gantry.agv2_);
+                                        gantry.pickPart(faulty_part);
+                                        gantry.goToPresetLocation(gantry.agv2_);
+
+                                    }
+                                    else if (or_details[i][j][k].agv_id=="agv1")
+                                    {
+                                        gantry.goToPresetLocation(gantry.agv1_);
+                                        gantry.pickPart(faulty_part);
+                                        gantry.goToPresetLocation(gantry.agv1_);
+                                    }
                                     gantry.goToPresetLocation(gantry.agv_faulty);
                                     gantry.deactivateGripper("left_arm");
                                     continue;
                                 }
-                                else if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03 || abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                else if (abs(cam.position.x-target_pose.position.x)>0.03 || abs(cam.position.y-target_pose.position.y)>0.03)
                                 {
-                                    if (abs(logicam2[10][on_table].pose.position.x-target_pose.position.x)>0.03)
+                                    if (abs(cam.position.x-target_pose.position.x)>0.03)
                                         ROS_INFO_STREAM("\n X offset detected");
-                                    if (abs(logicam2[10][on_table].pose.position.y-target_pose.position.y)>0.03)
+                                    if (abs(cam.position.y-target_pose.position.y)>0.03)
                                         ROS_INFO_STREAM("\n Y offset detected");
                                     ROS_INFO_STREAM("\n Faulty Pose detected for part "<<logicam[x][y].type);
                                     faulty_pose.type = my_part.type;
                                     ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
-                                    ROS_INFO_STREAM("\n Faulty pose "<<logicam2[10][on_table].pose);
-                                    faulty_pose.pose = logicam2[10][on_table].pose;
-                                    gantry.goToPresetLocation(gantry.agv1a_);
-                                    ROS_INFO_STREAM("\n Trying to pick up...");
-                                    gantry.pickPart(faulty_pose);
-                                    ROS_INFO_STREAM("\nPart Picked!");
-                                    gantry.goToPresetLocation(gantry.agv1_);
-                                    gantry.placePart(or_details[i][j][k], "agv1");
-                                    ROS_INFO_STREAM("\n Placed!!!");
-                                    on_table++;
+                                    ROS_INFO_STREAM("\n Faulty pose "<<cam);
+                                    faulty_pose.pose = cam;
+                                    if (or_details[i][j][k].agv_id=="agv2")
+                                    {
+                                        gantry.goToPresetLocation(gantry.agv2c_);
+                                        ROS_INFO_STREAM("\n Trying to pick up...");
+                                        gantry.pickPart(faulty_pose);
+                                        ROS_INFO_STREAM("\nPart Picked!");
+                                        gantry.goToPresetLocation(gantry.agv2_);
+                                        gantry.placePart(or_details[i][j][k], "agv2");
+                                        ROS_INFO_STREAM("\n Placed!!!");
+                                        on_table_2++;
+                                    }
+                                    else if (or_details[i][j][k].agv_id=="agv1")
+                                    {
+                                        gantry.goToPresetLocation(gantry.agv1a_);
+                                        ROS_INFO_STREAM("\n Trying to pick up...");
+                                        gantry.pickPart(faulty_pose);
+                                        ROS_INFO_STREAM("\nPart Picked!");
+                                        gantry.goToPresetLocation(gantry.agv1_);
+                                        gantry.placePart(or_details[i][j][k], "agv1");
+                                        ROS_INFO_STREAM("\n Placed!!!");
+                                        on_table_1++;
+                                    }
                                 }
                                 else
-                                    on_table++;
+                                {
+                                    if (or_details[i][j][k].agv_id=="agv2")
+                                        on_table_2++;
+                                    else if (or_details[i][j][k].agv_id=="agv1")
+                                        on_table_1++;
+                                }
                                 auto state = gantry.getGripperState("left_arm");
                                 if (state.attached)
                                     gantry.goToPresetLocation(gantry.start_);
@@ -527,6 +655,17 @@ int main(int argc, char ** argv) {
                                 if (k==comp.received_orders_[i].shipments[j].products.size()-1)
                                 {
                                     completed[i]=1;
+                                    if (or_details[i][j][k].agv_id=="agv1")
+                                    {
+                                        ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
+                                        submitOrder(1, or_details_new[i][j][k].shipment);
+                                    }
+                                    else if (or_details[i][j][k].agv_id=="agv2")
+                                    {
+                                        ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
+                                        submitOrder(2, or_details_new[i][j][k].shipment);
+                                    }
+
                                 }
                                 or_details_new = comp.getter_part_callback();
                                 ros::Duration(0.2).sleep();
@@ -551,7 +690,7 @@ int main(int argc, char ** argv) {
         }
     }
     gantry.goToPresetLocation(gantry.start_);
-    submitOrder(1, "order_0_shipment_0");
+
     comp.endCompetition();
     spinner.stop();
     ros::shutdown();
