@@ -49,8 +49,8 @@ void GantryControl::init() {
     bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin13_.gantry = {3.1, 1.68, 3.77};
-    bin13_.left_arm = {0.0, -0.63, 1.26, -0.65, PI/2, 0};
+    bin13_.gantry = {2.2, 2.25, 0};
+    bin13_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8a_.gantry = {0, -1.8, 0};
@@ -77,15 +77,15 @@ void GantryControl::init() {
     shelf11c_.left_arm = {-1.5, -PI/4, PI/2, -PI/4, 0.08, 0};
     shelf11c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    belta_.gantry = {0.15, -0.25, PI/2};
+    belta_.gantry = {0.15, -2.30, PI/2};
     belta_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
     belta_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    beltb_.gantry = {0.15, -0.25, PI/2};
-    beltb_.left_arm = {0.0, -PI/4, 1.34, -0.55, PI/2, 0};
+    beltb_.gantry = {0.15, -2.30, PI/2};
+    beltb_.left_arm = {0.0, -PI/4, 1.30, -0.51, PI/2, 0};
     beltb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    beltc_.gantry = {0.15, -0.25, 0};
+    beltc_.gantry = {0.15, -2.30, 0};
     beltc_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
     beltc_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -117,6 +117,13 @@ void GantryControl::init() {
     agv1a_.left_arm = {0.0, -PI/4, 0.94, -0.03, PI/2, 0};
     agv1a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv1flipa_.gantry = {-0.6, -6.5, 0};
+    agv1flipa_.left_arm = {0.77, -0.20, 1.3, 0.49, 1.59, 0};
+    agv1flipa_.right_arm = {-PI/4, -3.2, -1.5, -0.02, PI/2, -PI/4};
+
+    agv1flipb_.gantry = {0.6, -6.5, -0.25};
+    agv1flipb_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv1flipb_.right_arm = {-0.2, -2.7, -1.3, 0.9, 1.7, 0};
 
     //--Raw pointers are frequently used to refer to the planning group for improved performance.
     //--To start, we will create a pointer that references the current robot’s state.

@@ -75,7 +75,7 @@ class GantryControl {
     shelf11 shelf11a_, shelf11b_, shelf11c_;
     agv2 agv2_, agv2a_, agv2b_, agv2c_;
     agv2 agv_faulty;
-    agv1 agv1_, agv1a_, agv1b_;
+    agv1 agv1_, agv1a_, agv1b_, agv1flipa_, agv1flipb_;
 
   private:
     std::vector<double> joint_group_positions_;
