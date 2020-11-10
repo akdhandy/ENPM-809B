@@ -78,6 +78,7 @@ bool submitOrder(int AVG_id, std::string shipment_type){
     return srv.response.success;
 }
 
+// test--nishanth
 int main(int argc, char ** argv) {
     ros::init(argc, argv, "rwa3_node");
     ros::NodeHandle node;
