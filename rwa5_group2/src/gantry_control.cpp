@@ -59,22 +59,22 @@ void GantryControl::init() {
     shelf8a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8b_.gantry = {-11.28, -5.14, 1.57};
-    shelf8b_.left_arm = {-1.7, -PI/4, 1.6, -0.5, -0.1, 0};
+    shelf8b_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8c_.gantry = {-11.28, -3.48, 1.57};
-    shelf8c_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
+    shelf8c_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8d_.gantry = {-11.28, -1.66, 0};
-    shelf8d_.left_arm = {-1.7, -PI/4, 1.6, -0.63, -0.1, 0};
+    shelf8d_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8d_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8e_.gantry = {-13.98, -1.80, 0};
     shelf8e_.left_arm = {-1.5, -PI/4, PI/2, -0.78, 0.06, 0};
     shelf8e_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8f_.gantry = {-14.21, 0, -1.24};
+    shelf8f_.gantry = {-14.21, -1.24, 0};
     shelf8f_.left_arm = {-1.5, -PI/4, PI/2, -0.78, 0.06, 0};
     shelf8f_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
