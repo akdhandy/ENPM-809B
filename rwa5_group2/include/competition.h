@@ -58,10 +58,15 @@ public:
     std::string getCompetitionState();
     stats getStats(std::string function);
     std::vector<nist_gear::Order> received_orders_;
+    geometry_msgs::TransformStamped shelf_pose_callback(std::string frame_name);
+    double shelf_distance(std::string frame_id_1, std::string frame_id_2);
+    std::vector<std::string>  check_gaps();
+//    geometry_msgs::TransformStamped shelf_pose();
 
 
 private:
     ros::NodeHandle node_;
+    geometry_msgs::TransformStamped TfStamped; // pose_store
 
     std::string competition_state_;
     double current_score_;

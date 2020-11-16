@@ -97,6 +97,68 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
     }
 }
 
+/*
+ * Distance between sensors---Nishanth
+ *
+ */
+geometry_msgs::TransformStamped Competition::shelf_pose_callback(std::string frame_name)
+{
+    tf2_ros::Buffer tfBuffer;
+    tf2_ros::TransformListener tfListener(tfBuffer);
+    ros::Duration timeout(5.0);
+
+    try {
+        TfStamped = tfBuffer.lookupTransform("world", frame_name,
+                                             ros::Time(0), timeout);
+    }
+    catch (tf2::TransformException &ex) {
+        ROS_WARN("%s", ex.what());
+        ros::Duration(1.0).sleep();
+    }
+    ROS_INFO_STREAM("shelf_poses" << TfStamped.transform.translation.x);
+    return TfStamped;
+//    }
+}
+
+double Competition::shelf_distance(std::string frame_id_1, std::string frame_id_2) {
+
+    geometry_msgs::TransformStamped s1,s2;
+    s1 = shelf_pose_callback(frame_id_1);
+    s2 = shelf_pose_callback(frame_id_2);
+
+    double distance =  double(abs(abs(s1.transform.translation.x)-abs(s2.transform.translation.x)));
+    ROS_INFO_STREAM("Distance between shelves = " << distance);
+
+    return distance;
+}
+
+std::vector<std::string>  Competition::check_gaps()
+{
+    std::vector<double> gapThreshold = {6.299163,6.299173};
+    std::vector<std::string> gap_id;
+    int shelf_ind = 3;
+
+    while(1) {
+        for (shelf_ind; shelf_ind < (shelf_ind + 3) - 1; shelf_ind++) {
+            std::string frame_id_1 = "shelf" + std::to_string(shelf_ind) + "_frame";
+            std::string frame_id_2 = "shelf" + std::to_string(shelf_ind + 1) + "_frame";
+            double shelf_dis = shelf_distance(frame_id_1, frame_id_2);
+
+            if (shelf_dis >= gapThreshold[0] && shelf_dis <= gapThreshold[1]) {
+                gap_id.push_back("Gap between shelf" + std::to_string(shelf_ind) + " and shelf" + std::to_string(shelf_ind + 1));
+            }
+        }
+        shelf_ind += 3;
+        if (shelf_ind > 9)
+            break;
+    }
+
+    for(auto i: gap_id)
+        ROS_INFO_STREAM("Gap_id=" << i);
+
+    return gap_id;
+}
+
 void Competition::quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg)
 {
     if (msg->models.size() > 0)

@@ -95,7 +95,6 @@ void GantryControl::init() {
     shelf8j_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8j_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-
     shelf8k_.gantry = {-15.00, 1.5, 3.14};
     shelf8k_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.20, 0};
     shelf8k_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -224,6 +223,7 @@ void GantryControl::init() {
     // Move robot to init position
     ROS_INFO("[GantryControl::init] Init position ready)...");
 }
+
 
 
 stats GantryControl::getStats(std::string function) {

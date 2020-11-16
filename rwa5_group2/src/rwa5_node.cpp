@@ -78,7 +78,29 @@ bool submitOrder(int AVG_id, std::string shipment_type){
     return srv.response.success;
 }
 
-// test--nishanth
+void logicam_presets(std::string logical_camera_4, std::string logical_camera_5, GantryControl& gantry)
+{
+    if (logical_camera_4 == "gasket_part_green")
+    {
+        gantry.goToPresetLocation(gantry.shelf8a_);
+        gantry.goToPresetLocation(gantry.shelf8b_);
+        gantry.goToPresetLocation(gantry.shelf8c_);
+        gantry.goToPresetLocation(gantry.shelf8d_);
+        gantry.goToPresetLocation(gantry.shelf8e_);
+        gantry.goToPresetLocation(gantry.shelf8f_);
+    }
+
+    else if (logical_camera_5 == "pulley_part_blue")
+    {
+        gantry.goToPresetLocation(gantry.shelf8g_);
+        gantry.goToPresetLocation(gantry.shelf8h_);
+        gantry.goToPresetLocation(gantry.shelf8i_);
+        gantry.goToPresetLocation(gantry.shelf8j_);
+        gantry.goToPresetLocation(gantry.shelf8k_);
+        gantry.goToPresetLocation(gantry.shelf8l_);
+    }
+}
+
 int main(int argc, char ** argv) {
     ros::init(argc, argv, "rwa3_node");
     ros::NodeHandle node;
@@ -100,6 +122,8 @@ int main(int argc, char ** argv) {
     comp.getClock();
 
     ros::Subscriber logical_camera_subscriber_[Max_number_of_cameras];
+
+
     for (int x=0; x<Max_number_of_cameras; x++)
     {
         otopic.str("");
@@ -182,18 +206,26 @@ int main(int argc, char ** argv) {
                             ROS_INFO_STREAM("\n\nlogical camera: "<<x);
                             gantry.goToPresetLocation(gantry.start_);
 
-                            if (comp.received_orders_[i].shipments[j].products[k].type == "disk_part_green")
+                            if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_green")
                             {
-                                gantry.goToPresetLocation(gantry.bin13_);
+                                gantry.goToPresetLocation(gantry.shelf8a_);
+                                gantry.goToPresetLocation(gantry.shelf8b_);
+                                gantry.goToPresetLocation(gantry.shelf8c_);
+                                gantry.goToPresetLocation(gantry.shelf8d_);
+                                gantry.goToPresetLocation(gantry.shelf8e_);
+                                gantry.goToPresetLocation(gantry.shelf8f_);
                                 part my_part;
                                 my_part.type = logicam[x][y].type;
                                 my_part.pose =logicam[x][y].pose;
                                 auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
                                 gantry.pickPart(my_part);
                                 ros::Duration(0.2).sleep();
-                                gantry.goToPresetLocation(gantry.bin13_);
-                                ros::Duration(0.2).sleep();
-                                gantry.goToPresetLocation(gantry.start_);
+                                gantry.goToPresetLocation(gantry.shelf8f_);
+                                gantry.goToPresetLocation(gantry.shelf8e_);
+                                gantry.goToPresetLocation(gantry.shelf8d_);
+                                gantry.goToPresetLocation(gantry.shelf8c_);
+                                gantry.goToPresetLocation(gantry.shelf8b_);
+                                gantry.goToPresetLocation(gantry.shelf8a_);
                                 if (or_details[i][j][k].agv_id=="agv1")
                                 {
                                     gantry.goToPresetLocation(gantry.agv1_);
@@ -516,17 +548,23 @@ int main(int argc, char ** argv) {
                                 }
                                 break;
                             }
-                            else if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_green")
+                            else if (comp.received_orders_[i].shipments[j].products[k].type == "pulley_part_red")
                             {
                                 gantry.goToPresetLocation(gantry.shelf8a_);
                                 gantry.goToPresetLocation(gantry.shelf8b_);
                                 gantry.goToPresetLocation(gantry.shelf8c_);
+                                gantry.goToPresetLocation(gantry.shelf8d_);
+                                gantry.goToPresetLocation(gantry.shelf8e_);
+                                gantry.goToPresetLocation(gantry.shelf8f_);
                                 part my_part;
                                 my_part.type = logicam[x][y].type;
                                 my_part.pose =logicam[x][y].pose;
                                 auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
                                 gantry.pickPart(my_part);
                                 ros::Duration(0.2).sleep();
+                                gantry.goToPresetLocation(gantry.shelf8f_);
+                                gantry.goToPresetLocation(gantry.shelf8e_);
+                                gantry.goToPresetLocation(gantry.shelf8d_);
                                 gantry.goToPresetLocation(gantry.shelf8c_);
                                 gantry.goToPresetLocation(gantry.shelf8b_);
                                 gantry.goToPresetLocation(gantry.shelf8a_);
@@ -893,6 +931,7 @@ int main(int argc, char ** argv) {
                         }
                     }
                 }
+                comp.check_gaps();
             }
         }
     }
