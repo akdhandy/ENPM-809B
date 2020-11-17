@@ -57,8 +57,55 @@ part Competition::quality_sensor_status1(){
 void Competition::breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr &msg, int id)
 {
     beam_detect[id] = msg->object_detected;
+    if (beam_detect[id]==true)
+    {
+        beam_seq[id] = msg->header.seq;
+//        ROS_INFO_STREAM("\nBreakbeam sensor "<<id<<" trigerred!");
+        breakbeam_sensing();
+    }
 }
 
+void Competition::breakbeam_sensing()
+{
+    for (auto i=0; i<4; i++)
+    {
+        if (beam_detect[(5*i)+1]==true)
+        {
+            do {
+                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+1);
+            }while(beam_detect[(5*i)+1]==true);
+            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+1]);
+        }
+        if (beam_detect[(5*i)+2]==true)
+        {
+            do {
+                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+2);
+            }while(beam_detect[(5*i)+2]==true);
+            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+2]);
+        }
+        if (beam_detect[(5*i)+3]==true)
+        {
+            do {
+                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+3);
+            }while(beam_detect[(5*i)+3]==true);
+            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+3]);
+        }
+        if (beam_detect[(5*i)+4]==true)
+        {
+            do {
+                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+4);
+            }while(beam_detect[(5*i)+4]==true);
+            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+4]);
+        }
+        if (beam_detect[(5*i)+5]==true)
+        {
+            do {
+                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+5);
+            }while(beam_detect[(5*i)+5]==true);
+            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+5]);
+        }
+    }
+}
 
 void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id)
 {

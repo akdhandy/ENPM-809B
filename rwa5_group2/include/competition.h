@@ -48,6 +48,7 @@ public:
     void quality_sensor_status_callback2(const nist_gear::LogicalCameraImage::ConstPtr &msg);
     part quality_sensor_status();
     part quality_sensor_status1();
+    void breakbeam_sensing();
     void order_callback(const nist_gear::Order::ConstPtr & msg);
     void print_order_callback();
     std::array<std::array<modelparam, 36>, 17> getter_logicam_callback();
@@ -55,6 +56,8 @@ public:
     double getClock();
     double getStartTime();
     std::array<bool, 21> beam_detect;
+    std::array<int, 21> beam_flag = {0};
+    std::array<int, 21> beam_seq = {0};
     std::string getCompetitionState();
     stats getStats(std::string function);
     std::vector<nist_gear::Order> received_orders_;
