@@ -134,12 +134,12 @@ double Competition::shelf_distance(std::string frame_id_1, std::string frame_id_
 
 std::vector<std::string>  Competition::check_gaps()
 {
-    std::vector<double> gapThreshold = {6.299163,6.299173};
+    std::vector<double> gapThreshold = {4.12393,6.299173};
     std::vector<std::string> gap_id;
     int shelf_ind = 3;
 
     while(1) {
-        for (shelf_ind; shelf_ind < (shelf_ind + 3) - 1; shelf_ind++) {
+        for (shelf_ind; shelf_ind <= 11; shelf_ind++) {
             std::string frame_id_1 = "shelf" + std::to_string(shelf_ind) + "_frame";
             std::string frame_id_2 = "shelf" + std::to_string(shelf_ind + 1) + "_frame";
             double shelf_dis = shelf_distance(frame_id_1, frame_id_2);
@@ -148,8 +148,8 @@ std::vector<std::string>  Competition::check_gaps()
                 gap_id.push_back("Gap between shelf" + std::to_string(shelf_ind) + " and shelf" + std::to_string(shelf_ind + 1));
             }
         }
-        shelf_ind += 3;
-        if (shelf_ind > 9)
+//shelf_ind += 3;
+        //if (shelf_ind > 11)
             break;
     }
 

@@ -70,9 +70,8 @@ class GantryControl {
     bin3 bin3_;
     bin13 bin13_;
     belt belta_, beltb_, beltc_;
-    shelf8 shelf8a_;
-    shelf8 shelf8b_,shelf8h_,shelf8i_,shelf8j_,shelf8k_,shelf8l_;
-    shelf8 shelf8c_, shelf8d_,shelf8e_,shelf8f_,shelf8g_;
+    lc4r lc4ra_,lc4rb_,lc4rc_,lc4rd_,lc4re_,lc4rf_;
+    lc5l lc5la_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_;
     shelf11 shelf11a_, shelf11b_, shelf11c_;
     agv2 agv2_, agv2a_, agv2b_, agv2c_;
     agv2 agv_faulty;
