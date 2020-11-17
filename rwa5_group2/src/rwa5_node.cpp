@@ -78,28 +78,28 @@ bool submitOrder(int AVG_id, std::string shipment_type){
     return srv.response.success;
 }
 
-void logicam_presets(std::string logical_camera_4, std::string logical_camera_5, GantryControl& gantry)
-{
-    if (logical_camera_4 == "gasket_part_green")
-    {
-        gantry.goToPresetLocation(gantry.lc5la_);
-        gantry.goToPresetLocation(gantry.lc5lb_);
-        gantry.goToPresetLocation(gantry.lc5lc_);
-        gantry.goToPresetLocation(gantry.lc5ld_);
-        gantry.goToPresetLocation(gantry.lc5le_);
-        gantry.goToPresetLocation(gantry.lc5lf_);
-    }
-
-    else if (logical_camera_5 == "pulley_part_blue")
-    {
-        gantry.goToPresetLocation(gantry.lc4ra_);
-        gantry.goToPresetLocation(gantry.lc4rb_);
-        gantry.goToPresetLocation(gantry.lc4rc_);
-        gantry.goToPresetLocation(gantry.lc4rd_);
-        gantry.goToPresetLocation(gantry.lc4re_);
-        gantry.goToPresetLocation(gantry.lc4rf_);
-    }
-}
+//void logicam_presets(std::string logical_camera_4, std::string logical_camera_5, GantryControl& gantry)
+//{
+//    if (logical_camera_4 == "gasket_part_green")
+//    {
+//        gantry.goToPresetLocation(gantry.lc5la_);
+//        gantry.goToPresetLocation(gantry.lc5lb_);
+//        gantry.goToPresetLocation(gantry.lc5lc_);
+//        gantry.goToPresetLocation(gantry.lc5ld_);
+//        gantry.goToPresetLocation(gantry.lc5le_);
+//        gantry.goToPresetLocation(gantry.lc5lf_);
+//    }
+//
+//    else if (logical_camera_5 == "pulley_part_blue")
+//    {
+//        gantry.goToPresetLocation(gantry.lc4ra_);
+//        gantry.goToPresetLocation(gantry.lc4rb_);
+//        gantry.goToPresetLocation(gantry.lc4rc_);
+//        gantry.goToPresetLocation(gantry.lc4rd_);
+//        gantry.goToPresetLocation(gantry.lc4re_);
+////        gantry.goToPresetLocation(gantry.lc4rf_);
+//    }
+//}
 
 int main(int argc, char ** argv) {
     ros::init(argc, argv, "rwa5_node");
@@ -565,14 +565,15 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.lc4rc_);
                                 gantry.goToPresetLocation(gantry.lc4rd_);
                                 gantry.goToPresetLocation(gantry.lc4re_);
-                                gantry.goToPresetLocation(gantry.lc4rf_);
+//                                gantry.goToPresetLocation(gantry.lc4rf_);
                                 part my_part;
                                 my_part.type = logicam[x][y].type;
                                 my_part.pose =logicam[x][y].pose;
                                 auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
+                                ROS_INFO_STREAM("my_part.type is" << my_part.type);
                                 gantry.pickPart(my_part);
                                 ros::Duration(0.2).sleep();
-                                gantry.goToPresetLocation(gantry.lc4rf_);
+//                                gantry.goToPresetLocation(gantry.lc4rf_);
                                 gantry.goToPresetLocation(gantry.lc4re_);
                                 gantry.goToPresetLocation(gantry.lc4rd_);
                                 gantry.goToPresetLocation(gantry.lc4rc_);

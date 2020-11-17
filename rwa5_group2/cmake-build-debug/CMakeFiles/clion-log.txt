@@ -1,4 +1,4 @@
-/home/tgwv/Downloads/CLion-2020.2.4/clion-2020.2.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/tgwv/ariac_ws/src/rwa5_group2
+/opt/clion-2020.2.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/nishanth/ariac_ws/src/rwa5_group2
 -- The C compiler identification is GNU 7.5.0
 -- The CXX compiler identification is GNU 7.5.0
 -- Check for working C compiler: /usr/bin/cc
@@ -31,4 +31,4 @@ CMake Error at CMakeLists.txt:12 (find_package):
 
 
 -- Configuring incomplete, errors occurred!
-See also "/home/tgwv/ariac_ws/src/rwa5_group2/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/home/nishanth/ariac_ws/src/rwa5_group2/cmake-build-debug/CMakeFiles/CMakeOutput.log".
