@@ -42,7 +42,7 @@ public:
 
     void competition_state_callback(const std_msgs::String::ConstPtr & msg);
     void competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr & msg);
-    void breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr &msg);
+    void breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr &msg, int id);
     void logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id);
     void quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg);
     void quality_sensor_status_callback2(const nist_gear::LogicalCameraImage::ConstPtr &msg);
@@ -54,7 +54,7 @@ public:
     std::array<std::array<std::array<part, 10>, 5>, 5> getter_part_callback();
     double getClock();
     double getStartTime();
-    bool beam_detect;
+    std::array<bool, 21> beam_detect;
     std::string getCompetitionState();
     stats getStats(std::string function);
     std::vector<nist_gear::Order> received_orders_;
@@ -77,7 +77,7 @@ private:
     ros::Subscriber competition_state_subscriber_;
     ros::Subscriber competition_clock_subscriber_;
     ros::Subscriber orders_subscriber_;
-    ros::Subscriber fp_subscriber_,fp_subscriber1_,breakbeam_subscriber_;
+    ros::Subscriber fp_subscriber_,fp_subscriber1_;
 
 
     // to collect statistics

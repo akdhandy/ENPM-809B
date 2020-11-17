@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//test
+
 #include <algorithm>
 #include <vector>
 
@@ -102,14 +102,14 @@ void logicam_presets(std::string logical_camera_4, std::string logical_camera_5,
 }
 
 int main(int argc, char ** argv) {
-    ros::init(argc, argv, "rwa3_node");
+    ros::init(argc, argv, "rwa5_node");
     ros::NodeHandle node;
     ros::AsyncSpinner spinner(8);
     spinner.start();
 
     Competition comp(node);
     comp.init();
-    int Max_number_of_cameras = 17;
+    int Max_number_of_cameras = 17, Max_number_of_breakbeams = 21;
     std::ostringstream otopic;
     std::string topic;
     std::array<std::array<modelparam, 36>, 17> logicam, logicam2, logicam12;
@@ -131,6 +131,16 @@ int main(int argc, char ** argv) {
         otopic << "/ariac/logical_camera_" << (x);
         topic = otopic.str();
         logical_camera_subscriber_[x] = node.subscribe<nist_gear::LogicalCameraImage>(topic, 10, boost::bind(&Competition::logical_camera_callback, &comp, _1, x));
+    }
+
+    ros::Subscriber breakbream_sensor_subscriber_[Max_number_of_breakbeams];
+    for (int x=0; x<Max_number_of_breakbeams; x++)
+    {
+        otopic.str("");
+        otopic.clear();
+        otopic << "/ariac/breakbeam_" << (x);
+        topic = otopic.str();
+        breakbream_sensor_subscriber_[x] = node.subscribe<nist_gear::Proximity>(topic, 10, boost::bind(&Competition::breakbeam_sensor_callback, &comp, _1, x));
     }
 
     GantryControl gantry(node);
@@ -179,7 +189,7 @@ int main(int argc, char ** argv) {
                         do
                         {
                             ROS_INFO_STREAM("\nWaiting for beam to turn off");
-                        }while(comp.beam_detect==true);
+                        }while(comp.beam_detect[0]==true);
                         ROS_INFO_STREAM("\n Beam off. Trying to pick up!!");
                         gantry.goToPresetLocation(gantry.beltb_);
                         part belt_part;

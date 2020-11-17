@@ -39,7 +39,7 @@ void Competition::init() {
     fp_subscriber1_ = node_.subscribe(
             "/ariac/quality_control_sensor_2", 10, &Competition::quality_sensor_status_callback2, this);    //agv1
 
-    breakbeam_subscriber_ = node_.subscribe("/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_callback, this);
+//    breakbeam_subscriber_ = node_.subscribe("/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_callback, this);
     startCompetition();
 
   init_.total_time += ros::Time::now().toSec() - time_called;
@@ -54,9 +54,9 @@ part Competition::quality_sensor_status1(){
     return faulty_part_agv1;
 }
 
-void Competition::breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr &msg)
+void Competition::breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr &msg, int id)
 {
-    beam_detect = msg->object_detected;
+    beam_detect[id] = msg->object_detected;
 }
 
 
