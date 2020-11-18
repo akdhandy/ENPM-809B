@@ -579,21 +579,66 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.lc4rc_);
                                 gantry.goToPresetLocation(gantry.lc4rb_);
                                 gantry.goToPresetLocation(gantry.lc4ra_);
+//                                if (or_details[i][j][k].agv_id=="agv1")
+//                                {
+//                                    gantry.goToPresetLocation(gantry.agv1_);
+//                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
+//                                    gantry.placePart(or_details[i][j][k], "agv1");
+//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+//                                    logicam[x][y].Shifted=true;
+//                                }
+//                                else if (or_details[i][j][k].agv_id=="agv2")
+//                                {
+//                                    gantry.goToPresetLocation(gantry.agv2_);
+//                                    ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
+//                                    gantry.placePart(or_details[i][j][k], "agv2");
+//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+//                                    logicam[x][y].Shifted=true;
+//                                    target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
+//                                }
                                 if (or_details[i][j][k].agv_id=="agv1")
                                 {
-                                    gantry.goToPresetLocation(gantry.agv1_);
-                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
-                                    gantry.placePart(or_details[i][j][k], "agv1");
-                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    if(or_details[i][j][k].pose.orientation.x != 0)
+                                    {
+                                        ROS_INFO_STREAM("Part is to be flipped");
+                                        gantry.goToPresetLocation(gantry.agv1_);
+                                        ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
+                                        gantry.goToPresetLocation(gantry.agv1flipa_);
+                                        gantry.activateGripper("right_arm");
+                                        ros::Duration(0.2).sleep();
+                                        gantry.deactivateGripper("left_arm");
+                                        ROS_INFO_STREAM("Part flipped");
+                                        or_details[i][j][k].pose.orientation.x = 0.0;
+                                        or_details[i][j][k].pose.orientation.y = 0;
+                                        or_details[i][j][k].pose.orientation.z = 0.0;
+                                        or_details[i][j][k].pose.orientation.w = 1;
+                                        gantry.goToPresetLocation(gantry.agv1flipb_);
+                                        gantry.placePartRight(or_details[i][j][k], "agv1");
+                                        ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    }
+                                    else
+                                        gantry.placePart(or_details[i][j][k], "agv1");
                                     logicam[x][y].Shifted=true;
                                 }
-                                else if (or_details[i][j][k].agv_id=="agv2")
-                                {
-                                    gantry.goToPresetLocation(gantry.agv2_);
-                                    ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
-                                    gantry.placePart(or_details[i][j][k], "agv2");
-                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
-                                    logicam[x][y].Shifted=true;
+                                else if (or_details[i][j][k].agv_id=="agv2") {
+                                    if (or_details[i][j][k].pose.orientation.x != 0) {
+                                        ROS_INFO_STREAM("Part is to be flipped");
+                                        gantry.goToPresetLocation(gantry.agv2a_);
+                                        ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
+                                        gantry.activateGripper("right_arm");
+                                        ros::Duration(0.2).sleep();
+                                        gantry.deactivateGripper("left_arm");
+                                        ROS_INFO_STREAM("Part flipped");
+                                        or_details[i][j][k].pose.orientation.x = 0.0;
+                                        or_details[i][j][k].pose.orientation.y = 0;
+                                        or_details[i][j][k].pose.orientation.z = 0.0;
+                                        or_details[i][j][k].pose.orientation.w = 1;
+                                        gantry.goToPresetLocation(gantry.agv2b_);
+                                        gantry.placePartRight(or_details[i][j][k], "agv2");
+                                        ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    } else
+                                        gantry.placePart(or_details[i][j][k], "agv2");
+                                    logicam[x][y].Shifted = true;
                                     target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
                                 }
                                 logicam2 = comp.getter_logicam_callback();
