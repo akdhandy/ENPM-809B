@@ -162,7 +162,7 @@ geometry_msgs::TransformStamped Competition::shelf_pose_callback(std::string fra
         ROS_WARN("%s", ex.what());
         ros::Duration(1.0).sleep();
     }
-    ROS_INFO_STREAM("shelf_poses" << TfStamped.transform.translation.x);
+//    ROS_INFO_STREAM("shelf_poses" << TfStamped.transform.translation.x);
     return TfStamped;
 //    }
 }
@@ -174,19 +174,21 @@ double Competition::shelf_distance(std::string frame_id_1, std::string frame_id_
     s2 = shelf_pose_callback(frame_id_2);
 
     double distance =  double(abs(abs(s1.transform.translation.x)-abs(s2.transform.translation.x)));
-    ROS_INFO_STREAM("Distance between shelves = " << distance);
+//    ROS_INFO_STREAM("Distance between shelves = " << distance);
 
     return distance;
 }
 
 std::vector<std::string>  Competition::check_gaps()
 {
-    std::vector<double> gapThreshold = {4.12393,6.299173};
+    std::vector<double> gapThreshold = {6.299163,6.299173};
     std::vector<std::string> gap_id;
-    int shelf_ind = 3;
+    int shelf_start_ind = 3;
+
 
     while(1) {
-        for (shelf_ind; shelf_ind <= 11; shelf_ind++) {
+
+        for (int shelf_ind =shelf_start_ind ; shelf_ind <= shelf_start_ind + 2; shelf_ind++) {
             std::string frame_id_1 = "shelf" + std::to_string(shelf_ind) + "_frame";
             std::string frame_id_2 = "shelf" + std::to_string(shelf_ind + 1) + "_frame";
             double shelf_dis = shelf_distance(frame_id_1, frame_id_2);
@@ -194,12 +196,18 @@ std::vector<std::string>  Competition::check_gaps()
             if (shelf_dis >= gapThreshold[0] && shelf_dis <= gapThreshold[1]) {
                 gap_id.push_back("Gap between shelf" + std::to_string(shelf_ind) + " and shelf" + std::to_string(shelf_ind + 1));
             }
+
         }
-//shelf_ind += 3;
-        //if (shelf_ind > 11)
+        shelf_start_ind += 3;
+        if (shelf_start_ind > 11){
+//            ROS_INFO_STREAM(shelf_start_ind);
             break;
+
+        }
+
     }
 
+    ROS_INFO_STREAM("Gaps at:");
     for(auto i: gap_id)
         ROS_INFO_STREAM("Gap_id=" << i);
 
