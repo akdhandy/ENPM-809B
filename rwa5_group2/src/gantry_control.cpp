@@ -3,6 +3,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <geometry_msgs/TransformStamped.h>
+#include "competition.h"
 
 GantryControl::GantryControl(ros::NodeHandle & node):
         node_("/ariac/gantry"),
@@ -132,7 +133,7 @@ void GantryControl::init() {
     beltc_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv2_.gantry = {0.6, 6.9, PI};
-    agv2_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv2a_.gantry = {0.6, 6.5, PI};
@@ -152,7 +153,7 @@ void GantryControl::init() {
     agv_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv1_.gantry = {-0.6, -6.9, 0};
-    agv1_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv1a_.gantry = {-1, -6.7, 0};

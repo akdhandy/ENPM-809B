@@ -122,6 +122,8 @@ int main(int argc, char ** argv) {
     comp.getClock();
 
     ros::Subscriber logical_camera_subscriber_[Max_number_of_cameras];
+    comp.check_gaps();
+
 
 
     for (int x=0; x<Max_number_of_cameras; x++)
@@ -579,23 +581,7 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.lc4rc_);
                                 gantry.goToPresetLocation(gantry.lc4rb_);
                                 gantry.goToPresetLocation(gantry.lc4ra_);
-//                                if (or_details[i][j][k].agv_id=="agv1")
-//                                {
-//                                    gantry.goToPresetLocation(gantry.agv1_);
-//                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
-//                                    gantry.placePart(or_details[i][j][k], "agv1");
-//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
-//                                    logicam[x][y].Shifted=true;
-//                                }
-//                                else if (or_details[i][j][k].agv_id=="agv2")
-//                                {
-//                                    gantry.goToPresetLocation(gantry.agv2_);
-//                                    ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
-//                                    gantry.placePart(or_details[i][j][k], "agv2");
-//                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
-//                                    logicam[x][y].Shifted=true;
-//                                    target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
-//                                }
+
                                 if (or_details[i][j][k].agv_id=="agv1")
                                 {
                                     if(or_details[i][j][k].pose.orientation.x != 0)
@@ -987,7 +973,6 @@ int main(int argc, char ** argv) {
                         }
                     }
                 }
-                comp.check_gaps();
             }
         }
     }
