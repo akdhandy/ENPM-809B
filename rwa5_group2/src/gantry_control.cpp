@@ -159,6 +159,10 @@ void GantryControl::init() {
     agv1a_.left_arm = {0.0, -PI/4, 0.94, -0.03, PI/2, 0};
     agv1a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv1b_.gantry = {-1, -6.7, 0};
+    agv1b_.left_arm = {0.39, -0.2, 0.0, 0, 1.5, 0};
+    agv1b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     agv1flipa_.gantry = {-0.6, -6.5, 0};
     agv1flipa_.left_arm = {0.77, -0.20, 1.3, 0.49, 1.59, 0};
     agv1flipa_.right_arm = {-PI/4, -3.2, -1.5, -0.02, PI/2, -PI/4};;
