@@ -46,11 +46,11 @@ orders:
         pose:
           xyz: [-0.1, -0.2, 0]
           rpy: [0, 0, '-pi/4']
-#      product_2:
-#        type: piston_rod_part_red
-#        pose:
-#          xyz: [0.15, -0.2, 0]
-#          rpy: [0, 0, 'pi/4']
+      product_2:
+        type: piston_rod_part_red
+        pose:
+          xyz: [0.15, -0.2, 0]
+          rpy: [0, 0, 'pi/4']
 
 belt_models:
   piston_rod_part_red:

@@ -162,7 +162,7 @@ geometry_msgs::TransformStamped Competition::shelf_pose_callback(std::string fra
         ROS_WARN("%s", ex.what());
         ros::Duration(1.0).sleep();
     }
-    ROS_INFO_STREAM("shelf_poses" << TfStamped.transform.translation.x);
+    //ROS_INFO_STREAM("shelf_poses" << TfStamped.transform.translation.x);
     return TfStamped;
 //    }
 }
@@ -174,7 +174,7 @@ double Competition::shelf_distance(std::string frame_id_1, std::string frame_id_
     s2 = shelf_pose_callback(frame_id_2);
 
     double distance =  double(abs(abs(s1.transform.translation.x)-abs(s2.transform.translation.x)));
-    ROS_INFO_STREAM("Distance between shelves = " << distance);
+    //ROS_INFO_STREAM("Distance between shelves = " << distance);
 
     return distance;
 }
@@ -191,8 +191,9 @@ std::vector<std::string>  Competition::check_gaps()
             std::string frame_id_2 = "shelf" + std::to_string(shelf_ind + 1) + "_frame";
             double shelf_dis = shelf_distance(frame_id_1, frame_id_2);
 
-            if (shelf_dis >= gapThreshold[0] && shelf_dis <= gapThreshold[1]) {
+            if ((shelf_dis > 6) && (shelf_dis < 10)) {
                 gap_id.push_back("Gap between shelf" + std::to_string(shelf_ind) + " and shelf" + std::to_string(shelf_ind + 1));
+		ROS_INFO_STREAM("Distance between shelves = " << shelf_dis);
             }
         }
 //shelf_ind += 3;
