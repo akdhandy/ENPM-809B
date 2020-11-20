@@ -119,15 +119,15 @@ void GantryControl::init() {
     shelf11c_.left_arm = {-1.5, -PI/4, PI/2, -PI/4, 0.08, 0};
     shelf11c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    belta_.gantry = {0.15, -2.30, PI/2};
+    belta_.gantry = {0.15, -1.9, PI/2};
     belta_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
     belta_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    beltb_.gantry = {0.15, -2.30, PI/2};
-    beltb_.left_arm = {0.0, -PI/4, 1.30, -0.51, PI/2, 0};
+    beltb_.gantry = {0.15, -1.9, PI/2};
+    beltb_.left_arm = {0.0, -PI/4, 1.01, -0.22, PI/2, 0};
     beltb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    beltc_.gantry = {0.15, -2.30, 0};
+    beltc_.gantry = {0.15, -1.9, 0};
     beltc_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
     beltc_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
