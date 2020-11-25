@@ -57,53 +57,20 @@ part Competition::quality_sensor_status1(){
 void Competition::breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr &msg, int id)
 {
     beam_detect[id] = msg->object_detected;
-    if (beam_detect[id]==true)
-    {
-        beam_seq[id] = msg->header.seq;
-//        ROS_INFO_STREAM("\nBreakbeam sensor "<<id<<" trigerred!");
-        breakbeam_sensing();
-    }
+    beam_seq2[id] = msg->header.seq;
 }
 
 void Competition::breakbeam_sensing()
 {
-    for (auto i=0; i<4; i++)
+    for (int i =6; i<16; i++)
+    if (beam_detect[i]==true)
     {
-        if (beam_detect[(5*i)+1]==true)
-        {
-            do {
-                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+1);
-            }while(beam_detect[(5*i)+1]==true);
-            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+1]);
-        }
-        if (beam_detect[(5*i)+2]==true)
-        {
-            do {
-                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+2);
-            }while(beam_detect[(5*i)+2]==true);
-            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+2]);
-        }
-        if (beam_detect[(5*i)+3]==true)
-        {
-            do {
-                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+3);
-            }while(beam_detect[(5*i)+3]==true);
-            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+3]);
-        }
-        if (beam_detect[(5*i)+4]==true)
-        {
-            do {
-                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+4);
-            }while(beam_detect[(5*i)+4]==true);
-            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+4]);
-        }
-        if (beam_detect[(5*i)+5]==true)
-        {
-            do {
-                ROS_INFO_STREAM("\nHuman is at breakbeam sensor: "<<(5*i)+5);
-            }while(beam_detect[(5*i)+5]==true);
-            ROS_INFO_STREAM("\nUpdated beam sequence ID "<<beam_seq[(5*i)+5]);
-        }
+        do{
+            ROS_INFO_STREAM("\nHuman is at breakbeam: "<<i);
+            }while(beam_detect[i]==true);
+        beam_seq[i]=beam_seq2[i];
+        ROS_INFO_STREAM("\n Sequence id: "<<beam_seq[i]);
+        break;
     }
 }
 

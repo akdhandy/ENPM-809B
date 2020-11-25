@@ -12,4 +12,4 @@ export GAZEBO_MODEL_PATH="/home/srikumar/ariac_ws/src/ARIAC/nist_gear/models:$GA
 export LD_LIBRARY_PATH="/home/srikumar/ariac_ws/src/rwa5_group2/cmake-build-debug/devel/lib:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/home/srikumar/ariac_ws/src/rwa5_group2/cmake-build-debug/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/srikumar/ariac_ws/src/rwa5_group2/cmake-build-debug/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/zeid/Desktop/ariac_2020_ws/src/rwa3_kootbally:/home/srikumar/ariac_ws/src/rwa3_kootbally:/home/sahana/ariac_ws/src/rwa3_group2:/home/srikumar/ariac_ws/src/rwa3_group2:/home/srikumar/ariac_ws/src/rwa4_group_2:/home/srikumar/ariac_ws/src/rwa4_group2:/home/srikumar/ariac_ws/src/rwa5_group2:$ROS_PACKAGE_PATH"
+export ROS_PACKAGE_PATH="/home/zeid/Desktop/ariac_2020_ws/src/rwa3_kootbally:/home/srikumar/ariac_ws/src/rwa3_kootbally:/home/sahana/ariac_ws/src/rwa3_group2:/home/srikumar/ariac_ws/src/rwa3_group2:/home/srikumar/ariac_ws/src/rwa4_group_2:/home/srikumar/ariac_ws/src/rwa4_group2:/home/srikumar/ariac_ws/src/rwa5_group2:/home/sahana/ariac_ws/src/rwa5_group2:$ROS_PACKAGE_PATH"

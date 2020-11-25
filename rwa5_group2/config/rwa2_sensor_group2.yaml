@@ -138,19 +138,19 @@ sensors:
   breakbeam_13:
     type: break_beam
     pose:
-      xyz: [-9.5, -0.72, 0.14]
+      xyz: [-10.51, -0.72, 0.14]
       rpy: [0, 0, -1.557900]
 
   breakbeam_14:
     type: break_beam
     pose:
-      xyz: [-13.5, -0.72, 0.14]
+      xyz: [-12.45, -0.72, 0.14]
       rpy: [0, 0, -1.557900]
 
   breakbeam_15:
     type: break_beam
     pose:
-      xyz: [-15.8, -0.72, 0.14]
+      xyz: [-14.4, -0.72, 0.14]
       rpy: [0, 0, -1.557900]
 
   # Aisle 1
@@ -170,19 +170,19 @@ sensors:
   breakbeam_3:
     type: break_beam
     pose:
-      xyz: [-9.5, 3.73, 0.14]
+      xyz: [-11.183661, 3.73, 0.14]
       rpy: [0, 0, 1.557900]
 
   breakbeam_4:
     type: break_beam
     pose:
-      xyz: [-13.5, 3.73, 0.14]
+      xyz: [-12.454859, 3.73, 0.14]
       rpy: [0, 0, 1.557900]
 
   breakbeam_5:
     type: break_beam
     pose:
-      xyz: [-15.8, 3.73, 0.14]
+      xyz: [-14.4, 3.73, 0.14]
       rpy: [0, 0, 1.557900]
 
   #Aisle 2
@@ -202,19 +202,19 @@ sensors:
   breakbeam_8:
     type: break_beam
     pose:
-      xyz: [-9.5, 2.37, 0.14]
+      xyz: [-11.183661, 2.37, 0.14]
       rpy: [0, 0, -1.557900]
 
   breakbeam_9:
     type: break_beam
     pose:
-      xyz: [-13.5, 2.37, 0.14]
+      xyz: [-12.454859, 2.37, 0.14]
       rpy: [0, 0, -1.557900]
 
   breakbeam_10:
     type: break_beam
     pose:
-      xyz: [-15.8, 2.37, 0.14]
+      xyz: [-14.4, 2.37, 0.14]
       rpy: [0, 0, -1.557900]
 
   #Aisle 4
@@ -246,5 +246,5 @@ sensors:
   breakbeam_20:
     type: break_beam
     pose:
-      xyz: [-15.8, -3.7, 0.14]
+      xyz: [-14.4, -3.7, 0.14]
       rpy: [0, 0, -1.557900]

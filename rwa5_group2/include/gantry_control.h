@@ -66,16 +66,17 @@ class GantryControl {
     geometry_msgs::Pose getTargetWorldPose(geometry_msgs::Pose target, std::string agv);
     geometry_msgs::Pose getTargetWorldPoseRight(geometry_msgs::Pose target, std::string agv);
     //--preset locations;
-    start start_;
-    bin3 bin3_;
-    bin13 bin13_;
+    start start_, start1_;
+    bin1 bin1_;bin2 bin2_;bin3 bin3_;bin4 bin4_;bin5 bin5_;bin6 bin6_;bin7 bin7_;bin8 bin8_;bin9 bin9_;bin10 bin10_;bin11 bin11_;bin12 bin12_;bin13 bin13_;bin14 bin14_;bin15 bin15_;bin16 bin16_;
+    lc15lg lc15lg_;lc16lg lc16lg_; shelf2a  shelf2a_;lc15rg lc15rg_;lc16rg lc16rg_;
+    lc13ra lc13ra_;lc14ra lc14ra_;lc13rb lc13rb_;lc14rb lc14rb_;shelf1a shelf1a_;
     belt belta_, beltb_, beltc_;
     lc4r lc4ra_,lc4rb_,lc4rc_,lc4rd_,lc4re_,lc4rf_;
-    lc5l lc5la_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_;
+    lc5l lc5la_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_,lc5lg_;
     shelf11 shelf11a_, shelf11b_, shelf11c_;
     agv2 agv2_, agv2a_, agv2b_, agv2c_;
     agv2 agv_faulty;
-    agv1 agv1_, agv1a_, agv1b_, agv1flipa_, agv1flipb_;
+    agv1 agv1_, agv1a_, agv1b_, agv1c_, agv1flipa_, agv1flipb_;
 
   private:
     std::vector<double> joint_group_positions_;

@@ -56,7 +56,7 @@ public:
     double getClock();
     double getStartTime();
     std::array<bool, 21> beam_detect;
-    std::array<int, 21> beam_flag = {0};
+    std::array<int, 21> beam_seq2 = {0};
     std::array<int, 21> beam_seq = {0};
     std::string getCompetitionState();
     stats getStats(std::string function);
