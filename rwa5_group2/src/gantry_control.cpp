@@ -118,6 +118,8 @@ void GantryControl::init() {
 
 
     //Green_Part-- shelf 8
+
+    //--default for left
     lc5la_.gantry = {0, -4.48, 0};
     lc5la_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5la_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -194,8 +196,6 @@ void GantryControl::init() {
     lc14rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
     lc14rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
 
-
-    // Blue_Part -- shelf 8--tweaking required
     lc4ra_.gantry = {0.0, 5.18, 3.14};
     lc4ra_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc4ra_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -291,6 +291,19 @@ void GantryControl::init() {
     agv1flipb_.gantry = {0.6, -6.5, -0.25};
     agv1flipb_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv1flipb_.right_arm = {-0.2, -2.7, -1.3, 0.9, 1.7, 0};
+
+
+    // Gap between shelf3 and shelf4
+    left_gap_1_2_.gantry = {-7.25, -5.18, 0};
+    left_gap_1_2_.left_arm = {-1.48, -2.89, -1.74, -1.72, 0, 0};
+    left_gap_1_2_.right_arm = {1.49, -0.34, 1.74, -1.53, 3.14, 0};
+
+    left_gap_1_3_.gantry = {-7.25, -3.08, 0};
+    left_gap_1_3_.left_arm = {-1.48, -2.89, -1.74, -1.72, 0, 0};
+    left_gap_1_3_.right_arm = {1.49, -0.34, 1.74, -1.53, 3.14, 0};
+
+
+
 
     //--Raw pointers are frequently used to refer to the planning group for improved performance.
     //--To start, we will create a pointer that references the current robot’s state.

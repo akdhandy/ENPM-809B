@@ -36,6 +36,34 @@
 
 #include <tf2/LinearMath/Quaternion.h>
 
+void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation, GantryControl &gantry){
+
+    // waypoints from start position position to logical_camera
+    presetLocation["logical_camera_2"] = {gantry.bin14_};
+    presetLocation["logical_camera_3"] = {gantry.bin15_};
+    presetLocation["logical_camera_1"] = {gantry.bin2_};
+    presetLocation["logical_camera_0"] = {gantry.bin3_};
+
+
+    presetLocation["logical_camera_15"] = {gantry.lc15lg_};
+    presetLocation["logical_camera_16"] = {gantry.lc16lg_};
+
+    presetLocation["logical_camera_13"] = {gantry.shelf1a_,gantry.lc13rb_};
+    presetLocation["logical_camera_14"] = {gantry.shelf1a_,gantry.lc14rb_};
+
+    presetLocation["start"] = {gantry.start_};
+    presetLocation["agv2"] = {gantry.agv2_};
+    presetLocation["agv1"] = {gantry.agv1_};
+
+    presetLocation["Gap between shelf3 and shelf4"] = {gantry.lc5la_,gantry.left_gap_1_2_,gantry.left_gap_1_3_};
+    presetLocation["Gap between shelf4 and shelf5"] = {gantry.lc5la_,gantry.lc5lb_,gantry.lc5lc_,gantry.lc5ld_,};
+    presetLocation["Gap between shelf6 and shelf7"] = {};
+    presetLocation["Gap between shelf7 and shelf8"] = {};
+    presetLocation["Gap between shelf9 and shelf10"] = {};
+    presetLocation["Gap between shelf10 and shelf11"] = {gantry.lc4ra_,gantry.lc4rb_,gantry.lc4rc_};
+
+}
+
 bool submitOrder(int AVG_id, std::string shipment_type){
     ROS_INFO("[submitOrder] Submitting order via AVG");
 

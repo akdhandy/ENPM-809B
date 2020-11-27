@@ -219,7 +219,7 @@ install(TARGETS rwa5_node
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(FILES
-        config/rwa2_sensor_group2.yaml
+        config/baseline_1.yaml
         config/rwa5-sample.yaml
         launch/rwa5.launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config

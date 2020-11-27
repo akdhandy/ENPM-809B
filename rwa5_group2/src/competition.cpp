@@ -8,6 +8,7 @@ std::array<std::array<modelparam, 36>, 17> logical_cam;
 std::array<std::array<std::array<part, 10>, 5>, 5> order_details;
 part faulty_part_agv2, faulty_part_agv1;
 
+
 Competition::Competition(ros::NodeHandle &node): current_score_(0)
 {
   node_ = node;
