@@ -48,69 +48,88 @@ void GantryControl::init() {
     start1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
-//----- Bin presets
+    logicam0_.gantry={5, 1.750927,0};
+    logicam0_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam0_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin1_.gantry = {2.1, -1.12, 0.03};
-    bin1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam1_.gantry={3.082,-1.82,0};
+    logicam1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam2_.gantry={3.082,1.82,0};
+    logicam2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam3_.gantry={5,1.82,0};
+    logicam3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
+    bin1_.gantry = {3.08,-1.82,-2.79};
+    bin1_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
     bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin2_.gantry = {3.05, -1.12, 0.03};
-    bin2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin2_.gantry = {3.08, -1.82, -1.28};
+    bin2_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
     bin2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin3_.gantry = {4.0, -1.12, 0.03};
-    bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin3_.gantry = {5.18, -1.40, 3.14};
+    bin3_.left_arm = {-0.13,-0.65,1.32,-0.65,1.44,0};
     bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //no parts on 4
     bin4_.gantry = {4.95, -1.1, 0.03};
     bin4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin8_.gantry = {4.95, -1.96, 0.03};
-    bin8_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin8_.gantry = {4.95, -1.54, 0.78};
+    bin8_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
     bin8_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //no parts on 7
     bin7_.gantry = {4.95, -1.96, 0.03};
     bin7_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin7_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin6_.gantry = {3.95, -1.96, 0.03};
-    bin6_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin6_.gantry = {3.08,-1.82,0};
+    bin6_.left_arm = {0.19,-0.42,0.86,-0.40,1.70,0};
     bin6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin5_.gantry = {1.92, -1.96, 0.03};
-    bin5_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin5_.gantry = {3.08,-1.82,-4.3};
+    bin5_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
     bin5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin16_.gantry = {4.90, 2.25, 0};
-    bin16_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin16_.gantry = {5,1.82,-0.75};
+    bin16_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
     bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin15_.gantry = {4.00, 2.25, 0};
-    bin15_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin15_.gantry = {5,1.82,-2.45};
+    bin15_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
     bin15_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin14_.gantry = {3.00, 2.25, 0};
-    bin14_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin14_.gantry = {3.08, 1.82, -0.78};
+    bin14_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
     bin14_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin13_.gantry = {2.10, 2.25,0};//, 2.10};
-    bin13_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin13_.gantry = {3.08, 1.82,-2.45};
+    bin13_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
     bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin12_.gantry = {4.90, 1.50,0};//, 2.10};
-    bin12_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin12_.gantry = {5, 1.82,0};
+    bin12_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
     bin12_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin11_.gantry = {4, 1.50,0};//, 2.10};
-    bin11_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin11_.gantry = {5, 1.82,1.88};
+    bin11_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
     bin11_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin10_.gantry = {3.00, 1.50,0};//, 2.10};
-    bin10_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin10_.gantry = {3.08, 1.82,0};
+    bin10_.left_arm = {0.18,-0.42,0.86,-0.47,1.70,0};
     bin10_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin9_.gantry = {2.10, 1.5,0};//, 2.10};
+    //no parts on 9
+    bin9_.gantry = {2.10, 1.5,0};
     bin9_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
     bin9_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 

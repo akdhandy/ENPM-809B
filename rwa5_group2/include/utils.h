@@ -54,7 +54,7 @@ typedef struct PresetLocation {
     std::vector<double> left_arm;
     std::vector<double> right_arm;
 } start, bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8,bin9,bin10,bin11,bin12,bin13,bin14,bin15,bin16,belt, lc4r,lc5l, shelf11,
-agv1, agv2,lc15lg,lc16lg,shelf2a,lc15rg,lc16rg,lc13ra,lc13rb,lc14ra,lc14rb,shelf1a,left_gap_1_2,left_gap_1_3;
+agv1, agv2,lc15lg,lc16lg,shelf2a,lc15rg,lc16rg,lc13ra,lc13rb,lc14ra,lc14rb,shelf1a,left_gap_1_2,left_gap_1_3,logicam0,logicam1,logicam2,logicam3;
 
 
 typedef struct Part {

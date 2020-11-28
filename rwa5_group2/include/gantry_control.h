@@ -79,6 +79,10 @@ class GantryControl {
     agv1 agv1_, agv1a_, agv1b_, agv1c_, agv1flipa_, agv1flipb_;
     left_gap_1_2 left_gap_1_2_;
     left_gap_1_3 left_gap_1_3_;
+    logicam0    logicam0_;
+    logicam1    logicam1_;
+    logicam2    logicam2_;
+    logicam3    logicam3_;
 
   private:
     std::vector<double> joint_group_positions_;

@@ -38,12 +38,10 @@
 
 void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation, GantryControl &gantry){
 
-    // waypoints from start position position to logical_camera
-    presetLocation["logical_camera_2"] = {gantry.bin14_};
-    presetLocation["logical_camera_3"] = {gantry.bin15_};
-    presetLocation["logical_camera_1"] = {gantry.bin2_};
-    presetLocation["logical_camera_0"] = {gantry.bin3_};
-
+    presetLocation["logical_camera_2"] = {gantry.logicam2_};
+    presetLocation["logical_camera_3"] = {gantry.logicam3_};
+    presetLocation["logical_camera_1"] = {gantry.logicam1_};
+    presetLocation["logical_camera_0"] = {gantry.logicam0_};
 
     presetLocation["logical_camera_15"] = {gantry.lc15lg_};
     presetLocation["logical_camera_16"] = {gantry.lc16lg_};
@@ -63,6 +61,61 @@ void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetL
     presetLocation["Gap between shelf10 and shelf11"] = {gantry.lc4ra_,gantry.lc4rb_,gantry.lc4rc_};
 
 }
+
+void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string location,GantryControl &gantry, double x, double y){
+    auto vec = presetLocation[location];
+    if(vec.size() == 1){
+        gantry.goToPresetLocation(vec[0]);
+
+        // logical camera 0
+        if (x > 4.9 && y> 1.8)
+            gantry.goToPresetLocation(gantry.bin8_);
+        else if (x<4.9 && y>1.8)
+            gantry.goToPresetLocation(gantry.bin7_);
+        if (x > 4.9 && y> 1)
+            gantry.goToPresetLocation(gantry.bin4_);
+        else if (x<4.9 && y>1)
+            gantry.goToPresetLocation(gantry.bin3_);
+
+        //logical camera 1
+        if ( x > 3.08 && y> 1.8)
+            gantry.goToPresetLocation(gantry.bin6_);
+        else if (x<3.08 && y>1.8)
+            gantry.goToPresetLocation(gantry.bin5_);
+        if (x > 3.08 && y> 1.1)
+            gantry.goToPresetLocation(gantry.bin2_);
+        else if (x<3.08 && y>1.1)
+            gantry.goToPresetLocation(gantry.bin1_);
+
+        //logical camera 2
+        if ( x > 3.11 && y> -1.55)
+            gantry.goToPresetLocation(gantry.bin10_);
+        else if (x<3.11 && y>-1.55)
+            gantry.goToPresetLocation(gantry.bin9_);
+        if (x > 3.11 && y>-2.4)
+            gantry.goToPresetLocation(gantry.bin14_);
+        else if (x<3.11 && y>-2.4)
+            gantry.goToPresetLocation(gantry.bin13_);
+
+        //logical camera 3
+        if ( x > 4.99 && y> -1.55)
+            gantry.goToPresetLocation(gantry.bin12_);
+        else if (x<4.99 && y>-1.55)
+            gantry.goToPresetLocation(gantry.bin11_);
+        if (x > 4.99 && y>-2.4)
+            gantry.goToPresetLocation(gantry.bin16_);
+        else if (x<4.99 && y>-2.4)
+            gantry.goToPresetLocation(gantry.bin15_);
+
+
+
+    }
+    for(auto waypoint :vec){
+        gantry.goToPresetLocation(waypoint);
+    }
+}
+
+
 
 bool submitOrder(int AVG_id, std::string shipment_type){
     ROS_INFO("[submitOrder] Submitting order via AVG");
@@ -125,6 +178,7 @@ int main(int argc, char ** argv) {
     bool break_beam;
     std::string c_state = comp.getCompetitionState();
     comp.getClock();
+//    intialPositions(presetlocation,gantry)
 
     ros::Subscriber logical_camera_subscriber_[Max_number_of_cameras];
 
@@ -381,7 +435,7 @@ int main(int argc, char ** argv) {
                             ROS_INFO_STREAM("\n\nlogical camera: "<<x);
                             gantry.goToPresetLocation(gantry.start_);
 
-                            if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_green")
+                            if (comp.received_orders_[i].shipments[j].products[k].type == "gear_part_blue")
                             {
                                 gantry.goToPresetLocation(gantry.lc5la_);
                                 gantry.goToPresetLocation(gantry.lc5lb_);
