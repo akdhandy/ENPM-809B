@@ -1,5 +1,5 @@
 # ENPM-809B
-RWA-4
+Final Projet FP
 
 
 Build details:
@@ -9,7 +9,7 @@ Build details:
 
 1. cd ariac_ws/
 2. source ~/ariac_ws/devel/setup.bash
-3. catkin build rwa4_group2
-4. roslaunch rwa4_group2 rwa4.launch load_moveit:=true
-5. rosrun rwa4_group2 rwa4_node
+3. catkin build FP_group2
+4. roslaunch FP_group2 FP.launch load_moveit:=true
+5. rosrun FP_group2 FP_node
 
