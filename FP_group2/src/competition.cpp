@@ -8,26 +8,27 @@ std::array<std::array<modelparam, 36>, 17> logical_cam;
 std::array<std::array<std::array<part, 10>, 5>, 5> order_details;
 part faulty_part_agv2, faulty_part_agv1;
 
+
 Competition::Competition(ros::NodeHandle &node): current_score_(0)
 {
-  node_ = node;
+    node_ = node;
 }
 
 void Competition::init() {
-  // Subscribe to the '/ariac/current_score' topic.
-  double time_called = ros::Time::now().toSec();
-  competition_start_time_ = ros::Time::now().toSec();
+    // Subscribe to the '/ariac/current_score' topic.
+    double time_called = ros::Time::now().toSec();
+    competition_start_time_ = ros::Time::now().toSec();
 
 
     // Subscribe to the '/ariac/competition_state' topic.
 //  ROS_INFO("Subscribe to the /ariac/competition_state topic...");
-  competition_state_subscriber_ = node_.subscribe(
-    "/ariac/competition_state", 10, &Competition::competition_state_callback, this);
+    competition_state_subscriber_ = node_.subscribe(
+            "/ariac/competition_state", 10, &Competition::competition_state_callback, this);
 
-  // Subscribe to the '/clock' topic.
+    // Subscribe to the '/clock' topic.
 //  ROS_INFO("Subscribe to the /clock...");
-  competition_clock_subscriber_ = node_.subscribe(
-    "/clock", 10, &Competition::competition_clock_callback, this);
+    competition_clock_subscriber_ = node_.subscribe(
+            "/clock", 10, &Competition::competition_clock_callback, this);
 
 //    ROS_INFO("Subscribe to the /orders...");
     orders_subscriber_ = node_.subscribe(
@@ -42,7 +43,7 @@ void Competition::init() {
 //    breakbeam_subscriber_ = node_.subscribe("/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_callback, this);
     startCompetition();
 
-  init_.total_time += ros::Time::now().toSec() - time_called;
+    init_.total_time += ros::Time::now().toSec() - time_called;
 
 }
 
@@ -63,15 +64,15 @@ void Competition::breakbeam_sensor_callback(const nist_gear::Proximity::ConstPtr
 void Competition::breakbeam_sensing()
 {
     for (int i =6; i<16; i++)
-    if (beam_detect[i]==true)
-    {
-        do{
-            ROS_INFO_STREAM("\nHuman is at breakbeam: "<<i);
+        if (beam_detect[i]==true)
+        {
+            do{
+                ROS_INFO_STREAM("\nHuman is at breakbeam: "<<i);
             }while(beam_detect[i]==true);
-        beam_seq[i]=beam_seq2[i];
-        ROS_INFO_STREAM("\n Sequence id: "<<beam_seq[i]);
-        break;
-    }
+            beam_seq[i]=beam_seq2[i];
+            ROS_INFO_STREAM("\n Sequence id: "<<beam_seq[i]);
+            break;
+        }
 }
 
 void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id)
@@ -160,12 +161,12 @@ std::vector<std::string>  Competition::check_gaps()
 
             if ((shelf_dis > 6) && (shelf_dis < 10)) {
                 gap_id.push_back("Gap between shelf" + std::to_string(shelf_ind) + " and shelf" + std::to_string(shelf_ind + 1));
-		ROS_INFO_STREAM("Distance between shelves = " << shelf_dis);
+                ROS_INFO_STREAM("Distance between shelves = " << shelf_dis);
             }
         }
 //shelf_ind += 3;
         //if (shelf_ind > 11)
-            break;
+        break;
     }
 
     for(auto i: gap_id)
@@ -198,11 +199,11 @@ void Competition::quality_sensor_status_callback2(const nist_gear::LogicalCamera
 
 /// Called when a new message is received.
 void Competition::competition_state_callback(const std_msgs::String::ConstPtr & msg) {
-  if (msg->data == "done" && competition_state_ != "done")
-  {
+    if (msg->data == "done" && competition_state_ != "done")
+    {
 //    ROS_INFO("Competition ended.");
-  }
-  competition_state_ = msg->data;
+    }
+    competition_state_ = msg->data;
 }
 
 void Competition::order_callback(const nist_gear::Order::ConstPtr & msg) {
@@ -243,70 +244,70 @@ std::array<std::array<modelparam, 36>, 17> Competition::getter_logicam_callback(
 
 /// Called when a new message is received.
 void Competition::competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr & msg) {
-  competition_clock_ = msg->clock;
+    competition_clock_ = msg->clock;
 }
 
 
 void Competition::startCompetition() {
-  // Create a Service client for the correct service, i.e. '/ariac/start_competition'.
-  ros::ServiceClient start_client =
-    node_.serviceClient<std_srvs::Trigger>("/ariac/start_competition");
-  // If it's not already ready, wait for it to be ready.
-  // Calling the Service using the client before the server is ready would fail.
-  if (!start_client.exists()) {
+    // Create a Service client for the correct service, i.e. '/ariac/start_competition'.
+    ros::ServiceClient start_client =
+            node_.serviceClient<std_srvs::Trigger>("/ariac/start_competition");
+    // If it's not already ready, wait for it to be ready.
+    // Calling the Service using the client before the server is ready would fail.
+    if (!start_client.exists()) {
 //    ROS_INFO("[competition][startCompetition] Waiting for the competition to be ready...");
-    start_client.waitForExistence();
+        start_client.waitForExistence();
 //    ROS_INFO("[competition][startCompetition] Competition is now ready.");
-  }
+    }
 //  ROS_INFO("[competition][startCompetition] Requesting competition start...");
-  std_srvs::Trigger srv;
-  start_client.call(srv);
-  if (!srv.response.success) {  // If not successful, print out why.
-    ROS_ERROR_STREAM("[competition][startCompetition] Failed to start the competition: " << srv.response.message);
-  } else {
+    std_srvs::Trigger srv;
+    start_client.call(srv);
+    if (!srv.response.success) {  // If not successful, print out why.
+        ROS_ERROR_STREAM("[competition][startCompetition] Failed to start the competition: " << srv.response.message);
+    } else {
 //    ROS_INFO("[competition][startCompetition] Competition started!");
-  }
+    }
 }
 
 
 void Competition::endCompetition() {
-  // Create a Service client for the correct service, i.e. '/ariac/start_competition'.
-  ros::ServiceClient end_client =
-    node_.serviceClient<std_srvs::Trigger>("/ariac/end_competition");
-  // If it's not already ready, wait for it to be ready.
-  // Calling the Service using the client before the server is ready would fail.
-  if (!end_client.exists()) {
+    // Create a Service client for the correct service, i.e. '/ariac/start_competition'.
+    ros::ServiceClient end_client =
+            node_.serviceClient<std_srvs::Trigger>("/ariac/end_competition");
+    // If it's not already ready, wait for it to be ready.
+    // Calling the Service using the client before the server is ready would fail.
+    if (!end_client.exists()) {
 //    ROS_INFO("[competition][endCompetition] Waiting for the end_competition to be ready...");
-    end_client.waitForExistence();
+        end_client.waitForExistence();
 //    ROS_INFO("[competition][endCompetition] end_competition is now ready.");
-  }
+    }
 //  ROS_INFO("[competition][endCompetition] Requesting competition end...");
-  std_srvs::Trigger srv;
-  end_client.call(srv);
-  if (!srv.response.success) {  // If not successful, print out why.
-    ROS_ERROR_STREAM("[competition][endCompetition] Failed to end the competition: " << srv.response.message);
-  } else {
+    std_srvs::Trigger srv;
+    end_client.call(srv);
+    if (!srv.response.success) {  // If not successful, print out why.
+        ROS_ERROR_STREAM("[competition][endCompetition] Failed to end the competition: " << srv.response.message);
+    } else {
 //    ROS_INFO("[competition][endCompetition] Competition ended!");
-  }
+    }
 }
 
 
 stats Competition::getStats(std::string function) {
-  if (function == "init") return init_;
+    if (function == "init") return init_;
 
 }
 
 double Competition::getStartTime() {
-  return competition_start_time_;
+    return competition_start_time_;
 }
 
 double Competition::getClock() {
-  double time_spent = competition_clock_.toSec();
-  ROS_INFO_STREAM("[competition][getClock] competition time spent (getClock()) =" << time_spent);
-  return time_spent;
+    double time_spent = competition_clock_.toSec();
+    ROS_INFO_STREAM("[competition][getClock] competition time spent (getClock()) =" << time_spent);
+    return time_spent;
 }
 
 
 std::string Competition::getCompetitionState() {
-  return competition_state_;
+    return competition_state_;
 }

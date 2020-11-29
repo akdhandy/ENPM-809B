@@ -48,17 +48,97 @@ void GantryControl::init() {
     start1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
-//----- For RWA4
+    logicam0_.gantry={5, -1.75,0};
+    logicam0_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam0_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin3_.gantry = {4.0, -1.1, 0.};
-    bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam1_.gantry={3.082,-1.75,0};
+    logicam1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam2_.gantry={3.082,1.75,0};
+    logicam2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam3_.gantry={5,1.75,0};
+    logicam3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
+    bin1_.gantry = {3.08,-1.82,-2.79};
+    bin1_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin2_.gantry = {3.08, -1.82, -1.28};
+    bin2_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin3_.gantry = {5.18, -1.40, 3.14};
+    bin3_.left_arm = {-0.13,-0.65,1.32,-0.65,1.44,0};
     bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin13_.gantry = {2.2, 2.25, 0};
-    bin13_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    //no parts on 4
+    bin4_.gantry = {4.95, -1.1, 0.03};
+    bin4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin8_.gantry = {4.95, -1.54, 0.78};
+    bin8_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin8_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //no parts on 7
+    bin7_.gantry = {4.95, -1.96, 0.03};
+    bin7_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin7_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin6_.gantry = {3.08,-1.82,0};
+    bin6_.left_arm = {0.19,-0.42,0.86,-0.40,1.70,0};
+    bin6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin5_.gantry = {3.08,-1.82,-4.3};
+    bin5_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin16_.gantry = {5,1.82,-0.75};
+    bin16_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin15_.gantry = {5,1.82,-2.45};
+    bin15_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin15_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin14_.gantry = {3.08, 1.82, -0.78};
+    bin14_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin14_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin13_.gantry = {3.08, 1.82,-2.45};
+    bin13_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
     bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    bin12_.gantry = {5, 1.82,0};
+    bin12_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin12_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin11_.gantry = {5, 1.82,1.88};
+    bin11_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin11_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin10_.gantry = {3.08, 1.82,0};
+    bin10_.left_arm = {0.18,-0.42,0.86,-0.47,1.70,0};
+    bin10_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //no parts on 9
+    bin9_.gantry = {2.10, 1.5,0};
+    bin9_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
+    bin9_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //-------------------------------------------------------------//
+
+
     //Green_Part-- shelf 8
+
+    //--default for left
     lc5la_.gantry = {0, -4.48, 0};
     lc5la_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5la_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -88,7 +168,53 @@ void GantryControl::init() {
     lc5lg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
-    // Blue_Part -- shelf 8--tweaking required
+    //shelf2 -- frontward
+    lc15lg_.gantry = {2.70, 2.4, 0};
+    lc15lg_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc5lg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    // shelf2 under logical camera16
+    lc16lg_.gantry = {4.72, 2.4, 0};
+    lc16lg_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc16lg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //shelf2 -- backward
+    shelf2a_.gantry = {0.23, 5.2, 3.14};
+    shelf2a_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    shelf2a_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    lc15rg_.gantry = {3.15, 4.92, 3.14};
+    lc15rg_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc15rg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    lc16rg_.gantry = {5.17,4.92,3.14};
+    lc16rg_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc16rg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
+    // front side shelf -1
+    lc13ra_.gantry = {3.23, -2.30, 3.14};
+    lc13ra_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc13ra_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+
+    lc14ra_.gantry = {5.05, -2.30, 3.14};
+    lc14ra_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc14ra_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+
+    // way point for backside
+    shelf1a_.gantry = {1.00, -5.1, 0};
+    shelf1a_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    shelf1a_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+
+    // back side shelf 1
+    lc13rb_.gantry = {3.23, -5.1, 0};
+    lc13rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc13rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+
+    lc14rb_.gantry = {5.05, -5.1, 0};
+    lc14rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+    lc14rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+
     lc4ra_.gantry = {0.0, 5.18, 3.14};
     lc4ra_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc4ra_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -184,6 +310,19 @@ void GantryControl::init() {
     agv1flipb_.gantry = {0.6, -6.5, -0.25};
     agv1flipb_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv1flipb_.right_arm = {-0.2, -2.7, -1.3, 0.9, 1.7, 0};
+
+
+    // Gap between shelf3 and shelf4
+    left_gap_1_2_.gantry = {-7.25, -5.18, 0};
+    left_gap_1_2_.left_arm = {-1.48, -2.89, -1.74, -1.72, 0, 0};
+    left_gap_1_2_.right_arm = {1.49, -0.34, 1.74, -1.53, 3.14, 0};
+
+    left_gap_1_3_.gantry = {-7.25, -3.08, 0};
+    left_gap_1_3_.left_arm = {-1.48, -2.89, -1.74, -1.72, 0, 0};
+    left_gap_1_3_.right_arm = {1.49, -0.34, 1.74, -1.53, 3.14, 0};
+
+
+
 
     //--Raw pointers are frequently used to refer to the planning group for improved performance.
     //--To start, we will create a pointer that references the current robot’s state.
@@ -364,7 +503,7 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target
     for (int i=0; i< 10; i++) {
         try {
             world_target_tf = tfBuffer.lookupTransform("world", "target_frame",
-                                                        ros::Time(0), timeout);
+                                                       ros::Time(0), timeout);
         }
         catch (tf2::TransformException &ex) {
             ROS_WARN("%s", ex.what());
@@ -374,7 +513,7 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target
 
         try {
             ee_target_tf = tfBuffer.lookupTransform("target_frame", "left_ee_link",
-                                                 ros::Time(0), timeout);
+                                                    ros::Time(0), timeout);
         }
         catch (tf2::TransformException &ex) {
             ROS_WARN("%s", ex.what());
@@ -457,11 +596,11 @@ bool GantryControl::pickPart(part part){
 }
 
 void GantryControl::placePart(part part, std::string agv){
-   auto target_pose_in_tray = getTargetWorldPose(part.pose, agv);
-   if (agv=="agv1")
-       goToPresetLocation(agv1_);
-   else
-       goToPresetLocation(agv2_);
+    auto target_pose_in_tray = getTargetWorldPose(part.pose, agv);
+    if (agv=="agv1")
+        goToPresetLocation(agv1_);
+    else
+        goToPresetLocation(agv2_);
 
     target_pose_in_tray.position.z += (ABOVE_TARGET + 1.5*model_height[part.type]);
 

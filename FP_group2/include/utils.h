@@ -45,7 +45,7 @@ extern std::string action_state_name[];
 extern std::unordered_map<std::string, double> model_height;
 
 enum PartStates {FREE, BOOKED, UNREACHABLE, ON_TRAY, GRIPPED, GOING_HOME,
-  REMOVE_FROM_TRAY, LOST};
+    REMOVE_FROM_TRAY, LOST};
 
 
 
@@ -53,21 +53,22 @@ typedef struct PresetLocation {
     std::vector<double> gantry;
     std::vector<double> left_arm;
     std::vector<double> right_arm;
-} start, bin3, bin13, belt, lc4r, lc5l, shelf11, agv1, agv2;
+} start, bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8,bin9,bin10,bin11,bin12,bin13,bin14,bin15,bin16,belt, lc4r,lc5l, shelf11,
+        agv1, agv2,lc15lg,lc16lg,shelf2a,lc15rg,lc16rg,lc13ra,lc13rb,lc14ra,lc14rb,shelf1a,left_gap_1_2,left_gap_1_3,logicam0,logicam1,logicam2,logicam3;
 
 
 typedef struct Part {
-  std::string type; // model type
-  geometry_msgs::Pose pose; // model pose (in frame)
-  geometry_msgs::Pose save_pose;
-  std::string frame; // model frame (e.g., "logical_camera_1_frame")
-  ros::Time time_stamp;
-  std::string id;
-  PartStates state; // model state (enum PartStates)
-  bool faulty;
-  bool faulty_label;
-  bool Shifted;
-  std::string agv_id, shipment;
+    std::string type; // model type
+    geometry_msgs::Pose pose; // model pose (in frame)
+    geometry_msgs::Pose save_pose;
+    std::string frame; // model frame (e.g., "logical_camera_1_frame")
+    ros::Time time_stamp;
+    std::string id;
+    PartStates state; // model state (enum PartStates)
+    bool faulty;
+    bool faulty_label;
+    bool Shifted;
+    std::string agv_id, shipment;
 } part;
 
 typedef struct Position {
@@ -115,10 +116,10 @@ typedef struct Order {
 } order;
 
 typedef struct Stats {
-  double total_time = 0.0;
-  double fail_time = 0.0;
-  int calls = 0;
-  int fails = 0;
+    double total_time = 0.0;
+    double fail_time = 0.0;
+    int calls = 0;
+    int fails = 0;
 } stats;
 
 
