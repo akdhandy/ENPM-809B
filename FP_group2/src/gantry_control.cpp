@@ -624,6 +624,114 @@ void GantryControl::placePartRight(part part, std::string agv){
 //        goToPresetLocation(start_);
 }
 
+void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation){
+
+    presetLocation["logical_camera_2_frame"] = {logicam2_};
+    presetLocation["logical_camera_3_frame"] = {logicam3_};
+    presetLocation["logical_camera_1_frame"] = {logicam1_};
+    presetLocation["logical_camera_0_frame"] = {logicam0_};
+
+    presetLocation["logical_camera_15_frame"] = {lc15lg_};
+    presetLocation["logical_camera_16_frame"] = {lc16lg_};
+
+    presetLocation["logical_camera_13_frame"] = {shelf1a_,lc13rb_};
+    presetLocation["logical_camera_14_frame"] = {shelf1a_,lc14rb_};
+
+    presetLocation["start"] = {start_};
+    presetLocation["agv2"] = {agv2_};
+    presetLocation["agv1"] = {agv1_};
+
+    presetLocation["Gap between shelf3 and shelf4"] = {lc5la_,left_gap_1_2_,left_gap_1_3_};
+    presetLocation["Gap between shelf4 and shelf5"] = {lc5la_,lc5lb_,lc5lc_,lc5ld_,};
+    presetLocation["Gap between shelf6 and shelf7"] = {};
+    presetLocation["Gap between shelf7 and shelf8"] = {};
+    presetLocation["Gap between shelf9 and shelf10"] = {};
+    presetLocation["Gap between shelf10 and shelf11"] = {lc4ra_,lc4rb_,lc4rc_};
+
+}
+
+void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string& location, double x, double y){
+    auto vec = presetLocation[location];
+    if(vec.size() == 1){
+        goToPresetLocation(vec[0]);
+
+        // logical camera 0
+        if (x > 4.9 && (y>1.9 && y<2.4)) {
+            ROS_INFO_STREAM("AT BIN8 ");
+            goToPresetLocation(bin8_);
+        }
+        else if ((x>4.25 && x<4.85) && (y>1.9 && y<2.4)) {
+            ROS_INFO_STREAM("AT BIN7 ");
+            goToPresetLocation(bin7_);
+        }
+        else if ((x>5.1 && x<5.62) && (y>1 && y<1.6)) {
+            ROS_INFO_STREAM("AT BIN4 ");
+            goToPresetLocation(bin4_);
+        }
+        else if ((x>4.2 &&x<4.8) && (y>1 && y<1.6)) {
+            ROS_INFO_STREAM("AT BIN3 ");
+            goToPresetLocation(bin3_);
+        }
+            //logicam 1
+        else if ( (x>3.2 && x<3.8) && (y>1.9 && y< 2.4)) {
+            ROS_INFO_STREAM("AT BIN6 ");
+
+            goToPresetLocation(bin6_);
+        }
+        else if ((x>2.3&&x<2.9) && (y>1.8&&y<2.4)){
+            ROS_INFO_STREAM("AT BIN5 ");
+            goToPresetLocation(bin5_);
+
+        }
+        else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
+            ROS_INFO_STREAM("AT BIN2 ");
+            goToPresetLocation(bin2_);
+        }
+        else if ((x>2.3&&x<3) && (y>1.05 && y<1.4)){
+            ROS_INFO_STREAM("AT BIN1 ");
+            goToPresetLocation(bin1_);
+        }
+
+            //logicam 2
+        else if ( (x>3.9 && x< 3.2)  && (y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN10 ");
+            goToPresetLocation(bin10_);
+        }
+        else if ((x<2.9 && x>2.3) && (y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN9 ");
+            goToPresetLocation(bin9_);
+        }
+
+        else if ((x<3.9 && x> 3.2) && (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN14 ");
+            goToPresetLocation(bin14_);
+        }
+        else if ((x>2.9 && x<2.3 )&& (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN13 ");
+            goToPresetLocation(bin13_);
+        }
+
+            //logicam 3
+        else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN12 ");
+            goToPresetLocation(bin12_);
+        }
+        else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN11");
+            goToPresetLocation(bin11_);
+        }
+        else if ((x>5.1 && x <5.7) && (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN16 ");
+            goToPresetLocation(bin16_);
+        }
+        else if ((x>4.1 && x<4.8) && (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN15 ");
+            goToPresetLocation(bin15_);
+        }
+
+    }
+}
+
 
 void GantryControl::goToPresetLocation(PresetLocation location) {
     //--gantry

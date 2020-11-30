@@ -36,137 +36,6 @@
 
 #include <tf2/LinearMath/Quaternion.h>
 
-void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation, GantryControl &gantry){
-
-    presetLocation["logical_camera_2_frame"] = {gantry.logicam2_};
-    presetLocation["logical_camera_3_frame"] = {gantry.logicam3_};
-    presetLocation["logical_camera_1_frame"] = {gantry.logicam1_};
-    presetLocation["logical_camera_0_frame"] = {gantry.logicam0_};
-
-    presetLocation["logical_camera_15_frame"] = {gantry.lc15lg_};
-    presetLocation["logical_camera_16_frame"] = {gantry.lc16lg_};
-
-    presetLocation["logical_camera_13_frame"] = {gantry.shelf1a_,gantry.lc13rb_};
-    presetLocation["logical_camera_14_frame"] = {gantry.shelf1a_,gantry.lc14rb_};
-
-    presetLocation["start"] = {gantry.start_};
-    presetLocation["agv2"] = {gantry.agv2_};
-    presetLocation["agv1"] = {gantry.agv1_};
-
-    presetLocation["Gap between shelf3 and shelf4"] = {gantry.lc5la_,gantry.left_gap_1_2_,gantry.left_gap_1_3_};
-    presetLocation["Gap between shelf4 and shelf5"] = {gantry.lc5la_,gantry.lc5lb_,gantry.lc5lc_,gantry.lc5ld_,};
-    presetLocation["Gap between shelf6 and shelf7"] = {};
-    presetLocation["Gap between shelf7 and shelf8"] = {};
-    presetLocation["Gap between shelf9 and shelf10"] = {};
-    presetLocation["Gap between shelf10 and shelf11"] = {gantry.lc4ra_,gantry.lc4rb_,gantry.lc4rc_};
-
-}
-
-void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string& location,GantryControl &gantry, double x, double y){
-    auto vec = presetLocation[location];
-    if(vec.size() == 1){
-        gantry.goToPresetLocation(vec[0]);
-
-        // logical camera 0
-        if (x > 4.9 && (y>1.9 && y<2.4)) {
-            ROS_INFO_STREAM("AT BIN8 ");
-
-            gantry.goToPresetLocation(gantry.bin8_);
-        }
-        else if ((x>4.25 && x<4.85) && (y>1.9 && y<2.4)) {
-            ROS_INFO_STREAM("AT BIN7 ");
-
-            gantry.goToPresetLocation(gantry.bin7_);
-        }
-        else if ((x>5.1 && x<5.62) && (y>1 && y<1.6)) {
-            ROS_INFO_STREAM("AT BIN4 ");
-
-            gantry.goToPresetLocation(gantry.bin4_);
-        }
-        else if ((x>4.2 &&x<4.8) && (y>1 && y<1.6)) {
-            ROS_INFO_STREAM("AT BIN3 ");
-
-            gantry.goToPresetLocation(gantry.bin3_);
-        }
-
-        else if ( (x>3.2 && x<3.8) && (y>1.9 && y< 2.4)) {
-            ROS_INFO_STREAM("AT BIN6 ");
-
-            gantry.goToPresetLocation(gantry.bin6_);
-        }
-        else if ((x>2.3&&x<2.9) && (y>1.8&&y<2.4)){
-            ROS_INFO_STREAM("AT BIN5 ");
-
-            gantry.goToPresetLocation(gantry.bin5_);
-
-        }
-        else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
-            ROS_INFO_STREAM("AT BIN2 ");
-
-            gantry.goToPresetLocation(gantry.bin2_);
-        }
-        else if ((x>2.3&&x<3) && (y>1.05 && y<1.4)){
-            ROS_INFO_STREAM("AT BIN1 ");
-
-            gantry.goToPresetLocation(gantry.bin1_);
-        }
-        else if ( (x>3.9 && x< 3.2)  && (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN10 ");
-
-            gantry.goToPresetLocation(gantry.bin10_);
-        }
-        else if ((x<2.9 && x>2.3) && (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN9 ");
-
-            gantry.goToPresetLocation(gantry.bin9_);
-        }
-        else if ((x<3.9 && x> 3.2) && (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN14 ");
-
-            gantry.goToPresetLocation(gantry.bin14_);
-        }
-        else if ((x>2.9 && x<2.3 )&& (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN13 ");
-            gantry.goToPresetLocation(gantry.bin13_);
-        }
-        else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN12 ");
-            gantry.goToPresetLocation(gantry.bin12_);
-        }
-        else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN11");
-            gantry.goToPresetLocation(gantry.bin11_);
-        }
-        else if ((x<2.9 && x>2.3 )&& (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN13 ");
-            gantry.goToPresetLocation(gantry.bin13_);
-        }
-        else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN12 ");
-            gantry.goToPresetLocation(gantry.bin12_);
-        }
-        else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN11");
-            gantry.goToPresetLocation(gantry.bin11_);
-        }
-        else if ((x>5.1 && x <5.7) && (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN16 ");
-            gantry.goToPresetLocation(gantry.bin16_);
-        }
-        else if ((x>4.1 && x<4.8) && (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN15 ");
-            gantry.goToPresetLocation(gantry.bin15_);
-        }
-
-
-    }
-//    for(auto waypoint :vec){
-//        gantry.goToPresetLocation(waypoint);
-//    }
-}
-
-
-
 bool submitOrder(int AVG_id, std::string shipment_type){
     ROS_INFO("[submitOrder] Submitting order via AVG");
 
@@ -223,7 +92,7 @@ int main(int argc, char ** argv) {
     std::array<std::array<modelparam, 36>, 17> logicam, logicam2, logicam12;
     std::array < std::array < std::array < part, 10 >, 5 >, 5 > or_details, or_details_new, order_call;
     std::array < std::array < std::array < int, 10 >, 5 >, 5 > order_flag = {0};
-    std::array<std::array<int, 2>, 5> completed = {0};
+    std::array<std::array<int, 2>, 10> completed = {0};
     part faulty_part, faulty_pose;
     bool break_beam;
     std::string c_state = comp.getCompetitionState();
@@ -262,51 +131,17 @@ int main(int argc, char ** argv) {
 //    comp.check_gaps();
     int x_loop = 0;
     int on_belt = 0;
-    std::array<std::array<int, 3>, 5> belt_part_arr;
+    std::array<std::array<int, 3>, 5> belt_part_arr = {0};
 
     // Initialization of variables and functions for move to preset location
     std::map <std::string, std::vector<PresetLocation>> presetLocation;
     std::string location;
     double loc_x, loc_y;
-    initialPositions(presetLocation, gantry);
+    gantry.initialPositions(presetLocation);
+
+    comp.PartonBeltCheck(comp.received_orders_, x_loop, logicam, belt_part_arr, on_belt);
 
     for (int i = comp.received_orders_.size() - 1; i >= 0; i--) {
-        for (int j = 0; j < comp.received_orders_[i].shipments.size(); j++) {
-            for (int k = 0; k < comp.received_orders_[i].shipments[j].products.size(); k++) {
-                for (int x = 0; x < 17; x++) {
-                    if (x_loop != 0) {
-                        x_loop = 0;
-                        break;
-                    }
-                    for (int y = 0; y < 36; y++) {
-                        if (logicam[x][y].type == comp.received_orders_[i].shipments[j].products[k].type) {
-                            ROS_INFO_STREAM("\n" << comp.received_orders_[i].shipments[j].products[k].type
-                                                 << " under logical camera " << x);
-                            ROS_INFO_STREAM("\n Part seen " << logicam[x][y].type);
-                            ROS_INFO_STREAM("\n order = " << i << ", shipment = " << j << ", products = " << k);
-                            x_loop++;
-                            break;
-                        }
-                        if ((x == 16) && (y == 35)) {
-                            belt_part_arr[on_belt][0] = i;
-                            belt_part_arr[on_belt][1] = j;
-                            belt_part_arr[on_belt][2] = k;
-                            on_belt++;
-                            ROS_INFO_STREAM(
-                                    "\n Order details of the red part - i = " << i << ", j = " << j << ", k = " << k);
-                            ROS_INFO_STREAM("\n Part is on the belt");
-                            ROS_INFO_STREAM("\n Number of parts on the belt " << on_belt);
-//                            ROS_INFO_STREAM("\n Array containing the order details of part on belt \n "<<belt_part_arr[on_belt][0]<<belt_part_arr[on_belt][1]<<belt_part_arr[on_belt][2]);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    for (int i = comp.received_orders_.size() - 1; i >= 0; i--) {
-//        if (completed[i]==1)
-//            continue;
         for (int j = 0; j < comp.received_orders_[i].shipments.size(); j++) {
             if (completed[i][j] == 1)
                 continue;
@@ -619,7 +454,7 @@ int main(int argc, char ** argv) {
 
                                 loc_x = logicam[x][y].pose.position.x;
                                 loc_y = logicam[x][y].pose.position.y;
-                                moveToPresetLocation(presetLocation, location, gantry, loc_x, loc_y);
+                                gantry.moveToPresetLocation(presetLocation, location, loc_x, loc_y);
                                 ROS_INFO_STREAM("\n Done running");
                                 part my_part;
                                 my_part.type = logicam[x][y].type;

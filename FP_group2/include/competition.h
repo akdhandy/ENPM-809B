@@ -46,6 +46,7 @@ public:
     void logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id);
     void quality_sensor_status_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg);
     void quality_sensor_status_callback2(const nist_gear::LogicalCameraImage::ConstPtr &msg);
+    void PartonBeltCheck(std::vector<nist_gear::Order> received, int x_loop, std::array<std::array<modelparam, 36>, 17> logicam, std::array<std::array<int, 3>, 5> belt_part_arr, int on_belt);
     part quality_sensor_status();
     part quality_sensor_status1();
     void breakbeam_sensing();

@@ -57,8 +57,9 @@ public:
     /// Send command message to robot controller
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
+    void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation);
+    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string& location, double x, double y);
     void placePartRight(part part, std::string agv);
-//    void logicam_presets(std::string logical_camera_4, std::string logical_camera_5);
 
     void activateGripper(std::string gripper_id);
     void deactivateGripper(std::string gripper_id);

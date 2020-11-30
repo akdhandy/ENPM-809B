@@ -47,6 +47,7 @@ void Competition::init() {
 
 }
 
+
 part Competition::quality_sensor_status(){
     return faulty_part_agv2;
 }
@@ -231,6 +232,42 @@ void Competition::order_callback(const nist_gear::Order::ConstPtr & msg) {
     }
 }
 
+void Competition::PartonBeltCheck(std::vector<nist_gear::Order> received, int x_loop, std::array<std::array<modelparam, 36>, 17> logicam, std::array<std::array<int, 3>, 5> belt_part_arr, int on_belt)
+{
+    for (int i = received.size() - 1; i >= 0; i--) {
+        for (int j = 0; j < received[i].shipments.size(); j++) {
+            for (int k = 0; k < received[i].shipments[j].products.size(); k++) {
+                for (int x = 0; x < 17; x++) {
+                    if (x_loop != 0) {
+                        x_loop = 0;
+                        break;
+                    }
+                    for (int y = 0; y < 36; y++) {
+                        if (logicam[x][y].type == received[i].shipments[j].products[k].type) {
+                            ROS_INFO_STREAM("\n" << received[i].shipments[j].products[k].type
+                                                 << " under logical camera " << x);
+                            ROS_INFO_STREAM("\n Part seen " << logicam[x][y].type);
+                            ROS_INFO_STREAM("\n order = " << i << ", shipment = " << j << ", products = " << k);
+                            x_loop++;
+                            break;
+                        }
+                        if ((x == 16) && (y == 35)) {
+                            belt_part_arr[on_belt][0] = i;
+                            belt_part_arr[on_belt][1] = j;
+                            belt_part_arr[on_belt][2] = k;
+                            on_belt++;
+                            ROS_INFO_STREAM(
+                                    "\n Order details of the red part - i = " << i << ", j = " << j << ", k = " << k);
+                            ROS_INFO_STREAM("\n Part is on the belt");
+                            ROS_INFO_STREAM("\n Number of parts on the belt " << on_belt);
+//                            ROS_INFO_STREAM("\n Array containing the order details of part on belt \n "<<belt_part_arr[on_belt][0]<<belt_part_arr[on_belt][1]<<belt_part_arr[on_belt][2]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 std::array<std::array<std::array<part, 10>, 5>, 5> Competition::getter_part_callback()
 {
