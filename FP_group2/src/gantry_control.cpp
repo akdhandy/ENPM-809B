@@ -47,11 +47,9 @@ void GantryControl::init() {
     start1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     start1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-
     logicam0_.gantry={5, -1.75,0};
     logicam0_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     logicam0_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
 
     logicam1_.gantry={3.082,-1.75,0};
     logicam1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -64,7 +62,6 @@ void GantryControl::init() {
     logicam3_.gantry={5,1.75,0};
     logicam3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     logicam3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
 
     bin1_.gantry = {3.08,-1.82,-2.79};
     bin1_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
@@ -134,10 +131,58 @@ void GantryControl::init() {
     bin9_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //-------------------------------------------------------------//
+//    Shelves
+// for the gantry to move from start position to left side of shelf 1 (logicam 13 & 14)
+    logicam13l1_.gantry={0, -6.5, 3.14};
+    logicam13l1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam13l1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf 1
+    logicam13r_.gantry={3.5, -2.5, 0};
+    logicam13r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam13r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    logicam13l2_.gantry={3.5, -4.75, 0};
+    logicam13l2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam13l2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam14r_.gantry={4.95, -2.5, 0};
+    logicam14r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam14r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam14l_.gantry={4.95, -4.75, 0};
+    logicam14l_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam14l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+// for the gantry to move from start position to right side of shelf 2 (logicam 15 & 16)
+    logicam15r1_.gantry={0, 6.5, 3.14};
+    logicam15r1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15r1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf 2
+    logicam15r_.gantry={3.0, 5.0, 0};
+    logicam15r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam15l_.gantry={3.0, 2.5, 0};
+    logicam15l_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam16r_.gantry={4.45, 5.0, 0};
+    logicam16r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam16r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam16l_.gantry={4.45, 2.5, 0};
+    logicam16l_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam16l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf1_fl.gantry = {3.5, -5, 3.14};
+    shelf1_fl.left_arm = {-1.55, -4, 0.5, -1, -6.25, 0};
+    shelf1_fl.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf1_bl.gantry = {5.5, -5, 3.14};
+    shelf1_bl.left_arm = {-1.59, -2.1, -1, -1, -6.25, 0};
+    shelf1_bl.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Green_Part-- shelf 8
-
     //--default for left
     lc5la_.gantry = {0, -4.48, 0};
     lc5la_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -631,11 +676,22 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
     presetLocation["logical_camera_1_frame"] = {logicam1_};
     presetLocation["logical_camera_0_frame"] = {logicam0_};
 
-    presetLocation["logical_camera_15_frame"] = {lc15lg_};
-    presetLocation["logical_camera_16_frame"] = {lc16lg_};
+//    presetLocation["logical_camera_15_frame"] = {lc15lg_};
+//    presetLocation["logical_camera_16_frame"] = {lc16lg_};
+//
+//    presetLocation["logical_camera_13_frame"] = {shelf1a_,lc13rb_};
+//    presetLocation["logical_camera_14_frame"] = {shelf1a_,lc14rb_};
 
-    presetLocation["logical_camera_13_frame"] = {shelf1a_,lc13rb_};
-    presetLocation["logical_camera_14_frame"] = {shelf1a_,lc14rb_};
+// Shelf preset locations
+
+    presetLocation["logical_camera_13_frame_right"] = {logicam13r_};
+    presetLocation["logical_camera_13_frame_left"] = {logicam13l1_, logicam13l2_};
+    presetLocation["logical_camera_14_frame_right"] = {logicam14r_};
+    presetLocation["logical_camera_14_frame_left"] = {logicam13l1_, logicam14l_};
+    presetLocation["logical_camera_15_frame_right"] = {logicam15r1_, logicam15r_};
+    presetLocation["logical_camera_15_frame_left"] = {logicam15l_};
+    presetLocation["logical_camera_16_frame_right"] = {logicam15r1_, logicam16r_};
+    presetLocation["logical_camera_16_frame_left"] = {logicam16l_};
 
     presetLocation["start"] = {start_};
     presetLocation["agv2"] = {agv2_};
@@ -651,84 +707,156 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
 }
 
 void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string& location, double x, double y){
-    auto vec = presetLocation[location];
-    if(vec.size() == 1){
-        goToPresetLocation(vec[0]);
+    if(!(location == "logical_camera_13_frame" || location == "logical_camera_14_frame" || location == "logical_camera_15_frame" || location == "logical_camera_16_frame"))
+    {
+        auto vec = presetLocation[location];
+        if(vec.size() == 1)
+        {
+            goToPresetLocation(vec[0]);
 
-        // logical camera 0
-        if (x > 4.9 && (y>1.9 && y<2.4)) {
-            ROS_INFO_STREAM("AT BIN8 ");
-            goToPresetLocation(bin8_);
-        }
-        else if ((x>4.25 && x<4.85) && (y>1.9 && y<2.4)) {
-            ROS_INFO_STREAM("AT BIN7 ");
-            goToPresetLocation(bin7_);
-        }
-        else if ((x>5.1 && x<5.62) && (y>1 && y<1.6)) {
-            ROS_INFO_STREAM("AT BIN4 ");
-            goToPresetLocation(bin4_);
-        }
-        else if ((x>4.2 &&x<4.8) && (y>1 && y<1.6)) {
-            ROS_INFO_STREAM("AT BIN3 ");
-            goToPresetLocation(bin3_);
-        }
-            //logicam 1
-        else if ( (x>3.2 && x<3.8) && (y>1.9 && y< 2.4)) {
-            ROS_INFO_STREAM("AT BIN6 ");
+            // logical camera 0
+            if (x > 4.9 && (y>1.9 && y<2.4)) {
+                ROS_INFO_STREAM("AT BIN8 ");
+                goToPresetLocation(bin8_);
+            }
+            else if ((x>4.25 && x<4.85) && (y>1.9 && y<2.4)) {
+                ROS_INFO_STREAM("AT BIN7 ");
+                goToPresetLocation(bin7_);
+            }
+            else if ((x>5.1 && x<5.62) && (y>1 && y<1.6)) {
+                ROS_INFO_STREAM("AT BIN4 ");
+                goToPresetLocation(bin4_);
+            }
+            else if ((x>4.2 &&x<4.8) && (y>1 && y<1.6)) {
+                ROS_INFO_STREAM("AT BIN3 ");
+                goToPresetLocation(bin3_);
+            }
+                //logicam 1
+            else if ( (x>3.2 && x<3.8) && (y>1.9 && y< 2.4)) {
+                ROS_INFO_STREAM("AT BIN6 ");
 
-            goToPresetLocation(bin6_);
-        }
-        else if ((x>2.3&&x<2.9) && (y>1.8&&y<2.4)){
-            ROS_INFO_STREAM("AT BIN5 ");
-            goToPresetLocation(bin5_);
+                goToPresetLocation(bin6_);
+            }
+            else if ((x>2.3&&x<2.9) && (y>1.8&&y<2.4)){
+                ROS_INFO_STREAM("AT BIN5 ");
+                goToPresetLocation(bin5_);
 
+            }
+            else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
+                ROS_INFO_STREAM("AT BIN2 ");
+                goToPresetLocation(bin2_);
+            }
+            else if ((x>2.3&&x<3) && (y>1.05 && y<1.4)){
+                ROS_INFO_STREAM("AT BIN1 ");
+                goToPresetLocation(bin1_);
+            }
+
+                //logicam 2
+            else if ( (x>3.9 && x< 3.2)  && (y>-1.6 && y<-1)){
+                ROS_INFO_STREAM("AT BIN10 ");
+                goToPresetLocation(bin10_);
+            }
+            else if ((x<2.9 && x>2.3) && (y>-1.6 && y<-1)){
+                ROS_INFO_STREAM("AT BIN9 ");
+                goToPresetLocation(bin9_);
+            }
+
+            else if ((x<3.9 && x> 3.2) && (y>-2.4 && y<-1.85)){
+                ROS_INFO_STREAM("AT BIN14 ");
+                goToPresetLocation(bin14_);
+            }
+            else if ((x>2.9 && x<2.3 )&& (y>-2.4 && y<-1.85)){
+                ROS_INFO_STREAM("AT BIN13 ");
+                goToPresetLocation(bin13_);
+            }
+
+                //logicam 3
+            else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
+                ROS_INFO_STREAM("AT BIN12 ");
+                goToPresetLocation(bin12_);
+            }
+            else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
+                ROS_INFO_STREAM("AT BIN11");
+                goToPresetLocation(bin11_);
+            }
+            else if ((x>5.1 && x <5.7) && (y>-2.4 && y<-1.85)){
+                ROS_INFO_STREAM("AT BIN16 ");
+                goToPresetLocation(bin16_);
+            }
+            else if ((x>4.1 && x<4.8) && (y>-2.4 && y<-1.85)){
+                ROS_INFO_STREAM("AT BIN15 ");
+                goToPresetLocation(bin15_);
+            }
         }
-        else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
-            ROS_INFO_STREAM("AT BIN2 ");
-            goToPresetLocation(bin2_);
+    }
+    else
+    {
+//        auto vec = presetLocation[location];
+//        if(vec.size() == 1)
+//        {
+
+        //  Shelves
+            // Shelf 1 - logical camera 13
+        ROS_INFO_STREAM("Going for shelves ");
+        if ((x > 2.25 && x < 4) && (y > 3.8 && y < 4.1))
+        {
+            ROS_INFO_STREAM("On the front left of shelf 1");
+            location = location + "_left";
+            auto vec = presetLocation[location];
+//            goToPresetLocation(vec[0]);
+//            goToPresetLocation(logicam13l2_);
+            goToPresetLocation(shelf1_fl);
         }
-        else if ((x>2.3&&x<3) && (y>1.05 && y<1.4)){
-            ROS_INFO_STREAM("AT BIN1 ");
-            goToPresetLocation(bin1_);
+        else if ((x > 2.25 && x < 4) && (y > 3.1 && y < 3.4))
+        {
+            ROS_INFO_STREAM("On the front right of shelf 1");
+            location = location + "_right";
+            auto vec = presetLocation[location];
+//            goToPresetLocation(vec[0]);
+            //            goToPresetLocation();
         }
 
-            //logicam 2
-        else if ( (x>3.9 && x< 3.2)  && (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN10 ");
-            goToPresetLocation(bin10_);
+            // Shelf 1 - logical camera 14
+        else if ((x > 4 && x < 5.9) && (y > 3.8 && y < 4.1))
+        {
+            ROS_INFO_STREAM("On the back left of shelf 1");
+            location = location + "_left";
+            auto vec = presetLocation[location];
+//            goToPresetLocation(vec[0]);
+            goToPresetLocation(shelf1_bl);
         }
-        else if ((x<2.9 && x>2.3) && (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN9 ");
-            goToPresetLocation(bin9_);
+        else if ((x > 4 && x < 5.9) && (y > 3.1 && y < 3.4))
+        {
+            ROS_INFO_STREAM("On the back right of shelf 1");
+            location = location + "_right";
+            auto vec = presetLocation[location];
+//            goToPresetLocation(vec[0]);
+            //            goToPresetLocation();
         }
-
-        else if ((x<3.9 && x> 3.2) && (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN14 ");
-            goToPresetLocation(bin14_);
-        }
-        else if ((x>2.9 && x<2.3 )&& (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN13 ");
-            goToPresetLocation(bin13_);
-        }
-
-            //logicam 3
-        else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN12 ");
-            goToPresetLocation(bin12_);
-        }
-        else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
-            ROS_INFO_STREAM("AT BIN11");
-            goToPresetLocation(bin11_);
-        }
-        else if ((x>5.1 && x <5.7) && (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN16 ");
-            goToPresetLocation(bin16_);
-        }
-        else if ((x>4.1 && x<4.8) && (y>-2.4 && y<-1.85)){
-            ROS_INFO_STREAM("AT BIN15 ");
-            goToPresetLocation(bin15_);
-        }
-
+        //        // Shelf 2 - logical camera 15
+        //        else if ((x > 2.25 && x < 4) && (y > 3.8 && y < 4.1))
+        //        {
+        //            ROS_INFO_STREAM("On the front left of shelf 2");
+        ////            goToPresetLocation();
+        //        }
+        //        else if ((x > 2.25 && x < 4) && (y > 3.1 && y < 3.4))
+        //        {
+        //            ROS_INFO_STREAM("On the front right of shelf 2");
+        ////            goToPresetLocation();
+        //        }
+        //
+        //        // Shelf 2 - logical camera 16
+        //        else if ((x > 4 && x < 5.9) && (y > 3.8 && y < 4.1))
+        //        {
+        //            ROS_INFO_STREAM("On the back left of shelf 2");
+        ////            goToPresetLocation();
+        //        }
+        //        else if ((x > 4 && x < 5.9) && (y > 3.1 && y < 3.4))
+        //        {
+        //            ROS_INFO_STREAM("On the back right of shelf 2");
+        ////            goToPresetLocation();
+        //        }
+//        }
     }
 }
 

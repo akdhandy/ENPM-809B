@@ -443,10 +443,31 @@ int main(int argc, char ** argv) {
 
                                 }
                                 break;
-                            } else if (comp.received_orders_[i].shipments[j].products[k].type == "gear_part_blue") {
+                            }
+//                            else if (comp.received_orders_[i].shipments[j].products[k].type == "gear_part_blue") {
+//                                ROS_INFO_STREAM("\n Test run of move to preset location function.");
+//                                location = logicam[x][y].frame;
+//                                ROS_INFO_STREAM(location);
+//
+//                                ROS_INFO_STREAM("X POSITION "<< logicam[x][y].pose.position.x);
+//                                ROS_INFO_STREAM("Y POSITION "<< logicam[x][y].pose.position.y);
+//                                auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
+//
+//                                loc_x = logicam[x][y].pose.position.x;
+//                                loc_y = logicam[x][y].pose.position.y;
+//                                gantry.moveToPresetLocation(presetLocation, location, loc_x, loc_y);
+//                                ROS_INFO_STREAM("\n Done running");
+//                                part my_part;
+//                                my_part.type = logicam[x][y].type;
+//                                my_part.pose = logicam[x][y].pose;
+//                                gantry.pickPart(my_part);
+//                            }
+
+                            else if (comp.received_orders_[i].shipments[j].products[k].type == "gasket_part_red")
+                            {
                                 ROS_INFO_STREAM("\n Test run of move to preset location function.");
                                 location = logicam[x][y].frame;
-                                ROS_INFO_STREAM(location);
+//                                ROS_INFO_STREAM(location);
 
                                 ROS_INFO_STREAM("X POSITION "<< logicam[x][y].pose.position.x);
                                 ROS_INFO_STREAM("Y POSITION "<< logicam[x][y].pose.position.y);
@@ -460,7 +481,23 @@ int main(int argc, char ** argv) {
                                 my_part.type = logicam[x][y].type;
                                 my_part.pose = logicam[x][y].pose;
                                 gantry.pickPart(my_part);
-//                            }
+                                target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
+                                if (or_details[i][j][k].agv_id == "agv1")
+                                {
+                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
+                                    gantry.placePart(or_details[i][j][k], "agv1");
+                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                }
+                                else if (or_details[i][j][k].agv_id == "agv2")
+                                {
+                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
+                                    gantry.placePart(or_details[i][j][k], "agv2");
+                                    ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
+                                }
+                            }
 //
 //                                gantry.goToPresetLocation(gantry.shelf5a_);
 //                                gantry.goToPresetLocation(gantry.shelf5b_);
@@ -700,7 +737,7 @@ int main(int argc, char ** argv) {
 //                                }
 //                                break;
 //                            }
-                            } else if (part_on_belt == 1) {
+                             else if (part_on_belt == 1) {
                                 if (comp.received_orders_[i].shipments[j].products[k].type == "pulley_part_grey") {
                                     part_on_belt++;
                                     gantry.goToPresetLocation(gantry.start_);
