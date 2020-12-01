@@ -65,17 +65,31 @@ void GantryControl::init() {
     logicam3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     logicam3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //logicalcamera1-reset
+    test_.gantry = {3.08,-1.82,0};
+    test_.left_arm = {0.17,-0.67,1.36,-0.78,1.70,0};
+//    test_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    test_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin1_.gantry = {3.08,-1.82,-2.79};
-    bin1_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    //logic0 preset
+    test1_.gantry ={5.22, -1.54,3.14};
+    test1_.left_arm = {-0.13,-0.66,1.45,-0.8,1.44,0};
+    test1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+//    bin1_.gantry = {3.08,-1.82,-2.79};
+    bin1_.gantry = {3.18,-1.68,3.12};
+//    bin1_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin1_.left_arm = {0.15,-0.42,1.11,-0.65,1.70,0};
     bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin2_.gantry = {3.08, -1.82, -1.28};
-    bin2_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin2_.gantry = {3.13, -1.96, -1.45};
+//    bin2_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+//    bin2_.left_arm = {0.16,-0.42,0.61,-0.20,1.70,0};
+    bin2_.left_arm = {0.14,-0.42,0.6,-0.2,1.70,0};
     bin2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin3_.gantry = {5.18, -1.40, 3.14};
-    bin3_.left_arm = {-0.13,-0.65,1.32,-0.65,1.44,0};
+    bin3_.gantry = {5.22, -1.54, 3.14};
+    bin3_.left_arm = {0.07,-0.79,1.24,-0.45,1.57,0};
     bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //no parts on 4
@@ -83,8 +97,8 @@ void GantryControl::init() {
     bin4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin8_.gantry = {4.95, -1.54, 0.78};
-    bin8_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin8_.gantry = {4.98, -1.47, 0.53};
+    bin8_.left_arm = {0.07,-0.79,1.24,-0.45,1.57,0};
     bin8_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //no parts on 7
@@ -96,36 +110,53 @@ void GantryControl::init() {
     bin6_.left_arm = {0.19,-0.42,0.86,-0.40,1.70,0};
     bin6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin5_.gantry = {3.08,-1.82,-4.3};
-    bin5_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+//    bin5_.gantry = {3.08,-1.82,-4.3};
+    bin5_.gantry = {2.85,-1.68,1.35};
+//    bin5_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin5_.left_arm = {0.16,-0.42,1.11,-0.65,1.70,0};
     bin5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin16_.gantry = {5,1.82,-0.75};
-    bin16_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+//    bin16_.gantry = {5,1.82,-0.75};
+//    bin16_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+//    bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+//    bin16_.gantry = {5.5,1.67,-1.4};
+    bin16_.gantry = {5.5,1.5,-1.66};
+    bin16_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
+//    bin16_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
+//    bin16_.left_arm = {0.0, -PI/4, PI/2, -0.80, PI/2, 0};
     bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin15_.gantry = {5,1.82,-2.45};
-    bin15_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+
+    bin15_.gantry = {4.95,1.68,-2.58};
+//    bin15_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin15_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin15_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin14_.gantry = {3.08, 1.82, -0.78};
-    bin14_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin14_.gantry = {3.0, 1.82, -0.7};
+//    bin14_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin14_.left_arm = {-0.05,-0.67,1.05,-0.38,1.45,0};
     bin14_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin13_.gantry = {3.08, 1.82,-2.45};
-    bin13_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin13_.gantry = {2.2, 1.82,-0.65};
+//    bin13_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin13_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin12_.gantry = {5, 1.82,0};
-    bin12_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin12_.gantry = {5, 1.82,0.63};
+    bin12_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin12_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin11_.gantry = {5, 1.82,1.88};
-    bin11_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin11_.gantry = {3.8, 1.24, -0.3};
+    bin11_.left_arm = {-0.05,-0.67,0.95,-0.3,1.61,0};
     bin11_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin10_.gantry = {3.08, 1.82,0};
-    bin10_.left_arm = {0.18,-0.42,0.86,-0.47,1.70,0};
+    bin10_.gantry = {3.15, 1.26,-0.23};
+//      bin10_.gantry = {2.93, 1.26,-0.23};
+    bin10_.left_arm = {-0.07,-0.41,1.15,-0.75,1.50,0};
+    //bin10_.left_arm = {-0.07,-0.41,0.99,-0.58,1.47,0};
+//    bin10_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
+//    bin10_.left_arm = {-0.07,-0.91,1.3,-0.35,1.37,0};
     bin10_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //no parts on 9
@@ -650,12 +681,35 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
 
 }
 
+void GantryControl::resetPositions(std::string& location){
+    if(location == "logical_camera_2_frame"){
+        ROS_INFO_STREAM("logical_camera_2_frame");
+        goToPresetLocation(logicam2_);
+    }
+
+    else if (location == "logical_camera_3_frame"){
+        ROS_INFO_STREAM("logical_camera_3_frame");
+        goToPresetLocation(logicam3_);
+    }
+    else if (location == "logical_camera_1_frame"){
+        ROS_INFO_STREAM("logical_camera_1_frame");
+        goToPresetLocation(test_);
+    }
+
+    else if (location == "logical_camera_0_frame"){
+        ROS_INFO_STREAM("logical_camera_0_frame");
+        goToPresetLocation(test1_);
+    }
+
+
+
+}
+
 void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string& location, double x, double y){
     auto vec = presetLocation[location];
     if(vec.size() == 1){
-        goToPresetLocation(vec[0]);
+//        goToPresetLocation(vec[0]);
 
-        // logical camera 0
         if (x > 4.9 && (y>1.9 && y<2.4)) {
             ROS_INFO_STREAM("AT BIN8 ");
             goToPresetLocation(bin8_);
@@ -683,17 +737,17 @@ void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<Preset
             goToPresetLocation(bin5_);
 
         }
-        else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
+        else if ((x>3.3 && x< 3.9) && (y<1.5 && y> 1)){
             ROS_INFO_STREAM("AT BIN2 ");
             goToPresetLocation(bin2_);
         }
-        else if ((x>2.3&&x<3) && (y>1.05 && y<1.4)){
+        else if ((x>2.3&& x<3) && (y>1.05 && y<1.5)){
             ROS_INFO_STREAM("AT BIN1 ");
             goToPresetLocation(bin1_);
         }
 
             //logicam 2
-        else if ( (x>3.9 && x< 3.2)  && (y>-1.6 && y<-1)){
+        else if ( (x<3.9 && x> 3.2)  && (y>-1.6 && y<-1)){
             ROS_INFO_STREAM("AT BIN10 ");
             goToPresetLocation(bin10_);
         }
@@ -706,7 +760,7 @@ void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<Preset
             ROS_INFO_STREAM("AT BIN14 ");
             goToPresetLocation(bin14_);
         }
-        else if ((x>2.9 && x<2.3 )&& (y>-2.4 && y<-1.85)){
+        else if ((x<2.9 && x>2.3 )&& (y>-2.4 && y<-1.85)){
             ROS_INFO_STREAM("AT BIN13 ");
             goToPresetLocation(bin13_);
         }

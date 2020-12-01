@@ -29,6 +29,11 @@ options:
     order_part1: pulley_part_red
     order_part2: disk_part_green
     order_part3: disk_part_blue
+    order_part4: gear_part_blue
+    order_part5: gasket_part_red
+    order_part6: pulley_part_blue
+    order_part7: gear_part_green
+    order_part8: piston_rod_part_red
 
 shelf_layout:
   row_1: ['base','collar',0,'base'] #shelves: 3, 4, 5
@@ -43,31 +48,59 @@ orders:
     shipment_count: 1
     destinations: [agv2]
     products:
+#      part_0:
+#        type: pulley_part_red
+#        pose:
+#          xyz: [-0.12, -0.2, 0]
+#          rpy: [0, 0, 0]
+#      part_1:
+#        type: pulley_part_red
+#        pose:
+#          xyz: [0.12, 0.2, 0]
+#          rpy: ['pi', 0, 0]
       part_0:
-        type: pulley_part_red
-        pose:
-          xyz: [-0.12, -0.2, 0]
-          rpy: [0, 0, 0]
-      part_1:
-        type: pulley_part_red
-        pose:
-          xyz: [0.12, 0.2, 0]
-          rpy: ['pi', 0, 0]
-      part_2:
         type: disk_part_green
         pose:
           xyz: [0.0, 0.0, 0]
           rpy: [0, 0, 0]
-      part_3:
-        type: disk_part_blue
+#      part_1:
+#        type: disk_part_blue
+#        pose:
+#          xyz: [-0.15, 0.2, 0]
+#          rpy: [0, 0, 0]
+#      part_4:
+#        type: disk_part_blue
+#        pose:
+#          xyz: [0.15, -0.2, 0]
+#          rpy: [0, 0, 0]
+#      part_2:
+#        type: gear_part_blue
+#        pose:
+#          xyz: [-0.15, 0.2, 0]
+#          rpy: [0, 0, 0]
+      part_1:
+        type: gasket_part_red
         pose:
-          xyz: [-0.15, 0.2, 0]
-          rpy: [0, 0, 0]
-      part_4:
-        type: disk_part_blue
-        pose:
-          xyz: [0.15, -0.2, 0]
-          rpy: [0, 0, 0]
+          xyz: [ 0.0, 0.0, 0 ]
+          rpy: [ 0, 0, '-pi/4' ]
+#      part_4:
+#        type: gear_part_green
+#        pose:
+#          xyz: [-0.12, -0.2, 0]
+#          rpy: [0, 0, 0]
+#      part_8:
+#        type: piston_rod_part_red
+#        pose:
+#          xyz: [0.0, 0.0, 0]
+#          rpy: [0, 0, '-pi/4']
+#      part_5:
+#        type: pulley_part_blue
+#        pose:
+#          xyz: [-0.15, 0.2, 0]
+#          rpy: ['pi', 0, 0]
+
+
+
 
 
 models_over_bins:
@@ -95,6 +128,81 @@ models_over_bins:
         rpy: [0, 0, 0]
         num_models_x: 2
         num_models_y: 1
+
+  bin4:
+    models:
+      gear_part_blue:
+        xyz_start: [0.1, 0.1, 0.0]
+        xyz_end: [0.5, 0.5, 0.0]
+        rpy: [0, 0, 0]
+        num_models_x: 3
+        num_models_y: 3
+
+  bin10:
+    models:
+      gasket_part_red:
+        xyz_start: [ 0.1, 0.1, 0.0 ]
+        xyz_end: [ 0.5, 0.5, 0.0 ]
+        rpy: [ 0, 0, 'pi/4' ]
+        num_models_x: 3
+        num_models_y: 3
+
+  bin1:
+    models:
+      pulley_part_blue:
+        xyz_start: [0.15, 0.35, 0.0]
+        xyz_end: [0.45, 0.45, 0.0]
+        rpy: [0, 0, 0]
+        num_models_x: 2
+        num_models_y: 1
+
+  bin2:
+    models:
+      piston_rod_part_red:
+        xyz_start: [0.15, 0.15, 0.0]
+        xyz_end: [0.45, 0.45, 0.0]
+        rpy: [0, 0, 'pi/4']
+        num_models_x: 2
+        num_models_y: 2
+
+  bin3:
+    models:
+      gear_part_green:
+        xyz_start: [0.15, 0.15, 0.0]
+        xyz_end: [0.45, 0.45, 0.0]
+        rpy: [0, 0, '-pi/2']
+        num_models_x: 2
+        num_models_y: 2
+
+  bin5:
+    models:
+      pulley_part_blue:
+        xyz_start: [0.15, 0.35, 0.0]
+        xyz_end: [0.45, 0.45, 0.0]
+        rpy: [0, 0, 0]
+        num_models_x: 2
+        num_models_y: 1
+
+  bin11:
+    models:
+      gear_part_green:
+        xyz_start: [0.2, 0.1, 0.0]
+        xyz_end: [0.4, 0.4, 0.0]
+        rpy: [0, 0, '-pi/4']
+        num_models_x: 2
+        num_models_y: 2
+
+#  bin12:
+#    models:
+#      disk_part_blue:
+#        xyz_start: [0.28, 0.2, 0.0]
+#        xyz_end: [0.28, 0.4, 0.0]
+#        rpy: [0, 0, 0.28]
+#        num_models_x: 1
+#        num_models_y: 2
+
+
+
 
 models_over_shelves:
   shelf5:

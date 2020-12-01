@@ -52,6 +52,7 @@ public:
 //    bool pickPart(part part, std::string arm_name);
     bool pickPart(part part);
     void placePart(part part, std::string agv);
+    void resetPositions(std::string& location);
 
 
     /// Send command message to robot controller
@@ -84,6 +85,9 @@ public:
     logicam1    logicam1_;
     logicam2    logicam2_;
     logicam3    logicam3_;
+    test        test_;
+    test1       test1_;
+
 
 private:
     std::vector<double> joint_group_positions_;

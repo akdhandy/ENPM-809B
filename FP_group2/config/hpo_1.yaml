@@ -47,17 +47,17 @@ orders:
     shipment_count: 1
     destinations: [agv1]
     products:
+#      part_0:
+#        type: gasket_part_red
+#        pose:
+#          xyz: [0.0, 0.0, 0]
+#          rpy: [0, 0, '-pi/4']
+#      part_1:
+#        type: gear_part_green
+#        pose:
+#          xyz: [-0.15, 0.2, 0]
+#          rpy: [0, 0, 0]
       part_0:
-        type: gasket_part_red
-        pose:
-          xyz: [0.0, 0.0, 0]
-          rpy: [0, 0, '-pi/4']
-      part_1:
-        type: gear_part_green
-        pose:
-          xyz: [-0.15, 0.2, 0]
-          rpy: [0, 0, 0]
-      part_2:
         type: disk_part_blue
         pose:
           xyz: [0.15, -0.2, 0]
@@ -68,27 +68,27 @@ orders:
     shipment_count: 1
     destinations: [agv2]
     products:
+#      part_0:
+#        type: gear_part_green
+#        pose:
+#          xyz: [0.0, 0.0, 0]
+#          rpy: [0, 0, 0]
       part_0:
-        type: gear_part_green
-        pose:
-          xyz: [0.0, 0.0, 0]
-          rpy: [0, 0, 0]
-      part_1:
         type: disk_part_blue
         pose:
           xyz: [0.15, 0.2, 0]
           rpy: [0, 0, 0]
+#      part_1:
+#        type: disk_part_red
+#        pose:
+#          xyz: [0.15, -0.2, 0]
+#          rpy: [0, 0, 0]
+#      part_3:
+#        type: disk_part_red
+#        pose:
+#          xyz: [-0.15, -0.2, 0]
+#          rpy: [0, 0, 0]
       part_2:
-        type: disk_part_red
-        pose:
-          xyz: [0.15, -0.2, 0]
-          rpy: [0, 0, 0]
-      part_3:
-        type: disk_part_red
-        pose:
-          xyz: [-0.15, -0.2, 0]
-          rpy: [0, 0, 0]
-      part_4:
         type: disk_part_green
         pose:
           xyz: [-0.15, 0.2, 0]
