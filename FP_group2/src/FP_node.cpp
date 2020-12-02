@@ -96,6 +96,7 @@ int main(int argc, char ** argv) {
     std::array < std::array < std::array < int, 10 >, 5 >, 5 > order_flag = {0};
     std::array<std::array<int, 2>, 10> completed = {0};
     part faulty_part, faulty_pose;
+    double Model_adjust =0;     //Only required for AGV1 cases. offset of 0.17 observed in Camera and target.
     bool break_beam;
     std::string c_state = comp.getCompetitionState();
     comp.getClock();
@@ -185,6 +186,7 @@ int main(int argc, char ** argv) {
                     break;
                 if (order_flag[i][j][k] != 0)
                     continue;
+
                 if (part_on_belt==0 && on_belt!=0)
                 {
                     ROS_INFO_STREAM("Waiting for part to spawn on belt!!");
@@ -329,6 +331,7 @@ int main(int argc, char ** argv) {
                             gantry.goToPresetLocation(gantry.start_);
                             ROS_INFO_STREAM("Approaching AGV's to place object!!!");
                             if (or_details[i][j][k].agv_id == "agv1") {
+                                Model_adjust = 0.17;
                                 gantry.goToPresetLocation(gantry.agv1_);
                                 ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
                                 if (or_details[i][j][k].pose.orientation.x != 0) {
@@ -351,6 +354,7 @@ int main(int argc, char ** argv) {
                                     gantry.placePart(or_details[i][j][k], "agv1");
                                 logicam[x][y].Shifted = true;
                             } else if (or_details[i][j][k].agv_id == "agv2") {
+                                Model_adjust=0;
                                 gantry.goToPresetLocation(gantry.agv2_);
                                 ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
                                 if (or_details[i][j][k].pose.orientation.x != 0) {
@@ -434,7 +438,7 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
                                 ROS_INFO_STREAM("\n Pose at faulty part "<<cam);
                                 faulty_part.pose = cam;
-                                faulty_part.pose.position.z -= 0.2;
+                                faulty_part.pose.position.z -= Model_adjust;
                                 ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
                                 if (or_details[i][j][k].agv_id=="agv2")
                                 {
@@ -509,7 +513,7 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
                                 ROS_INFO_STREAM("\n Faulty pose "<<cam);
                                 faulty_pose.pose = cam;
-                                faulty_pose.pose.position.z -= 0.17;
+                                faulty_pose.pose.position.z -= Model_adjust;
                                 if (or_details[i][j][k].agv_id=="agv2")
                                 {
                                     gantry.goToPresetLocation(gantry.agv2f_);
