@@ -58,7 +58,7 @@ public:
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
     void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::array<int, 3> gap_nos, std::array<int, 4> Human, bool Human_there);
-    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir, std::string type);
+    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir, std::string type, std::array<int, 3> gap_nos);
     void placePartRight(part part, std::string agv);
 
     void activateGripper(std::string gripper_id);
@@ -73,7 +73,7 @@ public:
     lc13ra lc13ra_;lc14ra lc14ra_;lc13rb lc13rb_;lc14rb lc14rb_;shelf1a shelf1a_;
     belt belta_, beltb1_, beltb2_, beltc_, beltc2_, beltd2_;
     lc4r lc4ra_, lc4ra1_,lc4rb_,lc4rc_,lc4rd_,lc4rd1_,lc4re_,lc4rf_,lc5r_;
-    lc5l lc5la_,lc6la_, lc6lb_,lc7l_,lc5la1_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_,lc5lf1_,lc5lg_, lc4l_;
+    lc5l lc5la_,lc6la_, lc6lb_,lc7l_,lc5la1_,lc5lb_,lc5lc_,lc5ld_,lc5ld3_,lc5ld2_,lc5ld1_,lc5le_,lc5lf_,lc5lf1_,lc5lg_, lc4l_;
     lc7r lc7ra_,lc7rb_,lc7rc_, lc6r_;
     shelf11 lc8la_, lc8lb_, lc8lc_, lc9l_, lc8ra_, lc8rb_, lc9r_;
     agv2 agv2_, agv2f_, agv2flt_, agv2flb_, agv2frt_, agv2frb_, agv2a_, agv2b_, agv2c_;

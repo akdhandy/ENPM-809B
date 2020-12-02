@@ -162,6 +162,8 @@ int main(int argc, char ** argv) {
             }
             for (int k = 0; k < comp.received_orders_[i].shipments[j].products.size(); k++)
             {
+                if (new_order)
+                    break;
                 int count = 0, count1 = 0;
                 for (auto l = 0; l < comp.received_orders_[i].shipments[j].products.size(); l++)
                 {
@@ -181,9 +183,22 @@ int main(int argc, char ** argv) {
                         ROS_INFO_STREAM("\n Submitting Order: " << or_details_new[i][j][k].shipment);
                         submitOrder(2, or_details[i][j][k].shipment);
                     }
+                    ros::Duration(1).sleep();
+                    or_details_new = comp.getter_part_callback();
+                    ros::Duration(0.2).sleep();
+                    ROS_INFO_STREAM("\n Checking for high priority order insertion.. absent? (1 is true) "<<or_details_new[i+1][j][k].shipment.empty());
+                    if (!or_details_new[i+1][j][k].shipment.empty())
+                    {
+                        ROS_INFO_STREAM("\n Order NEW shipment name 1: "<<or_details_new[i+1][j][k].shipment);
+                        or_details[i+1]=or_details_new[i+1];
+                        ROS_INFO_STREAM("\n Copied info details "<<or_details[i+1][j][k].shipment);
+                        i = i+1;
+                        ROS_INFO_STREAM("\n Value of i: "<<i);
+                        ROS_INFO_STREAM("\n New order size detected.. breaking.. ");
+                        new_order++;
+                        ROS_INFO_STREAM("\n Value of new: "<<new_order);
+                    }
                 }
-                if (new_order)
-                    break;
                 if (order_flag[i][j][k] != 0)
                     continue;
 
@@ -345,7 +360,7 @@ int main(int argc, char ** argv) {
                             auto target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv1");
                             loc_x = logicam[x][y].pose.position.x;
                             loc_y = logicam[x][y].pose.position.y;
-                            gantry.moveToPresetLocation(presetLocation, location, loc_x, loc_y, 1, logicam[x][y].type);
+                            gantry.moveToPresetLocation(presetLocation, location, loc_x, loc_y, 1, logicam[x][y].type,comp.gap_nos);
                             ROS_INFO_STREAM("update Location: " << location);
                             part my_part;
                             my_part.type = logicam[x][y].type;
@@ -353,7 +368,7 @@ int main(int argc, char ** argv) {
                             ros::Duration(2).sleep();
                             gantry.pickPart(my_part);
                             ros::Duration(0.2).sleep();
-                            gantry.moveToPresetLocation(presetLocation, location1, loc_x, loc_y, 2, logicam[x][y].type);
+                            gantry.moveToPresetLocation(presetLocation, location1, loc_x, loc_y, 2, logicam[x][y].type,comp.gap_nos);
                             ROS_INFO_STREAM("GOING TO START JUST TO BE SAFE!!!!!!");
                             gantry.goToPresetLocation(gantry.start_);
                             ROS_INFO_STREAM("Approaching AGV's to place object!!!");

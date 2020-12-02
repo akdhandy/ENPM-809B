@@ -242,7 +242,7 @@ void GantryControl::init() {
 
     //shelf 8 with human in aisle 2
     //--default for left
-    lc5la_.gantry = {0, -4.48, 0};
+    lc5la_.gantry = {0, -6, 1.57};
     lc5la_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5la_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -250,17 +250,29 @@ void GantryControl::init() {
     lc5la1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5la1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc5lb_.gantry = {-11.58, -4.48, 0};
+    lc5lb_.gantry = {-11.58, -6, 1.57};
     lc5lb_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5lb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc5lc_.gantry = {-11.58, -4.48, 1.57};
+    lc5lc_.gantry = {-7.2, -6, 1.57};                      //gap bn 3 , 4 aisle 1
     lc5lc_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5lc_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc5ld_.gantry = {-11.58, -2.99, 0.73};
+    lc5ld_.gantry = {-11.58, -3.2, 2.35};                   //gap bn 4,5 aisle 1 for right
     lc5ld_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     lc5ld_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    lc5ld3_.gantry = {-11.58, -1.68, 0};                   //gap bn 4,5 aisle 1 for right
+    lc5ld3_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    lc5ld3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    lc5ld2_.gantry = {-7.2, -1.68, 0};                    //gap bn 3,4 aisle 1 for right
+    lc5ld2_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    lc5ld2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    lc5ld1_.gantry = {-7.2, -3.2, 2.35};                    //gap bn 3,4 aisle 1 for right
+    lc5ld1_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    lc5ld1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     lc5le_.gantry = {-11.47, -1.68, 0};
     lc5le_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
@@ -472,7 +484,7 @@ void GantryControl::init() {
     agv_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv1_.gantry = {-0.55, -6.95, 0.15};
-    agv1_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
+    agv1_.left_arm = {0.0, -PI/4, 1.95, -1.16, PI/2, 0};
     agv1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv1a_.gantry = {-1, -6.7, 0};
@@ -840,9 +852,57 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
     // work under progress
     if (Human_there==true)
     {
+        if (Human[0]==0)
+        {
+            presetLocation["logical_camera_7_frame_left"] = {lc5la_,lc6la_,lc7l_};
+            presetLocation["logical_camera_6_frame_left"] = {lc5la_,lc6la_,lc6lb_};
+            if (Human[1]==0)
+            {
+                presetLocation["logical_camera_6_frame_right"] = {lc7ra_,lc7rb_,lc6r_};
+                presetLocation["logical_camera_7_frame_right"] = {lc7ra_,lc7rb_,lc7rc_};
+                presetLocation["logical_camera_4_frame_left"] = {lc5la1_,lc5lf_,lc4l_};
+                presetLocation["logical_camera_5_frame_left"] = {lc5la1_,lc5lf_,lc5lg_};
+            }
+            else if (Human[1]!=0)
+            {
+                if (gap_nos[0]==34){
+                    presetLocation["logical_camera_6_frame_right"] = {lc5la_,lc5lc_,lc5ld1_,lc5ld2_,lc7rb_,lc6r_};
+                    presetLocation["logical_camera_7_frame_right"] = {lc5la_,lc5lc_,lc5ld1_,lc5ld2_,lc7rb_,lc7rc_};
+                    presetLocation["logical_camera_4_frame_left"] = {lc5la_,lc5lc_,lc5ld1_,lc5ld2_,lc5lf_,lc4l_};
+                    presetLocation["logical_camera_5_frame_left"] = {lc5la_,lc5lc_,lc5ld1_,lc5ld2_,lc5lf_,lc5lg_};
+                }
+                else if (gap_nos[0]==45){
+                    presetLocation["logical_camera_6_frame_right"] = {lc5la_,lc5lb_,lc5ld_,lc5ld3_,lc7rb_,lc6r_};
+                    presetLocation["logical_camera_7_frame_right"] = {lc5la_,lc5lb_,lc5ld_,lc5ld3_,lc7rb_,lc7rc_};
+                    presetLocation["logical_camera_4_frame_left"] = {lc5la_,lc5lb_,lc5ld_,lc5ld3_,lc5lf_,lc4l_};
+                    presetLocation["logical_camera_5_frame_left"] = {lc5la_,lc5lb_,lc5ld_,lc5ld3_,lc5lf_,lc5lg_};
+                }
+            }
+        }
+        if (Human[1]==0)
+        {
+            presetLocation["logical_camera_6_frame_right"] = {lc7ra_,lc7rb_,lc6r_};
+            presetLocation["logical_camera_7_frame_right"] = {lc7ra_,lc7rb_,lc7rc_};
+            presetLocation["logical_camera_4_frame_left"] = {lc5la1_,lc5lf_,lc4l_};
+            presetLocation["logical_camera_5_frame_left"] = {lc5la1_,lc5lf_,lc5lg_};
+        }
+        if (Human[2]==0)
+        {
+            presetLocation["logical_camera_8_frame_left"] = {lc8la_,lc8lb_,lc8lc_};
+            presetLocation["logical_camera_9_frame_left"] = {lc8la_,lc8lb_,lc9l_};
+            presetLocation["logical_camera_4_frame_right"] = {lc4ra1_,lc4rd1_,lc4re_};
+            presetLocation["logical_camera_5_frame_right"] = {lc4ra1_,lc4rd1_,lc5r_};
+        }
+        if (Human[3]==0)
+        {
+            presetLocation["logical_camera_8_frame_right"] = {lc4ra_,lc8ra_,lc8rb_};
+            presetLocation["logical_camera_9_frame_right"] = {lc4ra_,lc8ra_,lc9r_};
+        }
+
         if (gap_nos[0]==34 && Human[1]==1)
             presetLocation["Gap between shelf3 and shelf4"] = {lc5la_,left_gap_1_2_,left_gap_1_3_};
-        presetLocation["Gap between shelf4 and shelf5"] = {lc5la_,lc5lb_,lc5lc_,lc5ld_,};
+
+        presetLocation["Gap between shelf4 and shelf5"] = {lc5la_,lc5lb_,lc5lc_,lc5ld_};
         presetLocation["Gap between shelf6 and shelf7"] = {};
         presetLocation["Gap between shelf7 and shelf8"] = {};
         presetLocation["Gap between shelf9 and shelf10"] = {};
@@ -866,7 +926,7 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
 
 }
 
-void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir, std::string type){
+void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir, std::string type, std::array<int, 3> gap_nos){
     if(!(location == "logical_camera_13_frame" || location == "logical_camera_14_frame" || location == "logical_camera_15_frame" || location == "logical_camera_16_frame" || location == "logical_camera_4_frame" || location == "logical_camera_5_frame" || location == "logical_camera_6_frame" || location == "logical_camera_7_frame" || location == "logical_camera_8_frame" || location == "logical_camera_9_frame"))
     {
 
