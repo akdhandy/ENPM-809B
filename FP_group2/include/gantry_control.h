@@ -71,7 +71,7 @@ public:
     bin1 bin1_;bin2 bin2_, bin2b_;bin3 bin3_;bin4 bin4_;bin5 bin5_;bin6 bin6_;bin7 bin7_;bin8 bin8_;bin9 bin9_;bin10 bin10_;bin11 bin11_;bin12 bin12_;bin13 bin13_;bin14 bin14_;bin15 bin15_;bin16 bin16_;
     lc15lg lc15lg_;lc16lg lc16lg_; shelf2a  shelf2a_;lc15rg lc15rg_;lc16rg lc16rg_;
     lc13ra lc13ra_;lc14ra lc14ra_;lc13rb lc13rb_;lc14rb lc14rb_;shelf1a shelf1a_;
-    belt belta_, beltb1_, beltb2_, beltc_;
+    belt belta_, beltb1_, beltb2_, beltc_, beltc2_, beltd2_;
     lc4r lc4ra_, lc4ra1_,lc4rb_,lc4rc_,lc4rd_,lc4rd1_,lc4re_,lc4rf_,lc5r_;
     lc5l lc5la_,lc6la_, lc6lb_,lc7l_,lc5la1_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_,lc5lf1_,lc5lg_, lc4l_;
     lc7r lc7ra_,lc7rb_,lc7rc_, lc6r_;

@@ -41,7 +41,7 @@ orders:
     announcement_condition: time
     announcement_condition_value: 0.0
     shipment_count: 1
-    destinations: [agv1]
+    destinations: [agv2]
     products:
       part_0:
         type: pulley_part_red

@@ -236,7 +236,7 @@ void GantryControl::init() {
     lc7l_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     lc7l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc6lb_.gantry = {-14.3, -4.3, 0};
+    lc6lb_.gantry = {-15.3, -4.3, 0};
     lc6lb_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     lc6lb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -246,7 +246,7 @@ void GantryControl::init() {
     lc5la_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5la_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc5la1_.gantry = {0, -1.2, 0};                             //for no human at aisle 2
+    lc5la1_.gantry = {0, -1.6, 0};                             //for no human at aisle 2
     lc5la1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     lc5la1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -266,19 +266,15 @@ void GantryControl::init() {
     lc5le_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     lc5le_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc5lf_.gantry = {-13.5, -1.6, 0};
-    lc5lf_.left_arm = {-1.57, -PI/4, PI/2, -0.78, -0.2, 0};
+    lc5lf_.gantry = {-13.5, -1.6, 0};                           //used when no human at aisle 2
+    lc5lf_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     lc5lf_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc5lf1_.gantry = {-13.5, -1.2, 0};                           //could be used for no human at aisle 2
-    lc5lf1_.left_arm = {-1.57, -PI/4, PI/2, -0.78, -0.2, 0};
-    lc5lf1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    lc5lg_.gantry = {-13.7, -1.2, 0};
+    lc5lg_.gantry = {-14.1, -1.2, 0};
     lc5lg_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     lc5lg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    lc4l_.gantry = {-14.3, -1.2, 0};
+    lc4l_.gantry = {-15.5, -1.2, 0};
     lc4l_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     lc4l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -414,8 +410,8 @@ void GantryControl::init() {
     belta_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
     belta_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    beltb1_.gantry = {0.15, -1.9, PI/2};
-    beltb1_.left_arm = {0.0, -PI/4, 1.01, -0.22, PI/2, 0};
+    beltb1_.gantry = {0.15, -1.5, PI/2};
+    beltb1_.left_arm = {0.0, -PI/4, 1.00, -0.23, PI/2, 0};
     beltb1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     beltb2_.gantry = {0.15, -1.9, PI/2};
@@ -425,6 +421,15 @@ void GantryControl::init() {
     beltc_.gantry = {0.15, -1.9, 0};
     beltc_.left_arm = {0.0, -PI/4, 1.82, -1.03, PI/2, 0};
     beltc_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    beltc2_.gantry = {0.15, -1.7, PI/2};
+    beltc2_.left_arm = {0.0, -PI/4, 1.09, -0.3, PI/2, 0};
+    beltc2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    // gasket_part
+    beltd2_.gantry = {0.15, -1.7, PI/2};
+    beltd2_.left_arm = {0.0, -PI/4, 1.06, -0.3, PI/2, 0};
+    beltd2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv2_.gantry = {0.6, 6.9, PI};
     agv2_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
@@ -845,8 +850,8 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
     }
     else
     {
-        presetLocation["logical_camera_4_frame_left"] = {lc5la1_,lc5lf1_,lc4l_};
-        presetLocation["logical_camera_5_frame_left"] = {lc5la1_,lc5lf1_,lc5lg_};
+        presetLocation["logical_camera_4_frame_left"] = {lc5la1_,lc5lf_,lc4l_};
+        presetLocation["logical_camera_5_frame_left"] = {lc5la1_,lc5lf_,lc5lg_};
         presetLocation["logical_camera_4_frame_right"] = {lc4ra1_,lc4rd1_,lc4re_};
         presetLocation["logical_camera_5_frame_right"] = {lc4ra1_,lc4rd1_,lc5r_};
         presetLocation["logical_camera_6_frame_left"] = {lc5la_,lc6la_,lc6lb_};

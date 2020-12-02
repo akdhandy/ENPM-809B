@@ -45,22 +45,22 @@ orders:
     shipment_count: 2
     destinations: [any,any]
     products:
-#      part_0:
-#        type: pulley_part_blue
-#        pose:
-#          xyz: [0.0, 0.0, 0]
-#          rpy: ['pi', 0, 0]
       part_0:
+        type: piston_rod_part_blue
+        pose:
+          xyz: [0.0, 0.0, 0]
+          rpy: [0, 0, 0]
+      part_1:
         type: gear_part_green
         pose:
           xyz: [0.15, 0.2, 0]
           rpy: [0, 0, 'pi/4']
-      part_1:
+      part_2:
         type: disk_part_red
         pose:
           xyz: [0.15, -0.2, 0]
           rpy: [0, 0, '-pi/4']
-      part_2:
+      part_3:
         type: piston_rod_part_red
         pose:
           xyz: [-0.15, -0.2, 0]
@@ -95,7 +95,7 @@ models_over_shelves:
         num_models_y: 1
 
 belt_models:
-  pulley_part_blue:
+  piston_rod_part_blue:
     15.0:
       pose:
         xyz: [0.0, 4.3, 0.92]

@@ -264,6 +264,33 @@ int main(int argc, char ** argv) {
                             gantry.goToPresetLocation(gantry.belta_);
                             gantry.goToPresetLocation(gantry.start_);
                         }
+                        if (logicam12[12][0].type == "disk_part_red" || logicam12[12][0].type == "disk_part_green" || logicam12[12][0].type == "disk_part_blue")
+                        {
+                            gantry.goToPresetLocation(gantry.beltc2_);
+                            do
+                            {
+                                gantry.activateGripper("left_arm");
+                                ROS_INFO_STREAM("\n Trying to pick up!!");
+                            } while (!gantry.getGripperState("left_arm").attached);
+                            ros::Duration(1).sleep();
+                            gantry.goToPresetLocation(gantry.beltc2_);
+                            gantry.goToPresetLocation(gantry.belta_);
+                            gantry.goToPresetLocation(gantry.start_);
+                        }
+                        if (logicam12[12][0].type == "gasket_part_red" || logicam12[12][0].type == "gasket_part_green" || logicam12[12][0].type == "gasket_part_blue")
+                        {
+                            gantry.goToPresetLocation(gantry.beltd2_);
+                            do
+                            {
+                                gantry.activateGripper("left_arm");
+                                ROS_INFO_STREAM("\n Trying to pick up!!");
+                            } while (!gantry.getGripperState("left_arm").attached);
+                            ros::Duration(1).sleep();
+                            gantry.goToPresetLocation(gantry.beltd2_);
+                            gantry.goToPresetLocation(gantry.belta_);
+                            gantry.goToPresetLocation(gantry.start_);
+                        }
+
                         auto i1 = belt_part_arr[part_on_belt][0];
                         auto j1 = belt_part_arr[part_on_belt][1];
                         auto k1 = belt_part_arr[part_on_belt][2];
@@ -331,7 +358,6 @@ int main(int argc, char ** argv) {
                             gantry.goToPresetLocation(gantry.start_);
                             ROS_INFO_STREAM("Approaching AGV's to place object!!!");
                             if (or_details[i][j][k].agv_id == "agv1") {
-                                Model_adjust = 0.17;
                                 gantry.goToPresetLocation(gantry.agv1_);
                                 ROS_INFO_STREAM("\n Waypoint AGV1 reached\n");
                                 if (or_details[i][j][k].pose.orientation.x != 0) {
@@ -354,7 +380,6 @@ int main(int argc, char ** argv) {
                                     gantry.placePart(or_details[i][j][k], "agv1");
                                 logicam[x][y].Shifted = true;
                             } else if (or_details[i][j][k].agv_id == "agv2") {
-                                Model_adjust=0;
                                 gantry.goToPresetLocation(gantry.agv2_);
                                 ROS_INFO_STREAM("\n Waypoint AGV2 reached\n");
                                 if (or_details[i][j][k].pose.orientation.x != 0) {
@@ -429,6 +454,8 @@ int main(int argc, char ** argv) {
                             }
                             ROS_INFO_STREAM("\n X offset: "<<abs(cam.position.x-target_pose.position.x));
                             ROS_INFO_STREAM("\n Y offset: "<<abs(cam.position.y-target_pose.position.y));
+
+                            Model_adjust = abs(cam.position.z-target_pose.position.z);
 
 // Faulty part check
                             if(faulty_part.faulty == true)
