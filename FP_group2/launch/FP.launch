@@ -26,14 +26,9 @@
           $(arg gui_args)
           $(arg load_moveit_args)
           $(arg fill_demo_shipment_args)
-          -f $(find FP_group2)/config/hpo_3.yaml
+          --visualize-sensor-views
+          -f $(find FP_group2)/config/baseline_4.yaml
           $(find FP_group2)/config/rwa2_sensor_group2.yaml
           " required="true" output="screen" />
 
-<!--  <group ns='ariac/gantry'>-->
-<!--    <include file="$(find gantry_moveit_config)/launch/moveit_rviz.launch">-->
-<!--      <arg name="rviz_config" value="$(find gantry_moveit_config)/launch/moveit.rviz"/>-->
-<!--    </include>-->
-<!--  </group>-->
-  
 </launch>

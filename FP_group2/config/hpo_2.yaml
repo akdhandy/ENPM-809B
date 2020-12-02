@@ -76,11 +76,11 @@ orders:
         pose:
           xyz: [0.12, 0.2, 0]
           rpy: [0, 0, 0]
-#      part_2:
-#        type: piston_rod_part_red
-#        pose:
-#          xyz: [0.0, 0.0, 0]
-#          rpy: [0, 0, '-pi/4']
+      part_2:
+        type: piston_rod_part_red
+        pose:
+          xyz: [0.0, 0.0, 0]
+          rpy: [0, 0, '-pi/4']
   order_1:
     announcement_condition: unwanted_products
     announcement_condition_value: 1

@@ -52,14 +52,13 @@ public:
 //    bool pickPart(part part, std::string arm_name);
     bool pickPart(part part);
     void placePart(part part, std::string agv);
-    void resetPositions(std::string& location);
 
 
     /// Send command message to robot controller
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
-    void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation);
-    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string& location, double x, double y);
+    void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::array<int, 3> gap_nos, std::array<int, 4> Human, bool Human_there);
+    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir);
     void placePartRight(part part, std::string agv);
 
     void activateGripper(std::string gripper_id);
@@ -72,10 +71,11 @@ public:
     bin1 bin1_;bin2 bin2_;bin3 bin3_;bin4 bin4_;bin5 bin5_;bin6 bin6_;bin7 bin7_;bin8 bin8_;bin9 bin9_;bin10 bin10_;bin11 bin11_;bin12 bin12_;bin13 bin13_;bin14 bin14_;bin15 bin15_;bin16 bin16_;
     lc15lg lc15lg_;lc16lg lc16lg_; shelf2a  shelf2a_;lc15rg lc15rg_;lc16rg lc16rg_;
     lc13ra lc13ra_;lc14ra lc14ra_;lc13rb lc13rb_;lc14rb lc14rb_;shelf1a shelf1a_;
-    belt belta_, beltb_, beltc_;
-    lc4r lc4ra_,lc4rb_,lc4rc_,lc4rd_,lc4re_,lc4rf_;
-    lc5l lc5la_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_,lc5lg_;
-    shelf11 shelf11a_, shelf11b_, shelf11c_;
+    belt belta_, beltb1_, beltb2_, beltc_;
+    lc4r lc4ra_, lc4ra1_,lc4rb_,lc4rc_,lc4rd_,lc4rd1_,lc4re_,lc4rf_,lc5r_;
+    lc5l lc5la_,lc6la_, lc6lb_,lc7l_,lc5la1_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_,lc5lf1_,lc5lg_, lc4l_;
+    lc7r lc7ra_,lc7rb_,lc7rc_, lc6r_;
+    shelf11 lc8la_, lc8lb_, lc8lc_, lc9l_, lc8ra_, lc8rb_, lc9r_;
     agv2 agv2_, agv2a_, agv2b_, agv2c_;
     agv2 agv_faulty;
     agv1 agv1_, agv1a_, agv1b_, agv1c_, agv1flipa_, agv1flipb_;
@@ -85,8 +85,11 @@ public:
     logicam1    logicam1_;
     logicam2    logicam2_;
     logicam3    logicam3_;
-    test        test_;
-    test1       test1_;
+    logicam13   logicam13r_, logicam13l1_, logicam13l2_;
+    logicam14   logicam14r_, logicam14l_;
+    logicam15   logicam15r_, logicam15r1_, logicam15l_;
+    logicam16   logicam16r_, logicam16r1_, logicam16l_;
+    shelf1 shelf1_fl, shelf1_bl,shelf1_fr,shelf1_br;
 
 
 private:

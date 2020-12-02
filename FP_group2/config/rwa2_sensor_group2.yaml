@@ -80,7 +80,7 @@ sensors:
   logical_camera_12: # Conveyor belt
     type: logical_camera
     pose:
-      xyz: [0,  2.5, 1.65]
+      xyz: [0,  1.942, 1.95]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_13: # shelf1 back
@@ -248,3 +248,51 @@ sensors:
     pose:
       xyz: [-14.4, -3.7, 0.14]
       rpy: [0, 0, -1.557900]
+
+  breakbeam_22:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, 1.5, 0.14 ]
+      rpy: [ 0, 0, 0]
+
+  breakbeam_21:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, 4.5, 0.14 ]
+      rpy: [ 0, 0, 0 ]
+
+  breakbeam_23:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, -1.5, 0.14 ]
+      rpy: [ 0, 0, 0 ]
+
+  breakbeam_24:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, -4.5, 0.14 ]
+      rpy: [ 0, 0, 0 ]
+
+  breakbeam_26:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, 1.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
+
+  breakbeam_25:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, 4.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
+
+  breakbeam_27:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, -1.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
+
+  breakbeam_28:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, -4.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']

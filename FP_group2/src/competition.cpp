@@ -8,7 +8,6 @@ std::array<std::array<modelparam, 36>, 17> logical_cam;
 std::array<std::array<std::array<part, 10>, 5>, 5> order_details;
 part faulty_part_agv2, faulty_part_agv1;
 
-
 Competition::Competition(ros::NodeHandle &node): current_score_(0)
 {
     node_ = node;
@@ -40,7 +39,7 @@ void Competition::init() {
     fp_subscriber1_ = node_.subscribe(
             "/ariac/quality_control_sensor_2", 10, &Competition::quality_sensor_status_callback2, this);    //agv1
 
-//    breakbeam_subscriber_ = node_.subscribe("/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_callback, this);
+
     startCompetition();
 
     init_.total_time += ros::Time::now().toSec() - time_called;
@@ -75,6 +74,30 @@ void Competition::breakbeam_sensing()
             break;
         }
 }
+
+void Competition::HumanDetection()
+{
+    for (auto i=0; i<4; i++)
+    {
+        if (beam_detect[i+21]==true || beam_detect[i+25]==true)
+        {
+            Human[i] = 1;
+            continue;
+        }
+    }
+    int count =0;
+    for (auto j=0; j<4; j++) {
+        if (Human[j] == 1) {
+            ROS_INFO_STREAM("Human is at aisle: " << j + 1);
+            count++;
+        }
+    }
+    if (count)
+        Human_detected = true;
+    else
+        Human_detected = false;
+}
+
 
 void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::ConstPtr &msg, int id)
 {
@@ -148,30 +171,33 @@ double Competition::shelf_distance(std::string frame_id_1, std::string frame_id_
     return distance;
 }
 
-std::vector<std::string>  Competition::check_gaps()
+std::vector<std::string> Competition::check_gaps()
 {
-    std::vector<double> gapThreshold = {4.12393,6.299173};
     std::vector<std::string> gap_id;
-    int shelf_ind = 3;
+    for (int shelf_ind = 1;shelf_ind < 4; shelf_ind++)
+    {
+        std::string frame_id_1 = "shelf" + std::to_string(3*shelf_ind) + "_frame";
+        std::string frame_id_2 = "shelf" + std::to_string((3*shelf_ind) + 1) + "_frame";
+        std::string frame_id_3 = "shelf" + std::to_string((3*shelf_ind) + 2) + "_frame";
+        auto shelf_dis_1 = shelf_distance(frame_id_1, frame_id_2);
+        auto shelf_dis_2 = shelf_distance(frame_id_2, frame_id_3);
 
-    while(1) {
-        for (shelf_ind; shelf_ind <= 11; shelf_ind++) {
-            std::string frame_id_1 = "shelf" + std::to_string(shelf_ind) + "_frame";
-            std::string frame_id_2 = "shelf" + std::to_string(shelf_ind + 1) + "_frame";
-            double shelf_dis = shelf_distance(frame_id_1, frame_id_2);
+        if (shelf_dis_1 > 6)
+        {
+            gap_id.push_back("Gap between shelf" + std::to_string(3*shelf_ind) + " and shelf" + std::to_string((3*shelf_ind) + 1));
+            gap_nos[shelf_ind-1]=33*shelf_ind+1;
+//            ROS_INFO_STREAM("Distance between shelves = " << shelf_dis_1);
 
-            if ((shelf_dis > 6) && (shelf_dis < 10)) {
-                gap_id.push_back("Gap between shelf" + std::to_string(shelf_ind) + " and shelf" + std::to_string(shelf_ind + 1));
-                ROS_INFO_STREAM("Distance between shelves = " << shelf_dis);
-            }
         }
-//shelf_ind += 3;
-        //if (shelf_ind > 11)
-        break;
+        if (shelf_dis_2 > 6)
+        {
+            gap_id.push_back("Gap between shelf" + std::to_string((3*shelf_ind) + 1) + " and shelf" + std::to_string((3*shelf_ind) + 2));
+            gap_nos[shelf_ind-1]=33*shelf_ind+12;
+//            ROS_INFO_STREAM("Distance between shelves = " << shelf_dis_2);
+        }
     }
-
     for(auto i: gap_id)
-        ROS_INFO_STREAM("Gap_id=" << i);
+        ROS_INFO_STREAM(i);
 
     return gap_id;
 }
@@ -207,7 +233,8 @@ void Competition::competition_state_callback(const std_msgs::String::ConstPtr & 
     competition_state_ = msg->data;
 }
 
-void Competition::order_callback(const nist_gear::Order::ConstPtr & msg) {
+void Competition::order_callback(const nist_gear:://                            ROS_INFO_STREAM("\n Array containing the order details of part on belt \n "<<belt_part_arr[on_belt][0]<<belt_part_arr[on_belt][1]<<belt_part_arr[on_belt][2]);
+Order::ConstPtr & msg) {
 //    ROS_INFO_STREAM("Received order:\n" << *msg);
     received_orders_.push_back(*msg);
     for (int i=0; i<received_orders_.size(); i++)
@@ -232,18 +259,25 @@ void Competition::order_callback(const nist_gear::Order::ConstPtr & msg) {
     }
 }
 
-void Competition::PartonBeltCheck(std::vector<nist_gear::Order> received, int x_loop, std::array<std::array<modelparam, 36>, 17> logicam, std::array<std::array<int, 3>, 5> belt_part_arr, int on_belt)
+void Competition::PartonBeltCheck(std::vector<nist_gear::Order> received, int x_loop, std::array<std::array<modelparam, 36>, 17> logicam, std::array<std::array<int, 3>, 5> &belt_part_arr, int &on_belt)
 {
-    for (int i = received.size() - 1; i >= 0; i--) {
-        for (int j = 0; j < received[i].shipments.size(); j++) {
-            for (int k = 0; k < received[i].shipments[j].products.size(); k++) {
-                for (int x = 0; x < 17; x++) {
-                    if (x_loop != 0) {
+    for (int i = received.size() - 1; i >= 0; i--)
+    {
+        for (int j = 0; j < received[i].shipments.size(); j++)
+        {
+            for (int k = 0; k < received[i].shipments[j].products.size(); k++)
+            {
+                for (int x = 0; x < 17; x++)
+                {
+                    if (x_loop != 0)
+                    {
                         x_loop = 0;
                         break;
                     }
-                    for (int y = 0; y < 36; y++) {
-                        if (logicam[x][y].type == received[i].shipments[j].products[k].type) {
+                    for (int y = 0; y < 36; y++)
+                    {
+                        if (logicam[x][y].type == received[i].shipments[j].products[k].type)
+                        {
                             ROS_INFO_STREAM("\n" << received[i].shipments[j].products[k].type
                                                  << " under logical camera " << x);
                             ROS_INFO_STREAM("\n Part seen " << logicam[x][y].type);
@@ -251,16 +285,16 @@ void Competition::PartonBeltCheck(std::vector<nist_gear::Order> received, int x_
                             x_loop++;
                             break;
                         }
-                        if ((x == 16) && (y == 35)) {
+                        if ((x == 16) && (y == 35))
+                        {
                             belt_part_arr[on_belt][0] = i;
                             belt_part_arr[on_belt][1] = j;
                             belt_part_arr[on_belt][2] = k;
                             on_belt++;
                             ROS_INFO_STREAM(
-                                    "\n Order details of the red part - i = " << i << ", j = " << j << ", k = " << k);
+                                    "\n Order details of the " << received[i].shipments[j].products[k].type<<" part - i = " << i << ", j = " << j << ", k = " << k);
                             ROS_INFO_STREAM("\n Part is on the belt");
                             ROS_INFO_STREAM("\n Number of parts on the belt " << on_belt);
-//                            ROS_INFO_STREAM("\n Array containing the order details of part on belt \n "<<belt_part_arr[on_belt][0]<<belt_part_arr[on_belt][1]<<belt_part_arr[on_belt][2]);
                         }
                     }
                 }
