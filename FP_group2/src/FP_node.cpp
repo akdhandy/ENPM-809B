@@ -372,6 +372,17 @@ int main(int argc, char ** argv) {
                                 target_pose = gantry.getTargetWorldPose(or_details[i][j][k].pose, "agv2");
                             }
 
+                            //Checking to erase in next logicam matrix..
+                            for (int y1=0; y1<36; y1++)
+                            {
+                                if (x==Max_number_of_cameras-1)
+                                    break;
+                                else if((abs(logicam[x][y].pose.position.x - logicam[x+1][y1].pose.position.x) < 0.01) && (abs(logicam[x][y].pose.position.y - logicam[x+1][y1].pose.position.y) < 0.01)) {
+                                    ROS_INFO_STREAM("\n Common part for 2 cameras, marking as completed for next iteration!");
+                                    logicam[x + 1][y1].Shifted = true;
+                                }
+                            }
+
                             logicam2 = comp.getter_logicam_callback();
                             ROS_INFO_STREAM("\n After placing.");
                             ROS_INFO_STREAM("\n order name: "<<comp.received_orders_[i].shipments[j].products[k].type);
@@ -382,7 +393,7 @@ int main(int argc, char ** argv) {
                             {
                                 for (auto ill=0; ill<=on_table_1; ill++)
                                 {
-                                    if (logicam2[10][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                    if (logicam2[10][ill].type == comp.received_orders_[i].shipments[j].products[k].type && abs(logicam2[10][ill].pose.position.x-target_pose.position.x)<0.1 && abs(logicam2[10][ill].pose.position.y-target_pose.position.y)<0.1)
                                     {
                                         ROS_INFO_STREAM("\n Printing agv1 index value: "<<ill<<"\n Also product type = "<<logicam2[10][ill].type);
                                         index=ill;
@@ -397,7 +408,7 @@ int main(int argc, char ** argv) {
                             {
                                 for (auto ill=0; ill<=on_table_2; ill++)
                                 {
-                                    if (logicam2[11][ill].type == comp.received_orders_[i].shipments[j].products[k].type)
+                                    if (logicam2[11][ill].type == comp.received_orders_[i].shipments[j].products[k].type && abs(logicam2[11][ill].pose.position.x-target_pose.position.x)<0.1 && abs(logicam2[11][ill].pose.position.y-target_pose.position.y)<0.1)
                                     {
                                         ROS_INFO_STREAM("\n Printing agv2 index value: "<<ill<<"\n Also product type = "<<logicam2[11][ill].type);
                                         index=ill;

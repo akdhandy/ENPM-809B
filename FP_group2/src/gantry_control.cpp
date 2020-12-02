@@ -40,18 +40,16 @@ void GantryControl::init() {
 
     //--start location
     start_.gantry = {0,0,0};
-    start_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    start_.left_arm = {0.0, -PI/4, 1.95, -1.16, PI/2, 0};
     start_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     start1_.gantry = {0,0,1.57};
     start1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     start1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-
     logicam0_.gantry={5, -1.75,0};
     logicam0_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     logicam0_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
 
     logicam1_.gantry={3.082,-1.75,0};
     logicam1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -142,62 +140,92 @@ void GantryControl::init() {
     //-------------------------------------------------------------//
 //    Shelves
 // for the gantry to move from start position to left side of shelf 1 (logicam 13 & 14)
-    logicam13l1_.gantry={0, -6.5, 3.14};
-    logicam13l1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam13l1_.gantry={0, -6.0, 0};
+    logicam13l1_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam13l1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf 1
-    logicam13r_.gantry={3.5, -2.5, 0};
-    logicam13r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam13r_.gantry={4, -2.4, PI};
+    logicam13r_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam13r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    logicam13l2_.gantry={3.5, -4.75, 0};
-    logicam13l2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam13l2_.gantry={3.1, -6.0, 0};
+    logicam13l2_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam13l2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    logicam14r_.gantry={4.95, -2.5, 0};
-    logicam14r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam14r_.gantry={5.2, -2.4, PI};
+    logicam14r_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam14r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    logicam14l_.gantry={4.95, -4.75, 0};
-    logicam14l_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15la_.gantry={4.5, 0, 0};                                    //Starting point for 15 and 16 left
+    logicam15la_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
+    logicam15la_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam14ra_.gantry={5.2, 0, PI};                                   //Starting point for 14 and 13 right
+    logicam14ra_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
+    logicam14ra_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    logicam14l_.gantry={3.8, -6.0, 0};
+    logicam14l_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam14l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 // for the gantry to move from start position to right side of shelf 2 (logicam 15 & 16)
-    logicam15r1_.gantry={0, 6.5, 3.14};
-    logicam15r1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15r1_.gantry={0, 5.5, 3.14};
+    logicam15r1_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam15r1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf 2
-    logicam15r_.gantry={3.0, 5.0, 0};
-    logicam15r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15r_.gantry={4.0, 5.5, 3.14};
+    logicam15r_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam15r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    logicam15ra_.gantry={4.0, 4.8, 3.14};
+    logicam15ra_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
+    logicam15ra_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     logicam15l_.gantry={3.0, 2.5, 0};
-    logicam15l_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam15l_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam15l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    logicam16r_.gantry={4.45, 5.0, 0};
-    logicam16r_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam16r_.gantry={5.2, 4.8, 3.14};
+    logicam16r_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam16r_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    logicam16l_.gantry={4.45, 2.5, 0};
-    logicam16l_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    logicam16l_.gantry={4.5, 2.5, 0};
+    logicam16l_.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     logicam16l_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf1_fl.gantry = {3.5, -4.75, 3.14};
-    shelf1_fl.left_arm = {-1.76, -4, -0.3, -1, -6.25, 0};
+//    Shelf 1
+    shelf1_fl.gantry = {3.1, -4.9, 0};
+    shelf1_fl.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     shelf1_fl.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf1_bl.gantry = {5.5, -5, 3.14};
-    shelf1_bl.left_arm = {-1.8, -1.88, -1.76, -1, 0, 0};
+    shelf1_bl.gantry = {4, -4.9, 0};
+    shelf1_bl.left_arm = {-1.78, -PI/4, PI/2, -0.78, -0.2, 0};
     shelf1_bl.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf1_fr.gantry = {3.5, -2.7, 3.19};
-    shelf1_fr.left_arm = {2.21, -2.4, -2, -1.9, 3.75, 0};
-    shelf1_fr.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf1_fr.gantry = {2.5, -2.5, 0};
+//    shelf1_fr.left_arm = {-1.65, -2.0, -2, -1, 0, 0};
+//    shelf1_fr.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//
+//    shelf1_br.gantry = {4.5, -2.5, 0};
+//    shelf1_br.left_arm = {-1.65, -2.0, -2, -1, 0, 0};
+//    shelf1_br.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf1_br.gantry = {5.25, -2.7, 3.19};
-    shelf1_br.left_arm = {2.21, -2.4, -2, -1.9, 3.75, 0};
-    shelf1_br.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    Shelf 2
+    shelf2_fl.gantry = {2.75, 2.25, 0};
+    shelf2_fl.left_arm = {-1.37, -0.25, 0.75, 0.5, 0.1, -0.16};
+    shelf2_fl.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_bl.gantry = {4.5, 2.25, 0};
+    shelf2_bl.left_arm = {-1.37, -0.25, 0.75, 0, 0, -0.16};
+    shelf2_bl.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_fr.gantry = {3.6, 4.8, 3.14};
+    shelf2_fr.left_arm = {-1.39, -0.7, 1.4, 0.75, 0.2, -0.16};
+    shelf2_fr.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_br.gantry = {5.5, 4.8, 3.14};
+    shelf2_br.left_arm = {-1.39, -0.7, 1.4, 0.75, 0.2, -0.16};
+    shelf2_br.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //shelf 5 left no human case
     lc6la_.gantry = {-14, -6, 0};                            //for no human at aisle 1 and to reach lc6 and lc7
@@ -294,29 +322,29 @@ void GantryControl::init() {
     lc16rg_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
     lc16rg_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-
-    // front side shelf -1
-    lc13ra_.gantry = {3.23, -2.30, 3.14};
-    lc13ra_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
-    lc13ra_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
-
-    lc14ra_.gantry = {5.05, -2.30, 3.14};
-    lc14ra_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
-    lc14ra_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+//
+// front side shelf -1
+//    lc13ra_.gantry = {3.23, -2.30, 3.14};
+//    lc13ra_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+//    lc13ra_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+//
+//    lc14ra_.gantry = {5.05, -2.30, 3.14};
+//    lc14ra_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+//    lc14ra_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
 
     // way point for backside
     shelf1a_.gantry = {1.00, -5.1, 0};
     shelf1a_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
     shelf1a_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
 
-    // back side shelf 1
-    lc13rb_.gantry = {3.23, -5.1, 0};
-    lc13rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
-    lc13rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
-
-    lc14rb_.gantry = {5.05, -5.1, 0};
-    lc14rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
-    lc14rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+//    // back side shelf 1
+//    lc13rb_.gantry = {3.23, -5.1, 0};
+//    lc13rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+//    lc13rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
+//
+//    lc14rb_.gantry = {5.05, -5.1, 0};
+//    lc14rb_.left_arm = {-1.82, -0.40, 1.82, -1.41, -0.25, 0};
+//    lc14rb_.right_arm = {0.13, -0.13, 0.00, 0.1, 0, 0};
 
     //Shelf 8 right side
     lc4ra_.gantry = {0.0, 5.18, 3.14};
@@ -518,7 +546,7 @@ void GantryControl::init() {
 
 
 
-stats GantryControl::getStats(std::string function) {
+stats GantryControl::getStats(std::string function) {;
     if (function == "init") return init_;
     if (function == "moveJ") return moveJ_;
     if (function == "IK") return IK_;
@@ -751,14 +779,14 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
 
 
 //  Shelf preset locations
-    presetLocation["logical_camera_13_frame_right"] = {logicam13r_,shelf1_fr};
-    presetLocation["logical_camera_13_frame_left"] = {logicam13l1_, logicam13l2_,shelf1_fl};
-    presetLocation["logical_camera_14_frame_right"] = {logicam14r_,shelf1_br};
-    presetLocation["logical_camera_14_frame_left"] = {logicam13l1_, logicam14l_,shelf1_bl};
-    presetLocation["logical_camera_15_frame_right"] = {logicam15r1_, logicam15r_};
-    presetLocation["logical_camera_15_frame_left"] = {logicam15l_};
-    presetLocation["logical_camera_16_frame_right"] = {logicam15r1_, logicam16r_};
-    presetLocation["logical_camera_16_frame_left"] = {logicam16l_};
+    presetLocation["logical_camera_13_frame_right"] = {logicam14ra_,logicam13r_};                   //done
+    presetLocation["logical_camera_13_frame_left"] = {logicam13l1_, logicam13l2_,shelf1_fl};        //done
+    presetLocation["logical_camera_14_frame_right"] = {logicam14ra_,logicam14r_};                   //done
+    presetLocation["logical_camera_14_frame_left"] = {logicam13l1_, logicam14l_,shelf1_bl};         //done
+    presetLocation["logical_camera_15_frame_right"] = {logicam15r1_, logicam15r_, logicam15ra_};    //done
+    presetLocation["logical_camera_15_frame_left"] = {logicam15la_,logicam15l_};                    //done
+    presetLocation["logical_camera_16_frame_right"] = {logicam15r1_, logicam15r_, logicam16r_};     //done
+    presetLocation["logical_camera_16_frame_left"] = {logicam15la_,logicam16l_};                    //done
 
     presetLocation["start"] = {start_};
     presetLocation["agv2"] = {agv2_};
@@ -968,29 +996,80 @@ void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<Preset
 
         }
 //        // Shelf 2 - logical camera 15
-//        else if ((x > 2.25 && x < 4) && (y > 3.8 && y < 4.1))
-//        {
-//            ROS_INFO_STREAM("On the front left of shelf 2");
-////            goToPresetLocation();
-//        }
-//        else if ((x > 2.25 && x < 4) && (y > 3.1 && y < 3.4))
-//        {
-//            ROS_INFO_STREAM("On the front right of shelf 2");
-////            goToPresetLocation();
-//        }
-//
-//        // Shelf 2 - logical camera 16
-//        else if ((x > 4 && x < 5.9) && (y > 3.8 && y < 4.1))
-//        {
-//            ROS_INFO_STREAM("On the back left of shelf 2");
-////            goToPresetLocation();
-//        }
-//        else if ((x > 4 && x < 5.9) && (y > 3.1 && y < 3.4))
-//        {
-//            ROS_INFO_STREAM("On the back right of shelf 2");
-////            goToPresetLocation();
-//        }
-//        }
+        if ((x > 2.17 && x < 4.1) && (y > -3.6 && y < -3.1))
+        {
+            ROS_INFO_STREAM("On the front left of shelf 2");
+            location = location + "_left";
+            auto vec = presetLocation[location];
+            if (dir==1)
+                for (auto i=0; i<vec.size(); i++)
+                    goToPresetLocation(vec[i]);
+            else
+                for (auto i=vec.size()-1; i>=0; i--)
+                {
+                    ros::Duration(0.2).sleep();
+                    goToPresetLocation(vec[i]);
+                    ROS_INFO_STREAM("i="<<i);
+                    if (i==0)
+                        break;
+                }
+        }
+        else if ((x > 2.17 && x < 4.1) && (y > -4.1 && y < -3.6))
+        {
+            ROS_INFO_STREAM("On the front right of shelf 2");
+            location = location + "_right";
+            auto vec = presetLocation[location];
+            if (dir==1)
+                for (auto i=0; i<vec.size(); i++)
+                    goToPresetLocation(vec[i]);
+            else
+                for (auto i=vec.size()-1; i>=0; i--)
+                {
+                    ros::Duration(0.2).sleep();
+                    goToPresetLocation(vec[i]);
+                    ROS_INFO_STREAM("i="<<i);
+                    if (i==0)
+                        break;
+                }
+        }
+
+            // Shelf 1 - logical camera 14
+        else if ((x > 4.1 && x < 6) && (y > -3.6 && y < -3.1))
+        {
+            ROS_INFO_STREAM("On the back left of shelf 2");
+            location = location + "_left";
+            auto vec = presetLocation[location];
+            if (dir==1)
+                for (auto i=0; i<vec.size(); i++)
+                    goToPresetLocation(vec[i]);
+            else
+                for (auto i=vec.size()-1; i>=0; i--)
+                {
+                    ros::Duration(0.2).sleep();
+                    goToPresetLocation(vec[i]);
+                    ROS_INFO_STREAM("i="<<i);
+                    if (i==0)
+                        break;
+                }
+        }
+        else if ((x > 4.1 && x < 6) && (y > -4.1 && y < -3.6))
+        {
+            ROS_INFO_STREAM("On the back right of shelf 2");
+            location = location + "_right";
+            auto vec = presetLocation[location];
+            if (dir==1)
+                for (auto i=0; i<vec.size(); i++)
+                    goToPresetLocation(vec[i]);
+            else
+                for (auto i=vec.size()-1; i>=0; i--)
+                {
+                    ros::Duration(0.2).sleep();
+                    goToPresetLocation(vec[i]);
+                    ROS_INFO_STREAM("i="<<i);
+                    if (i==0)
+                        break;
+                }
+        }
 
         //lc5r no human
         else if ((x > -14.4 && x < -12.65) && (y > -0.6 && y < -0.28))

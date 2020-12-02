@@ -86,10 +86,10 @@ public:
     logicam2    logicam2_;
     logicam3    logicam3_;
     logicam13   logicam13r_, logicam13l1_, logicam13l2_;
-    logicam14   logicam14r_, logicam14l_;
-    logicam15   logicam15r_, logicam15r1_, logicam15l_;
-    logicam16   logicam16r_, logicam16r1_, logicam16l_;
-    shelf1 shelf1_fl, shelf1_bl,shelf1_fr,shelf1_br;
+    logicam14   logicam14r_, logicam14ra_, logicam14l_;
+    logicam15   logicam15r_, logicam15ra_, logicam15r1_, logicam15l_, logicam15la_;
+    logicam16   logicam16r_, logicam16l_;
+    shelf1 shelf1_fl,shelf1_bl,shelf1_fr,shelf1_br,shelf2_fl, shelf2_bl,shelf2_fr,shelf2_br;
 
 
 private:
