@@ -66,16 +66,22 @@ void GantryControl::init() {
     logicam3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
-    bin1_.gantry = {3.08,-1.82,-2.79};
-    bin1_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin1_.gantry = {3.18,-1.68,3.12};
+    bin1_.left_arm = {0.15,-0.42,1.11,-0.65,1.70,0};
     bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin2_.gantry = {3.08, -1.82, -1.28};
-    bin2_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin2_.gantry = {3.35, -2, -1.45};
+    bin2_.left_arm = {0.13,-0.42,0.9,-0.5,1.70,0};
     bin2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin3_.gantry = {5.18, -1.40, 3.14};
-    bin3_.left_arm = {-0.13,-0.65,1.32,-0.65,1.44,0};
+    //piston part blue
+    bin2b_.gantry = {3.35, -1.8, -1.45};
+//    bin2_.left_arm = {0.13,-0.42,0.5,-0.1,1.70,0}; -- working
+    bin2b_.left_arm = {0.13,-0.42,0.9,-0.5,1.70,0};
+    bin2b_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    bin3_.gantry = {5.22, -1.54, 3.14};
+    bin3_.left_arm = {0.07,-0.79,1.24,-0.45,1.57,0};
     bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //no parts on 4
@@ -83,8 +89,8 @@ void GantryControl::init() {
     bin4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin8_.gantry = {4.95, -1.54, 0.78};
-    bin8_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin8_.gantry = {4.98, -1.47, 0.53};
+    bin8_.left_arm = {0.07,-0.79,1.24,-0.45,1.57,0};
     bin8_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //no parts on 7
@@ -96,36 +102,36 @@ void GantryControl::init() {
     bin6_.left_arm = {0.19,-0.42,0.86,-0.40,1.70,0};
     bin6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin5_.gantry = {3.08,-1.82,-4.3};
-    bin5_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin5_.gantry = {2.85,-1.68,1.35};
+    bin5_.left_arm = {0.16,-0.42,1.11,-0.65,1.70,0};
     bin5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin16_.gantry = {5,1.82,-0.75};
-    bin16_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin16_.gantry = {5.5,1.5,-1.66};
+    bin16_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin15_.gantry = {5,1.82,-2.45};
-    bin15_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin15_.gantry = {4.95,1.68,-2.58};
+    bin15_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin15_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin14_.gantry = {3.08, 1.82, -0.78};
-    bin14_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin14_.gantry = {3.0, 1.82, -0.7};
+    bin14_.left_arm = {-0.05,-0.67,1.05,-0.38,1.45,0};
     bin14_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin13_.gantry = {3.08, 1.82,-2.45};
-    bin13_.left_arm = {-0.05,-0.67,1.36,-0.72,1.56,0};
+    bin13_.gantry = {2.2, 1.82,-0.65};
+    bin13_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin12_.gantry = {5, 1.82,0};
-    bin12_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin12_.gantry = {5, 1.82,0.63};
+    bin12_.left_arm = {-0.05,-0.67,1.18,-0.48,1.53,0};
     bin12_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin11_.gantry = {5, 1.82,1.88};
-    bin11_.left_arm = {0.18,-0.42,0.86,-0.40,1.70,0};
+    bin11_.gantry = {3.8, 1.24, -0.3};
+    bin11_.left_arm = {-0.05,-0.67,0.95,-0.3,1.61,0};
     bin11_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    bin10_.gantry = {3.08, 1.82,0};
-    bin10_.left_arm = {0.18,-0.42,0.86,-0.47,1.70,0};
+    bin10_.gantry = {2.94, 1.26,-0.23};
+    bin10_.left_arm = {-0.05,-0.67,1.0,-0.38,1.53,0};
     bin10_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //no parts on 9
@@ -758,6 +764,7 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
     presetLocation["agv2"] = {agv2_};
     presetLocation["agv1"] = {agv1_};
 
+    // work under progress
     if (Human_there==true)
     {
         if (gap_nos[0]==34 && Human[1]==1)
@@ -786,103 +793,99 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
 
 }
 
-void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir){
+void GantryControl::moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir, std::string type){
     if(!(location == "logical_camera_13_frame" || location == "logical_camera_14_frame" || location == "logical_camera_15_frame" || location == "logical_camera_16_frame" || location == "logical_camera_4_frame" || location == "logical_camera_5_frame" || location == "logical_camera_6_frame" || location == "logical_camera_7_frame" || location == "logical_camera_8_frame" || location == "logical_camera_9_frame"))
     {
-        auto vec = presetLocation[location];
-        if(vec.size() == 1)
-        {
-            //            goToPresetLocation(vec[0]);
 
-            // logical camera 0
-            if (x > 4.9 && (y>1.9 && y<2.4)) {
-                ROS_INFO_STREAM("AT BIN8 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin8_);
-            }
-            else if ((x>4.25 && x<4.85) && (y>1.9 && y<2.4)) {
-                ROS_INFO_STREAM("AT BIN7 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin7_);
-            }
-            else if ((x>5.1 && x<5.62) && (y>1 && y<1.6)) {
-                ROS_INFO_STREAM("AT BIN4 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin4_);
-            }
-            else if ((x>4.2 &&x<4.8) && (y>1 && y<1.6)) {
-                ROS_INFO_STREAM("AT BIN3 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin3_);
-            }
-                //logicam 1
-            else if ( (x>3.2 && x<3.8) && (y>1.9 && y< 2.4)) {
-                ROS_INFO_STREAM("AT BIN6 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin6_);
-            }
-            else if ((x>2.3&&x<2.9) && (y>1.8&&y<2.4)){
-                ROS_INFO_STREAM("AT BIN5 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin5_);
-
-            }
-            else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
-                ROS_INFO_STREAM("AT BIN2 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin2_);
-            }
-            else if ((x>2.3&&x<3) && (y>1.05 && y<1.4)){
-                ROS_INFO_STREAM("AT BIN1 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin1_);
-            }
-
-                //logicam 2
-            else if ( (x>3.9 && x< 3.2)  && (y>-1.6 && y<-1)){
-                ROS_INFO_STREAM("AT BIN10 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin10_);
-            }
-            else if ((x<2.9 && x>2.3) && (y>-1.6 && y<-1)){
-                ROS_INFO_STREAM("AT BIN9 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin9_);
-            }
-
-            else if ((x<3.9 && x> 3.2) && (y>-2.4 && y<-1.85)){
-                ROS_INFO_STREAM("AT BIN14 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin14_);
-            }
-            else if ((x>2.9 && x<2.3 )&& (y>-2.4 && y<-1.85)){
-                ROS_INFO_STREAM("AT BIN13 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin13_);
-            }
-
-                //logicam 3
-            else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
-                ROS_INFO_STREAM("AT BIN12 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin12_);
-            }
-            else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
-                ROS_INFO_STREAM("AT BIN11");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin11_);
-            }
-            else if ((x>5.1 && x <5.7) && (y>-2.4 && y<-1.85)){
-                ROS_INFO_STREAM("AT BIN16 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin16_);
-            }
-            else if ((x>4.1 && x<4.8) && (y>-2.4 && y<-1.85)){
-                ROS_INFO_STREAM("AT BIN15 ");
-                ros::Duration(0.2).sleep();
-                goToPresetLocation(bin15_);
-            }
+        if (x > 4.9 && (y>1.9 && y<2.4)) {
+            ROS_INFO_STREAM("AT BIN8 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin8_);
         }
+        else if ((x>4.25 && x<4.85) && (y>1.9 && y<2.4)) {
+            ROS_INFO_STREAM("AT BIN7 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin7_);
+        }
+        else if ((x>5.1 && x<5.62) && (y>1 && y<1.6)) {
+            ROS_INFO_STREAM("AT BIN4 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin4_);
+        }
+        else if ((x>4.2 &&x<4.8) && (y>1 && y<1.6)) {
+            ROS_INFO_STREAM("AT BIN3 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin3_);
+        }
+            //logicam 1
+        else if ( (x>3.2 && x<3.8) && (y>1.9 && y< 2.4)) {
+            ROS_INFO_STREAM("AT BIN6 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin6_);
+        }
+        else if ((x>2.3&&x<2.9) && (y>1.8&&y<2.4)){
+            ROS_INFO_STREAM("AT BIN5 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin5_);
+
+        }
+        else if ((x>3.3 && x< 3.9) && (y>1.5 && y< 1)){
+            ROS_INFO_STREAM("AT BIN2 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin2_);
+        }
+        else if ((x>2.3 && x<3) && (y>1.05 && y<1.4)){
+            ROS_INFO_STREAM("AT BIN1 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin1_);
+        }
+
+            //logicam 2
+        else if ( (x>3.2 && x< 3.9)  && (y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN10 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin10_);
+        }
+        else if ((x<2.9 && x>2.3) && (y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN9 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin9_);
+        }
+
+        else if ((x<3.9 && x> 3.2) && (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN14 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin14_);
+        }
+        else if ((x<2.9 && x>2.3 )&& (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN13 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin13_);
+        }
+
+            //logicam 3
+        else if ((x> 5.1 && x < 5.7 )&& ( y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN12 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin12_);
+        }
+        else if ((x>4.1 && x<4.8 )&& (y>-1.6 && y<-1)){
+            ROS_INFO_STREAM("AT BIN11");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin11_);
+        }
+        else if ((x>5.1 && x <5.7) && (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN16 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin16_);
+        }
+        else if ((x>4.1 && x<4.8) && (y>-2.4 && y<-1.85)){
+            ROS_INFO_STREAM("AT BIN15 ");
+            ros::Duration(0.2).sleep();
+            goToPresetLocation(bin15_);
+        }
+        if (dir==2)
+            goToPresetLocation(start_);
     }
     else
     {

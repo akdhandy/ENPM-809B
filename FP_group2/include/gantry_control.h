@@ -58,7 +58,7 @@ public:
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
     void initialPositions(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::array<int, 3> gap_nos, std::array<int, 4> Human, bool Human_there);
-    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir);
+    void moveToPresetLocation(std::map<std::string,std::vector<PresetLocation>> &presetLocation, std::string &location, double x, double y, int dir, std::string type);
     void placePartRight(part part, std::string agv);
 
     void activateGripper(std::string gripper_id);
@@ -68,7 +68,7 @@ public:
     geometry_msgs::Pose getTargetWorldPoseRight(geometry_msgs::Pose target, std::string agv);
     //--preset locations;
     start start_, start1_;
-    bin1 bin1_;bin2 bin2_;bin3 bin3_;bin4 bin4_;bin5 bin5_;bin6 bin6_;bin7 bin7_;bin8 bin8_;bin9 bin9_;bin10 bin10_;bin11 bin11_;bin12 bin12_;bin13 bin13_;bin14 bin14_;bin15 bin15_;bin16 bin16_;
+    bin1 bin1_;bin2 bin2_, bin2b_;bin3 bin3_;bin4 bin4_;bin5 bin5_;bin6 bin6_;bin7 bin7_;bin8 bin8_;bin9 bin9_;bin10 bin10_;bin11 bin11_;bin12 bin12_;bin13 bin13_;bin14 bin14_;bin15 bin15_;bin16 bin16_;
     lc15lg lc15lg_;lc16lg lc16lg_; shelf2a  shelf2a_;lc15rg lc15rg_;lc16rg lc16rg_;
     lc13ra lc13ra_;lc14ra lc14ra_;lc13rb lc13rb_;lc14rb lc14rb_;shelf1a shelf1a_;
     belt belta_, beltb1_, beltb2_, beltc_;
