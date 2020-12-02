@@ -325,6 +325,8 @@ int main(int argc, char ** argv) {
                             gantry.pickPart(my_part);
                             ros::Duration(0.2).sleep();
                             gantry.moveToPresetLocation(presetLocation, location1, loc_x, loc_y, 2, logicam[x][y].type);
+                            ROS_INFO_STREAM("GOING TO START JUST TO BE SAFE!!!!!!");
+                            gantry.goToPresetLocation(gantry.start_);
                             ROS_INFO_STREAM("Approaching AGV's to place object!!!");
                             if (or_details[i][j][k].agv_id == "agv1") {
                                 gantry.goToPresetLocation(gantry.agv1_);
@@ -431,26 +433,68 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
                                 ROS_INFO_STREAM("\n Pose at faulty part "<<cam);
                                 faulty_part.pose = cam;
-                                faulty_part.pose.position.z -= 0.19;
                                 ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
                                 if (or_details[i][j][k].agv_id=="agv2")
                                 {
-                                    gantry.goToPresetLocation(gantry.agv2_);
+                                    gantry.goToPresetLocation(gantry.agv2f_);
+                                    auto agv_faulty = gantry.agv2_;
+                                    if (faulty_part.pose.position.x > 0 && faulty_part.pose.position.y < -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Left top of tray!!");
+                                        agv_faulty = gantry.agv2flt_;
+                                    }
+                                    else if (faulty_part.pose.position.x > 0 && faulty_part.pose.position.y > -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Left bottom of tray!!");
+                                        agv_faulty = gantry.agv2flb_;
+                                    }
+                                    else if (faulty_part.pose.position.x < 0 && faulty_part.pose.position.y < -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Right top of tray!!");
+                                        agv_faulty = gantry.agv2frt_;
+                                    }
+                                    else if (faulty_part.pose.position.x < 0 && faulty_part.pose.position.y > -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Right bottom of tray!!");
+                                        agv_faulty = gantry.agv2frb_;
+                                    }
+                                    gantry.goToPresetLocation(agv_faulty);
                                     gantry.pickPart(faulty_part);
-                                    gantry.goToPresetLocation(gantry.agv2_);
-
+                                    gantry.goToPresetLocation(agv_faulty);
                                 }
                                 else if (or_details[i][j][k].agv_id=="agv1")
                                 {
-                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    gantry.goToPresetLocation(gantry.agv1f_);
+                                    auto agv_faulty = gantry.agv1_;
+                                    if (faulty_part.pose.position.x < 0 && faulty_part.pose.position.y > 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Left top of tray!!");
+                                        agv_faulty = gantry.agv1flt_;
+                                    }
+                                    else if (faulty_part.pose.position.x < 0 && faulty_part.pose.position.y < 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Left bottom of tray!!");
+                                        agv_faulty = gantry.agv1flb_;
+                                    }
+                                    else if (faulty_part.pose.position.x > 0 && faulty_part.pose.position.y > 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Right top of tray!!");
+                                        agv_faulty = gantry.agv1frt_;
+                                    }
+                                    else if (faulty_part.pose.position.x > 0 && faulty_part.pose.position.y < 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty part at Right bottom of tray!!");
+                                        agv_faulty = gantry.agv1frb_;
+                                    }
+                                    gantry.goToPresetLocation(agv_faulty);
                                     gantry.pickPart(faulty_part);
-                                    gantry.goToPresetLocation(gantry.agv1_);
+                                    gantry.goToPresetLocation(agv_faulty);
                                 }
+                                gantry.goToPresetLocation(gantry.start_);
                                 gantry.goToPresetLocation(gantry.agv_faulty);
                                 gantry.deactivateGripper("left_arm");
                                 continue;
                             }
-
 //Faulty pose correction
                             else if (abs(cam.position.x-target_pose.position.x)>0.03 || abs(cam.position.y-target_pose.position.y)>0.03)
                             {
@@ -463,11 +507,32 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
                                 ROS_INFO_STREAM("\n Faulty pose "<<cam);
                                 faulty_pose.pose = cam;
-                                faulty_part.pose.position.z -= 0.19;
                                 if (or_details[i][j][k].agv_id=="agv2")
                                 {
-                                    gantry.goToPresetLocation(gantry.agv2c_);
-                                    ROS_INFO_STREAM("\n Trying to pick up...");
+                                    gantry.goToPresetLocation(gantry.agv2f_);
+                                    ROS_INFO_STREAM("\n Reconfiguring for better pickup...");
+                                    auto agv_faulty = gantry.agv2_;
+                                    if (faulty_pose.pose.position.x > 0 && faulty_pose.pose.position.y < -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Left top of tray!!");
+                                        agv_faulty = gantry.agv2flt_;
+                                    }
+                                    else if (faulty_pose.pose.position.x > 0 && faulty_pose.pose.position.y > -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Left bottom of tray!!");
+                                        agv_faulty = gantry.agv2flb_;
+                                    }
+                                    else if (faulty_pose.pose.position.x < 0 && faulty_pose.pose.position.y < -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Right top of tray!!");
+                                        agv_faulty = gantry.agv2frt_;
+                                    }
+                                    else if (faulty_pose.pose.position.x < 0 && faulty_pose.pose.position.y > -7.26)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Right bottom of tray!!");
+                                        agv_faulty = gantry.agv2frb_;
+                                    }
+                                    gantry.goToPresetLocation(agv_faulty);
                                     gantry.pickPart(faulty_pose);
                                     ros::Duration(0.2).sleep();
                                     ROS_INFO_STREAM("\nPart Picked!");
@@ -478,8 +543,30 @@ int main(int argc, char ** argv) {
                                 }
                                 else if (or_details[i][j][k].agv_id=="agv1")
                                 {
-                                    gantry.goToPresetLocation(gantry.agv1a_);
-                                    ROS_INFO_STREAM("\n Trying to pick up...");
+                                    gantry.goToPresetLocation(gantry.agv1f_);
+                                    ROS_INFO_STREAM("\n Reconfiguring for better pickup...");
+                                    auto agv_faulty = gantry.agv1_;
+                                    if (faulty_pose.pose.position.x < 0 && faulty_pose.pose.position.y > 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Left top of tray!!");
+                                        agv_faulty = gantry.agv1flt_;
+                                    }
+                                    else if (faulty_pose.pose.position.x < 0 && faulty_pose.pose.position.y < 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Left bottom of tray!!");
+                                        agv_faulty = gantry.agv1flb_;
+                                    }
+                                    else if (faulty_pose.pose.position.x > 0 && faulty_pose.pose.position.y > 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Right top of tray!!");
+                                        agv_faulty = gantry.agv1frt_;
+                                    }
+                                    else if (faulty_pose.pose.position.x > 0 && faulty_pose.pose.position.y < 7.12)
+                                    {
+                                        ROS_INFO_STREAM("Faulty pose at Right bottom of tray!!");
+                                        agv_faulty = gantry.agv1frb_;
+                                    }
+                                    gantry.goToPresetLocation(agv_faulty);
                                     gantry.pickPart(faulty_pose);
                                     ros::Duration(0.2).sleep();
                                     ROS_INFO_STREAM("\nPart Picked!");

@@ -430,6 +430,26 @@ void GantryControl::init() {
     agv2_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
     agv2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    agv2f_.gantry = {-0.55, 5.5, -0.78};
+    agv2f_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv2f_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv2flt_.gantry = {-0.35, 6.95, -0.78};
+    agv2flt_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv2flt_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv2flb_.gantry = {-0.4, 6.6, -0.78};
+    agv2flb_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv2flb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv2frt_.gantry = {0.15, 6.7, -2.35};
+    agv2frt_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv2frt_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv2frb_.gantry = {0.15, 6.40, -2.35};
+    agv2frb_.left_arm = {0.0, -PI/4, 1.44, -0.65, PI/2, 0};
+    agv2frb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     agv2a_.gantry = {0.6, 6.5, PI};
     agv2a_.left_arm = {0.77, -0.20, 1.3, 0.49, 1.59, 0};
     agv2a_.right_arm = {-PI/4, -3.2, -1.5, -0.02, PI/2, -PI/4};
@@ -442,8 +462,8 @@ void GantryControl::init() {
     agv2c_.left_arm = {-0.15, -0.30, 0.95, -0.75, 1.44, 0};
     agv2c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    agv_faulty.gantry = {0, 2.0, PI};//Faulty part dropoff
-    agv_faulty.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    agv_faulty.gantry = {1.0, 0, 0};                           //Faulty part dropoff
+    agv_faulty.left_arm = {0.0, -PI/4, 1.95, -1.16, PI/2, 0};
     agv_faulty.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv1_.gantry = {-0.55, -6.95, 0.15};
@@ -461,6 +481,26 @@ void GantryControl::init() {
     agv1c_.gantry = {-0.55, -6.75, 0.15};
     agv1c_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
     agv1c_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv1f_.gantry = {0.6, -5.5, 2.35};                   // position after placing object in agv1
+    agv1f_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
+    agv1f_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv1flt_.gantry = {0.45, -6.9, 2.35};
+    agv1flt_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
+    agv1flt_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv1flb_.gantry = {0.5, -6.5, 2.35};
+    agv1flb_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
+    agv1flb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv1frt_.gantry = {-0.25, -6.7, 0.78};
+    agv1frt_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
+    agv1frt_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    agv1frb_.gantry = {-0.25, -6.3, 0.78};
+    agv1frb_.left_arm = {0.0, -PI/4, 1.24, -0.5, PI/2, 0};
+    agv1frb_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     agv1flipa_.gantry = {-0.6, -6.5, 0};
     agv1flipa_.left_arm = {0.77, -0.20, 1.3, 0.49, 1.59, 0};

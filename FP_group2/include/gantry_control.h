@@ -76,9 +76,9 @@ public:
     lc5l lc5la_,lc6la_, lc6lb_,lc7l_,lc5la1_,lc5lb_,lc5lc_,lc5ld_,lc5le_,lc5lf_,lc5lf1_,lc5lg_, lc4l_;
     lc7r lc7ra_,lc7rb_,lc7rc_, lc6r_;
     shelf11 lc8la_, lc8lb_, lc8lc_, lc9l_, lc8ra_, lc8rb_, lc9r_;
-    agv2 agv2_, agv2a_, agv2b_, agv2c_;
+    agv2 agv2_, agv2f_, agv2flt_, agv2flb_, agv2frt_, agv2frb_, agv2a_, agv2b_, agv2c_;
     agv2 agv_faulty;
-    agv1 agv1_, agv1a_, agv1b_, agv1c_, agv1flipa_, agv1flipb_;
+    agv1 agv1_, agv1a_, agv1b_, agv1c_, agv1flipa_, agv1flipb_, agv1flt_, agv1flb_, agv1frt_, agv1frb_, agv1f_;
     left_gap_1_2 left_gap_1_2_;
     left_gap_1_3 left_gap_1_3_;
     logicam0    logicam0_;
