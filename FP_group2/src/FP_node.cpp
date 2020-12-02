@@ -404,6 +404,7 @@ int main(int argc, char ** argv) {
                                 }
                                 ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[10][index].pose);
                                 cam = logicam2[10][index].pose;
+                                ros::Duration(1).sleep();
                                 faulty_part = comp.quality_sensor_status1();
                             }
                             else if (or_details[i][j][k].agv_id=="agv2")
@@ -419,9 +420,9 @@ int main(int argc, char ** argv) {
                                 }
                                 ROS_INFO_STREAM("\n AGV camera details: "<<logicam2[11][index].pose);
                                 cam = logicam2[11][index].pose;
+                                ros::Duration(1).sleep();
                                 faulty_part = comp.quality_sensor_status();
                             }
-                            ros::Duration(0.2).sleep();
                             ROS_INFO_STREAM("\n X offset: "<<abs(cam.position.x-target_pose.position.x));
                             ROS_INFO_STREAM("\n Y offset: "<<abs(cam.position.y-target_pose.position.y));
 
@@ -433,6 +434,7 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_part.type);
                                 ROS_INFO_STREAM("\n Pose at faulty part "<<cam);
                                 faulty_part.pose = cam;
+                                faulty_part.pose.position.z -= 0.2;
                                 ROS_INFO_STREAM("\n Pose for Faulty part "<<faulty_part.pose);
                                 if (or_details[i][j][k].agv_id=="agv2")
                                 {
@@ -507,6 +509,7 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Trying to compute path for "<<faulty_pose.type);
                                 ROS_INFO_STREAM("\n Faulty pose "<<cam);
                                 faulty_pose.pose = cam;
+                                faulty_pose.pose.position.z -= 0.17;
                                 if (or_details[i][j][k].agv_id=="agv2")
                                 {
                                     gantry.goToPresetLocation(gantry.agv2f_);

@@ -81,6 +81,6 @@ models_over_shelves:
 
 #Faulty products
 faulty_products:
-  - gasket_part_red_1
+  - gasket_part_red_10
   - gasket_part_red_4
   - gear_part_blue_3
