@@ -1,0 +1,298 @@
+sensors:
+  #  depth_camera_0:
+  #    type: depth_camera
+  #    pose:
+  #      xyz: [3.082385, 1.750927, 1.82]
+  #      rpy: [0, 'pi/2', 0]
+
+  logical_camera_0: # bins 3478
+    type: logical_camera
+    pose:
+      xyz: [5, 1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_1: # bins 1256
+    type: logical_camera
+    pose:
+      xyz: [3.082385, 1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_2: # bins 9101314
+    type: logical_camera
+    pose:
+      xyz: [3.082385, -1.738203, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_3: # bins 11121516
+    type: logical_camera
+    pose:
+      xyz: [5, -1.738203, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_4: # shelf8 back
+    type: logical_camera
+    pose:
+      xyz: [-3.25 -6*2.04, 0, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_5: # shelf8 front
+    type: logical_camera
+    pose:
+      xyz: [-3.25 -5*2.04, 0, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_6: # shelf5 back
+    type: logical_camera
+    pose:
+      xyz: [-3.25 -6*2.04, 3, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_7: # shelf5 front
+    type: logical_camera
+    pose:
+      xyz: [-3.25 -5*2.04, 3, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_8: # shelf11 back
+    type: logical_camera
+    pose:
+      xyz: [-3.25 -6*2.04, -3, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_9: # shelf11 front
+    type: logical_camera
+    pose:
+      xyz: [-3.25 -5*2.04, -3, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_10: # left AGV1
+    type: logical_camera
+    pose:
+      xyz: [0,  7, 1.75]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_11: # right AGV2
+    type: logical_camera
+    pose:
+      xyz: [0,  -7, 1.75]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_12: # Conveyor belt
+    type: logical_camera
+    pose:
+      xyz: [0,  1.942, 1.95]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_13: # shelf1 back
+    type: logical_camera
+    pose:
+      xyz: [3, 3.65, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_14: # shelf1 front
+    type: logical_camera
+    pose:
+      xyz: [3+2.04, 3.65, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_15: # shelf2 back
+    type: logical_camera
+    pose:
+      xyz: [3, -3.65, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+  logical_camera_16: # shelf2 front
+    type: logical_camera
+    pose:
+      xyz: [3+2.04, -3.65, 2.49]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  #  laser_profiler_0:
+  #    type: laser_profiler
+  #    pose:
+  #      xyz: [0., 1.486, 1.526]
+  #      rpy: ['pi/2', 'pi/2', 0]
+  #
+  #  range_finder_0:
+  #    type: proximity_sensor
+  #    pose:
+  #      xyz: [0, 2.840000, 0.970000]
+  #      rpy: [1.570796, 0.524365, 1.570796]
+  #
+  breakbeam_0:
+    type: break_beam
+    pose:
+      xyz: [0.012383, 3.319, 0.879306]
+      rpy: [0, 0, 'pi/2']
+  # Aisle 3
+  breakbeam_11:
+    type: break_beam
+    pose:
+      xyz: [-3.27, -0.72, 0.14]
+      rpy: [0, 0, -1.557900]
+  breakbeam_12:
+    type: break_beam
+    pose:
+      xyz: [-7.44, -0.72, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_13:
+    type: break_beam
+    pose:
+      xyz: [-11.18, -0.72, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_14:
+    type: break_beam
+    pose:
+      xyz: [-12.45, -0.72, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_15:
+    type: break_beam
+    pose:
+      xyz: [-14.4, -0.72, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  # Aisle 1
+
+  breakbeam_1:
+    type: break_beam
+    pose:
+      xyz: [-3.27, 3.73, 0.14]
+      rpy: [0, 0, 1.557900]
+
+  breakbeam_2:
+    type: break_beam
+    pose:
+      xyz: [-7.44, 3.73, 0.14]
+      rpy: [0, 0, 1.557900]
+
+  breakbeam_3:
+    type: break_beam
+    pose:
+      xyz: [-11.183661, 3.73, 0.14]
+      rpy: [0, 0, 1.557900]
+
+  breakbeam_4:
+    type: break_beam
+    pose:
+      xyz: [-12.454859, 3.73, 0.14]
+      rpy: [0, 0, 1.557900]
+
+  breakbeam_5:
+    type: break_beam
+    pose:
+      xyz: [-14.4, 3.73, 0.14]
+      rpy: [0, 0, 1.557900]
+
+  #Aisle 2
+
+  breakbeam_6:
+    type: break_beam
+    pose:
+      xyz: [-3.27, 2.37, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_7:
+    type: break_beam
+    pose:
+      xyz: [-7.44, 2.37, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_8:
+    type: break_beam
+    pose:
+      xyz: [-11.18, 2.37, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_9:
+    type: break_beam
+    pose:
+      xyz: [-12.454859, 2.37, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_10:
+    type: break_beam
+    pose:
+      xyz: [-14.4, 2.37, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  #Aisle 4
+
+  breakbeam_16:
+    type: break_beam
+    pose:
+      xyz: [-3.27, -3.7, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_17:
+    type: break_beam
+    pose:
+      xyz: [-7.44, -3.7, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_18:
+    type: break_beam
+    pose:
+      xyz: [-11.18, -3.7, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_19:
+    type: break_beam
+    pose:
+      xyz: [-13.5, -3.7, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_20:
+    type: break_beam
+    pose:
+      xyz: [-14.4, -3.7, 0.14]
+      rpy: [0, 0, -1.557900]
+
+  breakbeam_22:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, 1.5, 0.14 ]
+      rpy: [ 0, 0, 0]
+
+  breakbeam_21:
+    type: break_beam
+    pose:
+      xyz: [  -3.00, 4.5, 0.14 ]
+      rpy: [ 0, 0, 0 ]
+
+  breakbeam_23:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, -1.5, 0.14 ]
+      rpy: [ 0, 0, 0 ]
+
+  breakbeam_24:
+    type: break_beam
+    pose:
+      xyz: [ -3.00, -4.5, 0.14 ]
+      rpy: [ 0, 0, 0 ]
+
+  breakbeam_26:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, 1.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
+
+  breakbeam_25:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, 4.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
+
+  breakbeam_27:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, -1.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
+
+  breakbeam_28:
+    type: break_beam
+    pose:
+      xyz: [ -15.5, -4.5, 0.14 ]
+      rpy: [ 0, 0, '-pi']
