@@ -166,7 +166,7 @@ endif()
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/FP_group2/config" TYPE FILE FILES
     "/home/srikumar/ariac_ws/src/FP_group2/config/rwa2_sensor_group2.yaml"
-    "/home/srikumar/ariac_ws/src/FP_group2/config/baseline_1.yaml"
+    "/home/srikumar/ariac_ws/src/FP_group2/config/final.yaml"
     "/home/srikumar/ariac_ws/src/FP_group2/launch/FP.launch"
     )
 endif()

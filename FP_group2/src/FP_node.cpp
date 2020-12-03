@@ -339,6 +339,11 @@ int main(int argc, char ** argv) {
                     if (count == 1)
                     {
                         ROS_INFO_STREAM("Count is 1");
+                        if (new_order)
+                        {
+                            j=0;
+                            k=-1;
+                        }
                         break;
                     }
                     for (int y = 0; y < 36; y++)
@@ -363,8 +368,17 @@ int main(int argc, char ** argv) {
                             part my_part;
                             my_part.type = logicam[x][y].type;
                             my_part.pose = logicam[x][y].pose;
+//                            if ((loc_x<3.9 && loc_x> 3.2) && (loc_y>-2.4 && loc_y<-1.85))           //BIN14 alone, some moveit problem..
+//                                my_part.pose.position.z -= 0.06;
+
+                            if ((loc_x<3.9 && loc_x> 3.2) && (loc_y>-2.4 && loc_y<-1.85))           //BIN14 alone, some moveit problem..
+                            my_part.pose.position.z -= 0.06;
+                            else if ((loc_x>4.1 && loc_x<4.8) && (loc_y>-2.4 && loc_y<-1.85))
+                                my_part.pose.position.z -= 0.02;
+
+                            ros::Duration(1).sleep();
                             gantry.pickPart(my_part);
-                            ros::Duration(0.2).sleep();
+                            ros::Duration(1).sleep();
                             gantry.moveToPresetLocation(presetLocation, location1, loc_x, loc_y, 2, logicam[x][y].type,comp.gap_nos, comp);
                             ROS_INFO_STREAM("GOING TO START JUST TO BE SAFE!!!!!!");
                             gantry.goToPresetLocation(gantry.start_);
@@ -388,6 +402,7 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv1flipb_);
                                     gantry.placePartRight(or_details[i][j][k], "agv1");
                                     ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    gantry.goToPresetLocation(gantry.agv1_);
                                 } else
                                     gantry.placePart(or_details[i][j][k], "agv1");
                                 logicam[x][y].Shifted = true;
@@ -409,6 +424,7 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv2b_);
                                     gantry.placePartRight(or_details[i][j][k], "agv2");
                                     ROS_INFO_STREAM("\n Object placed!!!!!!!!!!\n");
+                                    gantry.goToPresetLocation(gantry.agv2_);
                                 } else
                                     gantry.placePart(or_details[i][j][k], "agv2");
                                 logicam[x][y].Shifted = true;
@@ -666,6 +682,8 @@ int main(int argc, char ** argv) {
                                 new_order++;
                                 ROS_INFO_STREAM("\n Value of new: "<<new_order);
                             }
+                            if (completed2[i]==1)
+                                i=0;
                             break;
                         }
                     }

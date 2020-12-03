@@ -220,7 +220,7 @@ install(TARGETS FP_node
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(FILES
         config/rwa2_sensor_group2.yaml
-        config/baseline_1.yaml
+        config/final.yaml
         launch/FP.launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
         )

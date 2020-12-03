@@ -92,6 +92,18 @@ public:
     logicam15   logicam15r_, logicam15ra_, logicam15r1_, logicam15l_, logicam15la_;
     logicam16   logicam16r_, logicam16l_;
     shelf1 shelf1_fl,shelf1_bl,shelf1_fr,shelf1_br,shelf2_fl, shelf2_bl,shelf2_fr,shelf2_br;
+    aisle2_1 aisle2_1_;
+    aisle2_2 aisle2_2_;
+    aisle2_3 aisle2_3_;
+    aisle2_4 aisle2_4_;
+    aisle2_5 aisle2_5_;
+    aisle2_6 aisle2_6_;
+    aisle4_6 aisle4_6_;
+    aisle4_5 aisle4_5_;
+    aisle4_4 aisle4_4_;
+    aisle4_3 aisle4_3_;
+    aisle4_2 aisle4_2_;
+    aisle4_1 aisle4_1_;
 
 
 private:
