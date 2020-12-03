@@ -94,7 +94,7 @@ int main(int argc, char ** argv) {
     std::array<std::array<modelparam, 36>, 17> logicam, logicam2, logicam12;
     std::array < std::array < std::array < part, 10 >, 5 >, 5 > or_details, or_details_new, order_call;
     std::array < std::array < std::array < int, 10 >, 5 >, 5 > order_flag = {0};
-    std::array<std::array<int, 2>, 10> completed = {0};
+    std::array<int, 5> completed2 = {0};
     part faulty_part, faulty_pose;
     double Model_adjust =0;     //Only required for AGV1 cases. offset of 0.17 observed in Camera and target.
     bool break_beam;
@@ -131,7 +131,7 @@ int main(int argc, char ** argv) {
     or_details[0] = order_call[0];
     int on_table_1 = 0, on_table_2 = 0, new_order = 0, index = 0, part_on_belt = 0;
     auto gap_id = comp.check_gaps();
-    int x_loop = 0;
+    int x_loop = 0, check = 0;
     int on_belt = 0;
     std::array<std::array<int, 3>, 5> belt_part_arr = {0};
     comp.HumanDetection();
@@ -142,29 +142,37 @@ int main(int argc, char ** argv) {
     double loc_x, loc_y;
     gantry.initialPositions(presetLocation, comp.gap_nos, comp.Human, comp.Human_detected);
     ROS_INFO_STREAM("\nGap print:");
-    for (auto i=0; i<3; i++)
+    for (auto i1=0; i1<3; i1++)
     {
-        ROS_INFO_STREAM("\ngap "<<i+1<<" "<<comp.gap_nos[i]);
+        ROS_INFO_STREAM("\ngap "<<i1+1<<" "<<comp.gap_nos[i1]);
     }
+
     comp.PartonBeltCheck(comp.received_orders_, x_loop, logicam, belt_part_arr, on_belt);
 
-    for (int i = comp.received_orders_.size() - 1; i >= 0; i--) {
+    for (int i = comp.received_orders_.size() - 1; i >= 0; --i) {
+        if (completed2[i]==1)
+        {
+            continue;
+        }
         for (int j = 0; j < comp.received_orders_[i].shipments.size(); j++) {
-            if (completed[i][j] == 1)
-                continue;
-            if (new_order != 0) {
-                new_order = 0;
-                on_belt=0;
-                belt_part_arr = {0};
-                comp.PartonBeltCheck(comp.received_orders_, x_loop, logicam, belt_part_arr, on_belt);
-                i = i + 2;
+            if (completed2[i] == 1)
                 break;
-            }
             for (int k = 0; k < comp.received_orders_[i].shipments[j].products.size(); k++)
             {
-                if (new_order)
-                    break;
+                ROS_INFO_STREAM("\nIN k loop..");
                 int count = 0, count1 = 0;
+                ROS_INFO_STREAM("\n Print i="<<i<<", j="<<j<<", k="<<k);
+                ROS_INFO_STREAM("\n Print comp.received_orders_.size()="<<comp.received_orders_.size());
+                ROS_INFO_STREAM("\n Print comp.received_orders_[i].shipments.size()="<<comp.received_orders_[i].shipments.size());
+                ROS_INFO_STREAM("\n Print comp.received_orders_[i].shipments[j].products.size()="<<comp.received_orders_[i].shipments[j].products.size());
+                ROS_INFO_STREAM("\n AGV ID: "<<or_details[i][j][k].agv_id);
+                ROS_INFO_STREAM("\n Order shipment name: "<<or_details[i][j][k].shipment);
+                if (new_order)
+                {
+                    new_order = 0;
+                    j=0;
+                    k=0;
+                }
                 for (auto l = 0; l < comp.received_orders_[i].shipments[j].products.size(); l++)
                 {
                     if (order_flag[i][j][l] == 1)
@@ -182,21 +190,6 @@ int main(int argc, char ** argv) {
                     {
                         ROS_INFO_STREAM("\n Submitting Order: " << or_details_new[i][j][k].shipment);
                         submitOrder(2, or_details[i][j][k].shipment);
-                    }
-                    ros::Duration(1).sleep();
-                    or_details_new = comp.getter_part_callback();
-                    ros::Duration(0.2).sleep();
-                    ROS_INFO_STREAM("\n Checking for high priority order insertion.. absent? (1 is true) "<<or_details_new[i+1][j][k].shipment.empty());
-                    if (!or_details_new[i+1][j][k].shipment.empty())
-                    {
-                        ROS_INFO_STREAM("\n Order NEW shipment name 1: "<<or_details_new[i+1][j][k].shipment);
-                        or_details[i+1]=or_details_new[i+1];
-                        ROS_INFO_STREAM("\n Copied info details "<<or_details[i+1][j][k].shipment);
-                        i = i+1;
-                        ROS_INFO_STREAM("\n Value of i: "<<i);
-                        ROS_INFO_STREAM("\n New order size detected.. breaking.. ");
-                        new_order++;
-                        ROS_INFO_STREAM("\n Value of new: "<<new_order);
                     }
                 }
                 if (order_flag[i][j][k] != 0)
@@ -218,7 +211,7 @@ int main(int argc, char ** argv) {
                                         << comp.received_orders_[i].shipments[j].products.size());
                 ROS_INFO_STREAM("\n AGV ID: " << or_details[i][j][k].agv_id);
                 ROS_INFO_STREAM("\n Order shipment name: " << or_details[i][j][k].shipment);
-                ROS_INFO_STREAM("\n parts on_belt : " << on_belt);
+//                ROS_INFO_STREAM("\n parts on_belt : " << on_belt);
 
                 //loop to pick up part from belt and place in bins 9 and 14 if required
                 if ((part_on_belt < on_belt) && (comp.beam_detect[0]==true || !logicam12[12][0].type.empty()))
@@ -344,7 +337,10 @@ int main(int argc, char ** argv) {
                 for (int x = 0; x < 17; x++)
                 {
                     if (count == 1)
+                    {
+                        ROS_INFO_STREAM("Count is 1");
                         break;
+                    }
                     for (int y = 0; y < 36; y++)
                     {
                         if (logicam[x][y].type == comp.received_orders_[i].shipments[j].products[k].type && logicam[x][y].Shifted == false) {
@@ -544,6 +540,7 @@ int main(int argc, char ** argv) {
                                 gantry.deactivateGripper("left_arm");
                                 continue;
                             }
+
 //Faulty pose correction
                             else if (abs(cam.position.x-target_pose.position.x)>0.03 || abs(cam.position.y-target_pose.position.y)>0.03)
                             {
@@ -643,7 +640,7 @@ int main(int argc, char ** argv) {
                             //Checking if this is the last product of the shipment, and submitting score
                             if (k==comp.received_orders_[i].shipments[j].products.size()-1)
                             {
-                                completed[i][j]=1;
+                                completed2[i]=1;
                                 if (or_details[i][j][k].agv_id=="agv1")
                                 {
                                     ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
@@ -654,7 +651,6 @@ int main(int argc, char ** argv) {
                                     ROS_INFO_STREAM("\n Submitting Order: "<<or_details_new[i][j][k].shipment);
                                     submitOrder(2, or_details_new[i][j][k].shipment);
                                 }
-
                             }
                             or_details_new = comp.getter_part_callback();
                             ros::Duration(0.2).sleep();
@@ -664,7 +660,7 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("\n Order NEW shipment name 1: "<<or_details_new[i+1][j][k].shipment);
                                 or_details[i+1]=or_details_new[i+1];
                                 ROS_INFO_STREAM("\n Copied info details "<<or_details[i+1][j][k].shipment);
-                                i = i+1;
+                                i=i+1;
                                 ROS_INFO_STREAM("\n Value of i: "<<i);
                                 ROS_INFO_STREAM("\n New order size detected.. breaking.. ");
                                 new_order++;
@@ -673,13 +669,10 @@ int main(int argc, char ** argv) {
                             break;
                         }
                     }
-
                 }
             }
         }
         gantry.goToPresetLocation(gantry.start_);
-
-
         comp.endCompetition();
         spinner.stop();
         ros::shutdown();

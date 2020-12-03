@@ -768,7 +768,7 @@ bool GantryControl::pickPart(part part){
                 left_arm_group_.setPoseTarget(part.pose);
                 left_arm_group_.move();
                 activateGripper("left_arm");
-                ros::Duration(0.2).sleep();
+                ros::Duration(0.5).sleep();
             }
         }
     }
@@ -878,6 +878,11 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
                     presetLocation["logical_camera_6_frame_left"] = {lc7ra_,lc5ld3_,lc5ld_,lc6la_,lc6lb_};
                 }
             }
+            else
+            {
+                presetLocation["logical_camera_7_frame_left"] = {lc5la_,lc6la_,lc7l_};
+                presetLocation["logical_camera_6_frame_left"] = {lc5la_,lc6la_,lc6lb_};
+            }
         }
         if (Human[2]==0)
         {
@@ -885,21 +890,23 @@ void GantryControl::initialPositions(std::map<std::string,std::vector<PresetLoca
             presetLocation["logical_camera_9_frame_left"] = {lc8la_,lc8lb_,lc9l_};
             presetLocation["logical_camera_4_frame_right"] = {lc4ra1_,lc4rd1_,lc4re_};
             presetLocation["logical_camera_5_frame_right"] = {lc4ra1_,lc4rd1_,lc5r_};
+            if (Human[3]==0)
+            {
+                presetLocation["logical_camera_8_frame_right"] = {lc4ra_,lc8ra_,lc8rb_};
+                presetLocation["logical_camera_9_frame_right"] = {lc4ra_,lc8ra_,lc9r_};
+            }
         }
         if (Human[3]==0)
         {
             presetLocation["logical_camera_8_frame_right"] = {lc4ra_,lc8ra_,lc8rb_};
             presetLocation["logical_camera_9_frame_right"] = {lc4ra_,lc8ra_,lc9r_};
+            if (Human[2]==0){
+                presetLocation["logical_camera_8_frame_left"] = {lc8la_,lc8lb_,lc8lc_};
+                presetLocation["logical_camera_9_frame_left"] = {lc8la_,lc8lb_,lc9l_};
+                presetLocation["logical_camera_4_frame_right"] = {lc4ra1_,lc4rd1_,lc4re_};
+                presetLocation["logical_camera_5_frame_right"] = {lc4ra1_,lc4rd1_,lc5r_};
+            }
         }
-
-        if (gap_nos[0]==34 && Human[1]==1)
-            presetLocation["Gap between shelf3 and shelf4"] = {lc5la_,left_gap_1_2_,left_gap_1_3_};
-
-        presetLocation["Gap between shelf4 and shelf5"] = {lc5la_,lc5lb_,lc5lc_,lc5ld_};
-        presetLocation["Gap between shelf6 and shelf7"] = {};
-        presetLocation["Gap between shelf7 and shelf8"] = {};
-        presetLocation["Gap between shelf9 and shelf10"] = {};
-        presetLocation["Gap between shelf10 and shelf11"] = {lc4ra_,lc4rb_,lc4rc_};
     }
     else
     {
